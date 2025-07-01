@@ -34,6 +34,7 @@ import CopyTradingPage from "../components/pages-content/copy-trading-page-conte
 import CookiePolicyPage from "../components/pages-content/cookie-policy-page-content";
 import NotFoundPage from "../components/pages-content/not-found-page-content";
 import PlatformsPage from "../components/pages-content/platforms-page-content";
+import AllMarketsPage from "../components/pages-content/all-markets-page-content";
 
 // Advanced: Dynamic/nested route support
 const DYNAMIC_PAGE_MAP = {
@@ -80,6 +81,7 @@ const PAGE_MAP = {
   "cookie-policy": CookiePolicyPage,
   "professional-qualification": ProfessionalQualificationPage,
   search: SearchPage,
+  "all-markets": AllMarketsPage,
 };
 
 export default function CatchAllPage({ slug, locale }) {
@@ -164,6 +166,7 @@ export async function getStaticPaths() {
     "cookie-policy",
     "professional-qualification",
     "search",
+    "all-markets",
   ];
   const dynamicSlugs = [
     ["legal", "terms"],
