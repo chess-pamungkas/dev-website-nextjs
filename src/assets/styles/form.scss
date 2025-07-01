@@ -1,0 +1,167 @@
+@import "vars";
+@import "mixins";
+
+.input-wrapper {
+  position: relative;
+  padding: 0 0 40px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &--half-width {
+    @include tablet {
+      width: 49%;
+    }
+  }
+}
+
+.input-title {
+  margin: 0 0 15px;
+  color: map-get($colors, "black-secondary");
+  font-weight: map-get($font-weight, "black");
+  font-size: 14px;
+  line-height: 18px;
+
+  @include tablet {
+    font-size: 16px;
+    line-height: 20px;
+  }
+  @include desktop-lg {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}
+
+.input {
+  font-family: $font;
+  margin-left: 15px;
+  color: map-get($colors, "red");
+  font-weight: map-get($font-weight, "black");
+  font-size: 16px;
+  line-height: 20px;
+  padding: 15px 10px;
+  border: none;
+  border-bottom: 1px solid map-get($colors, "red");
+
+  &::placeholder {
+    font-weight: map-get($font-weight, "black");
+    font-size: 16px;
+    line-height: 20px;
+    color: #ff936b;
+
+    @include tablet {
+      font-size: 22px;
+      line-height: 27px;
+    }
+  }
+
+  &:focus {
+    outline: none;
+    border-bottom-width: 2px;
+  }
+
+  @include tablet {
+    font-size: 20px;
+    line-height: 25px;
+  }
+
+  @include desktop-lg {
+    font-size: 22px;
+    line-height: 27px;
+  }
+}
+
+.textarea {
+  background: transparent;
+}
+
+.error-message {
+  position: absolute;
+  bottom: 15px;
+  display: block;
+  margin: 10px 5px 5px 15px;
+  color: map-get($colors, "black");
+  font-weight: map-get($font-weight, "regular");
+  font-size: 12px;
+  line-height: 16px;
+
+  @include tablet {
+    font-size: 14px;
+    line-height: 18px;
+    bottom: 10px;
+  }
+  @include desktop-lg {
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
+
+.checkbox-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.input-checkbox {
+  font-family: $font;
+  margin-left: 15px;
+  color: map-get($colors, "red");
+  font-weight: map-get($font-weight, "black");
+  font-size: 16px;
+  line-height: 20px;
+  padding: 15px 10px;
+  border: none;
+  border-bottom: 1px solid map-get($colors, "red");
+  width: 22px;
+  height: 22px;
+  accent-color: map-get($colors, "red");
+
+  &:focus {
+    outline: none;
+    border-bottom-width: 2px;
+  }
+
+  @include tablet {
+    font-size: 20px;
+    line-height: 25px;
+  }
+
+  @include desktop-lg {
+    font-size: 22px;
+    line-height: 27px;
+  }
+}
+
+.input-note {
+  margin: 0 0 15px 15px;
+  color: map-get($colors, "black-secondary");
+  font-weight: map-get($font-weight, "regular");
+  font-size: 14px;
+  line-height: 18px;
+
+  @include tablet {
+    font-size: 16px;
+    line-height: 20px;
+  }
+  @include desktop-lg {
+    font-size: 16px;
+    line-height: 25px;
+  }
+}
+
+.checkbox-text {
+  color: map-get($colors, "black-secondary");
+  font-weight: map-get($font-weight, "regular");
+  font-size: 14px;
+  line-height: 18px;
+  padding-left: 15px;
+  margin: 0;
+
+  @include tablet {
+    font-size: 16px;
+    line-height: 20px;
+  }
+  @include desktop-lg {
+    font-size: 16px;
+    line-height: 25px;
+  }
+}

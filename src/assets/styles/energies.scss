@@ -1,0 +1,11 @@
+@import "vars";
+@import "mixins";
+
+.energies-promotion {
+  .top-market-promotion__text {
+    @include desktop-xl {
+      font-size: 54px;
+      line-height: 67px;
+    }
+  }
+}

@@ -1,0 +1,313 @@
+@import "vars";
+@import "mixins";
+
+.button-link {
+  @include button-supress;
+  text-decoration: none;
+  color: map-get($colors, "red");
+  background: map-get($colors, "white");
+  display: block;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: map-get($font-weight, "black");
+  font-size: 12px;
+  border-radius: $border-radius-default;
+  border: 1px solid map-get($colors, "white");
+  line-height: 31px;
+  width: 190px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all ease-in 0.4s;
+  min-width: fit-content;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  &--disabled {
+    pointer-events: none;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    background: map-get($colors, "red");
+    color: map-get($colors, "white");
+    border-color: map-get($colors, "white");
+  }
+
+  @include tablet {
+    font-size: 14px;
+    line-height: 38px;
+    width: 234px;
+  }
+
+  @include desktop-lg {
+    line-height: 38px;
+    width: 234px;
+  }
+
+  @include desktop-xl {
+    line-height: 62px;
+    width: 380px;
+    font-size: 24px;
+  }
+
+  &--lowercase {
+    text-transform: none;
+  }
+
+  &--red {
+    background: map-get($colors, "red");
+    color: map-get($colors, "white");
+    border: 1px solid map-get($colors, "red");
+
+    &:hover,
+    &:active,
+    &:focus {
+      background: map-get($colors, "white");
+      color: map-get($colors, "red");
+      border-color: map-get($colors, "red");
+    }
+  }
+
+  &--black {
+    background: transparent;
+    color: map-get($colors, "black");
+    border: 2px solid map-get($colors, "black");
+
+    &:hover,
+    &:active,
+    &:focus {
+      background: map-get($colors, "white");
+      color: map-get($colors, "red");
+      border-color: map-get($colors, "red");
+    }
+  }
+
+  &--without-bg {
+    background: transparent;
+    text-decoration: underline;
+    text-transform: none;
+    width: auto;
+    border-radius: unset;
+    border: none;
+    color: map-get($colors, "white");
+
+    &:hover,
+    &:active,
+    &:focus {
+      text-decoration: none;
+      background: transparent;
+    }
+  }
+
+  &--without-bg-trading {
+    background: transparent;
+    text-decoration: none;
+    text-transform: none;
+    width: auto;
+    border-radius: unset;
+    border: none;
+
+    &:hover,
+    &:active,
+    &:focus {
+      text-decoration: none;
+      background: transparent;
+    }
+  }
+
+  &--with-red-border {
+    border: 2px solid map-get($colors, "red");
+
+    &:hover,
+    &:active,
+    &:focus {
+      background: map-get($colors, "red");
+      color: map-get($colors, "white");
+    }
+  }
+
+  &--header {
+    width: initial;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    border-radius: $border-radius-header;
+    color: map-get($colors, "white");
+    font-size: 14px;
+    font-weight: map-get($font-weight, "bold");
+    text-transform: none;
+    white-space: nowrap;
+    transition: all ease-in 0.4s;
+    @include desktop-xl {
+      height: 40px;
+      font-size: 16px;
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+      background: map-get($colors, "white");
+      color: map-get($colors, "red");
+      cursor: pointer;
+    }
+  }
+
+  &--ghost {
+    border: 2px solid map-get($colors, "white");
+    background: transparent;
+    transition: all ease-in 0.4s;
+    &-red {
+      border: 2px solid map-get($colors, "red");
+      transition: all 0.3s;
+
+      &:hover,
+      &:focus,
+      &:active {
+        color: map-get($colors, "white");
+        background-color: map-get($colors, "red");
+      }
+    }
+  }
+
+  &--blank {
+    width: fit-content;
+    border: none;
+    text-transform: none;
+    font-weight: map-get($font-weight, "bold");
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
+
+.button-link--snake-animation {
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: map-get($colors, "red");
+  }
+
+  .button-link--snake-animation-line-left,
+  .button-link--snake-animation-line-top,
+  .button-link--snake-animation-line-right,
+  .button-link--snake-animation-line-bottom {
+    position: absolute;
+    content: " ";
+    z-index: -2;
+    background: #280000;
+  }
+
+  .button-link--snake-animation-line-bottom {
+    animation: bottomLineMoveIn 0.25s linear 0s forwards,
+      bottomLineMoveOut 0.25s linear 0.75s forwards;
+  }
+
+  .button-link--snake-animation-line-left {
+    animation: leftLineMoveIn 0.25s linear 0.25s forwards,
+      leftLineMoveOut 0.25s linear 1s forwards;
+  }
+
+  .button-link--snake-animation-line-top {
+    animation: topLineMoveIn 0.25s linear 0.5s forwards,
+      topLineMoveOut 0.25s linear 1.25s forwards;
+  }
+
+  .button-link--snake-animation-line-right {
+    animation: rightLineMoveIn 0.25s linear 0.75s forwards,
+      rightLineMoveOut 0.25s linear 1.5s forwards;
+  }
+
+  .button-link--snake-animation-line-top {
+    left: calc(-100% - 20px);
+    top: 0;
+    width: 100%;
+    height: 2px;
+  }
+
+  @keyframes topLineMoveIn {
+    100% {
+      left: 20px;
+    }
+  }
+
+  @keyframes topLineMoveOut {
+    100% {
+      left: calc(100% + 20px);
+    }
+  }
+
+  .button-link--snake-animation-line-bottom {
+    left: calc(100% - 20px);
+    top: calc(100% - 2px);
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+  }
+
+  @keyframes bottomLineMoveIn {
+    100% {
+      left: -20px;
+    }
+  }
+
+  @keyframes bottomLineMoveOut {
+    100% {
+      left: calc(-100% - 20px);
+    }
+  }
+
+  .button-link--snake-animation-line-left {
+    left: 0;
+    top: 100%;
+    width: 28px;
+    height: 100%;
+  }
+
+  @keyframes leftLineMoveIn {
+    100% {
+      top: 0;
+    }
+  }
+
+  @keyframes leftLineMoveOut {
+    100% {
+      top: calc(-100%);
+    }
+  }
+
+  .button-link--snake-animation-line-right {
+    left: calc(100% - 28px);
+    top: 0;
+    width: 28px;
+    height: 0;
+  }
+
+  @keyframes rightLineMoveIn {
+    100% {
+      height: 100%;
+    }
+  }
+
+  @keyframes rightLineMoveOut {
+    100% {
+      top: calc(100%);
+    }
+  }
+
+  &::after {
+    content: " ";
+    position: absolute;
+    z-index: -1;
+    left: 2px;
+    top: 2px;
+    width: calc(100% - 4px);
+    height: calc(100% - 4px);
+    background: white;
+    border-radius: 31px;
+  }
+}

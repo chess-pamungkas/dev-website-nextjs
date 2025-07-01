@@ -1,0 +1,226 @@
+@import "vars";
+@import "mixins";
+
+.search-bar {
+  position: relative;
+  z-index: 1002;
+  padding: 0 8px 0 6px;
+  display: flex;
+  align-items: center;
+  background-color: map-get($colors, "red");
+  color: map-get($colors, "white");
+  box-shadow: 0 5px 10px #0000001a;
+  border: 2px solid #e03c00;
+  border-radius: 25px;
+  pointer-events: auto;
+
+  &--closed {
+    padding: 0;
+
+    & .search-bar__input {
+      width: 0;
+      height: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    & .search-bar__submit {
+      display: none;
+    }
+
+    & > .search-bar__expand {
+      pointer-events: auto;
+    }
+  }
+
+  &__expand {
+    width: 46px;
+    height: 46px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    pointer-events: auto;
+    outline: none;
+  }
+
+  &__controls {
+    display: flex;
+    flex-grow: 1;
+    pointer-events: auto;
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    margin-right: 5px;
+  }
+
+  &__input {
+    width: 100%;
+    flex-grow: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: map-get($colors, "white");
+    font-weight: map-get($font-weight, "bold");
+    font-size: 16px;
+    line-height: 20px;
+    transition: width 0.3s;
+    pointer-events: auto;
+
+    &::placeholder {
+      color: map-get($colors, "white");
+      font-weight: map-get($font-weight, "bold");
+      font-size: 14px;
+      line-height: 18px;
+    }
+
+    &--expandable {
+      width: 200px;
+    }
+  }
+
+  &__submit {
+    height: 36px;
+    padding: 0 19px;
+    display: flex;
+    align-items: center;
+    background-color: map-get($colors, "white");
+    color: map-get($colors, "red");
+    border: 2px solid map-get($colors, "white");
+    border-radius: 23px;
+    cursor: pointer;
+    outline: none;
+    font-weight: map-get($font-weight, "black");
+    font-size: 16px;
+    line-height: 20px;
+    text-transform: uppercase;
+    transition: all 0.3s;
+    pointer-events: auto;
+
+    &:hover {
+      background-color: map-get($colors, "red");
+      color: map-get($colors, "white");
+    }
+  }
+
+  &--inverted {
+    background-color: map-get($colors, "white");
+    color: map-get($colors, "black");
+    border: 2px solid map-get($colors, "red");
+    border-radius: 31px;
+
+    @include tablet {
+      & .search-bar__expand {
+        width: 58px;
+        height: 58px;
+      }
+
+      & svg {
+        width: 28px;
+        height: 28px;
+
+        & > g > * {
+          stroke: map-get($colors, "red");
+        }
+      }
+    }
+
+    @include tablet {
+      padding: 0 19px 0 6px;
+    }
+
+    @include desktop-lg {
+      width: 425px;
+    }
+
+    @include desktop-xl {
+      width: 720px;
+    }
+
+    & .search-bar__submit {
+      border: 2px solid map-get($colors, "red");
+    }
+
+    & .search-bar__input {
+      color: map-get($colors, "black-secondary");
+    }
+  }
+
+  &__results {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    width: 300px;
+    padding: 14px 30px;
+    background-color: map-get($colors, "white");
+    border-radius: 25px;
+    box-shadow: 0px 3px 6px #00000029;
+    z-index: 1003;
+    pointer-events: auto;
+
+    @include tablet {
+      width: 350px;
+    }
+
+    @include desktop-lg {
+      width: 425px;
+    }
+
+    @include desktop-xl {
+      width: 328px;
+    }
+
+    &-item {
+      text-align: left;
+      pointer-events: auto;
+
+      & + & {
+        margin-top: 12px;
+      }
+    }
+
+    &-link {
+      display: flex;
+      align-items: center;
+      pointer-events: auto;
+      cursor: pointer;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+
+      &:active {
+        opacity: 0.7;
+      }
+    }
+
+    &-icon {
+      width: 18px;
+      height: auto;
+      margin-right: 14px;
+      flex-shrink: 0;
+
+      & g,
+      line {
+        stroke: map-get($colors, "red");
+      }
+    }
+
+    &-title {
+      color: map-get($colors, "black-secondary");
+      font-weight: map-get($font-weight, "light");
+      font-size: 14px;
+      line-height: 18px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &--bold {
+        font-weight: 600;
+      }
+    }
+  }
+}

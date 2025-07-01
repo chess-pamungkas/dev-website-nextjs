@@ -1,0 +1,142 @@
+@import "vars";
+@import "mixins";
+
+.privacy-policy {
+  padding-top: 61px;
+  padding-bottom: 145px;
+  @include content-alignment(0);
+
+  @include tablet {
+    padding-top: 104px;
+    padding-bottom: 200px;
+  }
+
+  @include desktop-lg {
+    padding-top: 154px;
+    padding-bottom: 103px;
+  }
+
+  @include desktop-xl {
+    padding-top: 195px;
+    padding-bottom: 145px;
+  }
+
+  &__wrapper {
+    margin: 0 auto;
+
+    @include tablet {
+      max-width: 640px;
+    }
+
+    @include desktop-lg {
+      max-width: 840px;
+    }
+
+    @include desktop-xl {
+      max-width: 1148px;
+    }
+  }
+
+  &__title {
+    max-width: 265px;
+    margin: 0 auto 30px;
+    color: map-get($colors, "red");
+    font-weight: map-get($font-weight, "black");
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+
+    @include tablet {
+      max-width: unset;
+      margin: 0 0 80px;
+      font-size: 40px;
+      line-height: 75px;
+    }
+
+    @include desktop-lg {
+      margin: 0 0 94px;
+      font-size: 49px;
+    }
+
+    @include desktop-xl {
+      margin: 0 0 100px;
+      font-size: 60px;
+    }
+  }
+
+  &__block-title {
+    color: map-get($colors, "red");
+    font-weight: map-get($font-weight, "bold");
+    margin: 0 0 10px;
+    font-size: 17px;
+    line-height: 20px;
+    position: relative;
+
+    @include tablet {
+      font-size: 32px;
+      line-height: 40px;
+    }
+
+    @include desktop-lg {
+      margin: 0 0 15px;
+      font-size: 32px;
+    }
+
+    @include desktop-xl {
+      font-size: 36px;
+    }
+  }
+}
+
+.privacy-policy-item {
+  &__title {
+    color: map-get($colors, "red");
+    font-weight: map-get($font-weight, "bold");
+    margin: 0 0 10px;
+    font-size: 17px;
+    line-height: 20px;
+    position: relative;
+
+    @include tablet {
+      font-size: 32px;
+      line-height: 40px;
+    }
+
+    @include desktop-lg {
+      margin: 0 0 15px;
+      font-size: 32px;
+    }
+
+    @include desktop-xl {
+      font-size: 36px;
+    }
+  }
+}
+
+.privacy-policy-subitem {
+  color: map-get($colors, "black");
+  font-weight: map-get($font-weight, "regular");
+  font-size: 16px;
+  line-height: 20px;
+
+  @include tablet {
+    font-size: 20px;
+    line-height: 40px;
+  }
+
+  @include desktop-lg {
+  }
+
+  @include desktop-xl {
+    font-size: 24px;
+    line-height: 40px;
+  }
+
+  &__subitem-text {
+    padding-left: 15px;
+
+    @include tablet {
+      padding-left: 30px;
+    }
+  }
+}

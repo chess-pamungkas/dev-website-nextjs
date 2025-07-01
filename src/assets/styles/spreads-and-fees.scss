@@ -1,0 +1,433 @@
+@import "vars";
+@import "mixins";
+
+.spreads__table-link {
+  display: inline-block;
+  margin-left: 0;
+  font-size: 13px;
+  line-height: 17px;
+
+  @include tablet {
+    font-size: 15px;
+    line-height: 19px;
+  }
+
+  @include desktop-lg {
+    font-size: 18px;
+    line-height: 22px;
+    margin-left: 25px;
+  }
+
+  color: map-get($colors, "red");
+  text-decoration: underline;
+
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
+}
+
+.spreads--common-table {
+  .table__body-column {
+    font-size: 17px;
+    line-height: 21px;
+    min-width: 169px;
+
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    @include tablet {
+      min-width: 202px;
+    }
+
+    @include desktop-lg {
+      font-size: 16px;
+      line-height: 20px;
+      min-width: 183px;
+
+      padding-top: 30px;
+      padding-bottom: 30px;
+    }
+
+    @include desktop-xl {
+      padding-top: 32px;
+      padding-bottom: 32px;
+      min-width: unset;
+    }
+
+    &:first-child {
+      font-weight: map-get($font-weight, "regular");
+    }
+
+    &:nth-child(2) {
+      border-left-color: map-get($colors, "table-grey");
+    }
+  }
+
+  .table__head > tr:last-child > .table__head-column {
+    font-size: 14px;
+    line-height: 18px;
+    padding: 14px 20px;
+    min-width: 169px;
+
+    border-top: 1px solid map-get($colors, "black");
+    border-right: 1px solid map-get($colors, "black");
+
+    @include tablet {
+      min-width: 202px;
+    }
+
+    @include desktop-lg {
+      font-size: 16px;
+      line-height: 20px;
+      min-width: 162px;
+
+      padding-top: 6px;
+      padding-bottom: 6px;
+    }
+
+    &:first-child,
+    &:last-child {
+      border-right: none;
+    }
+
+    &:first-child {
+      color: map-get($colors, "black");
+      border-left: none;
+    }
+  }
+
+  .table {
+    padding: 37px 4px;
+  }
+
+  .table-scroll {
+    border-radius: 15px;
+  }
+
+  .table-scroll--vertical {
+    max-height: 768px;
+  }
+
+  @include tablet {
+    &.table-wrapper--padding {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  @include desktop-lg {
+    &.table-wrapper--padding {
+      padding-left: 25px;
+      padding-right: 25px;
+    }
+  }
+}
+
+.spreads--table {
+  @include mobile {
+    &.table-wrapper--padding {
+      padding: 0 0 8px;
+    }
+  }
+
+  .table {
+    padding: 37px 4px;
+  }
+
+  .table-scroll {
+    border-radius: 15px;
+  }
+}
+
+.spreads--second-table {
+  &.table-wrapper--padding {
+    padding: 28px 10px;
+
+    @include desktop-lg {
+      padding: 55px 30px 60px;
+    }
+
+    @include desktop-xl {
+      padding: 55px 45px 60px;
+    }
+  }
+
+  .table__tools--single-block {
+    display: none;
+  }
+
+  .table-scroll--vertical {
+    max-height: 800px;
+  }
+
+  .table__body-column {
+    font-size: 11px;
+    line-height: 14px;
+    min-width: 169px;
+
+    padding-top: 25px;
+    padding-bottom: 25px;
+
+    &:first-child {
+      min-width: 84px;
+      padding-left: 15px;
+      text-align: left;
+    }
+
+    &:nth-child(2) {
+      min-width: 226px;
+    }
+
+    @include tablet {
+      font-size: 17px;
+      line-height: 21px;
+      min-width: 202px;
+
+      padding-top: 31px;
+      padding-bottom: 34px;
+
+      &:first-child {
+        text-align: center;
+        min-width: 176px;
+      }
+    }
+
+    @include desktop-lg {
+      font-size: 16px;
+      line-height: 20px;
+      min-width: 183px;
+
+      padding-top: 30px;
+      padding-bottom: 30px;
+    }
+
+    @include desktop-xl {
+      padding-top: 32px;
+      padding-bottom: 32px;
+      min-width: unset;
+    }
+
+    &:first-child {
+      font-weight: map-get($font-weight, "regular");
+    }
+
+    &:nth-child(2) {
+      border-left-color: map-get($colors, "table-grey");
+    }
+  }
+
+  .table__head > tr:last-child > .table__head-column {
+    font-size: 11px;
+    line-height: 14px;
+    padding: 4px 20px 6px;
+    min-width: 169px;
+
+    border-top: 1px solid map-get($colors, "black");
+    border-right: 1px solid map-get($colors, "black");
+
+    &:first-child {
+      min-width: 84px;
+      padding-left: 15px;
+    }
+
+    @include tablet {
+      font-size: 17px;
+      line-height: 21px;
+      min-width: 202px;
+
+      &:first-child {
+        min-width: 176px;
+        text-align: center;
+      }
+
+      &:nth-child(2) {
+        min-width: 471px;
+      }
+    }
+
+    @include desktop-lg {
+      font-size: 16px;
+      line-height: 20px;
+
+      padding-top: 16px;
+      padding-bottom: 16px;
+
+      &:first-child {
+        min-width: 328px;
+      }
+
+      &:nth-child(2) {
+        min-width: 646px;
+      }
+    }
+
+    @include desktop-xl {
+      padding-top: 16px;
+      padding-bottom: 16px;
+
+      &:first-child {
+        min-width: 274px;
+      }
+
+      &:nth-child(2) {
+        min-width: 601px;
+      }
+    }
+
+    &:first-child,
+    &:last-child {
+      border-right: none;
+    }
+
+    &:first-child {
+      color: map-get($colors, "black");
+      border-left: none;
+    }
+  }
+
+  .table-scroll--vertical {
+    max-height: 860px;
+  }
+}
+
+.fees-note {
+  padding: 0px 30px;
+  display: flex;
+  flex-direction: column;
+
+  &__text {
+    list-style-type: disc;
+    list-style-position: inside;
+    margin-bottom: 35px;
+    font-size: 11px;
+    line-height: 14px;
+
+    @include tablet {
+      font-size: 17px;
+      line-height: 21px;
+    }
+
+    @include desktop-lg {
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+
+  &__link {
+    color: map-get($colors, "red");
+    text-decoration: underline;
+    transition: all 0.3s;
+
+    &:hover,
+    &:focus,
+    &:active {
+      text-decoration: none;
+    }
+  }
+}
+
+.swap-rate {
+  scroll-snap-align: start;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  width: 100vw;
+  padding: 57px 15px 254px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: map-get($colors, "white");
+  // @include content-alignment(0);
+
+  @include tablet {
+    padding: 75px 35px 200px 35px;
+  }
+
+  @include desktop-lg {
+    // padding: 87px 35px 221px 35px;
+    background: url("../../assets/images/spreads-and-fees/faq/bg/lg.svg")
+      no-repeat top;
+  }
+
+  @include desktop-xl {
+    padding: 100px 70px 356px 70px;
+    background: url("../../assets/images/spreads-and-fees/faq/bg/xl.svg")
+      no-repeat bottom;
+  }
+
+  &__wrapper {
+    position: relative;
+    width: 100%;
+    // max-width: 1680px;
+    margin: 0 auto;
+    padding: 0;
+    z-index: 1;
+    align-items: center;
+
+    @include desktop-lg {
+      max-width: 1200px;
+    }
+
+    @include desktop-xl {
+      max-width: 1680px;
+    }
+
+    @include desktop-2k {
+      max-width: 2400px;
+    }
+
+    @include desktop-5k {
+      max-width: 3840px;
+    }
+  }
+
+  &__title {
+    color: map-get($colors, "red");
+    margin-top: 0;
+    text-align: left;
+    width: 100%;
+
+    font-size: 32px;
+    line-height: 40px;
+    margin-bottom: 27px;
+
+    @include tablet {
+      font-size: 38px;
+      line-height: 48px;
+      margin-bottom: 25px;
+    }
+
+    @include desktop-xl {
+      font-size: 42px;
+      line-height: 53px;
+      margin-bottom: 20px;
+    }
+  }
+
+  &__subtitle-text {
+    display: block;
+    margin-bottom: 35px;
+
+    &--bold {
+      font-weight: map-get($font-weight, "black");
+    }
+  }
+
+  &__subtitle {
+    font-size: 16px;
+    line-height: 20px;
+
+    @include tablet {
+      font-size: 22px;
+      line-height: 27px;
+    }
+
+    @include desktop-xl {
+      font-size: 24px;
+      line-height: 30px;
+    }
+  }
+}

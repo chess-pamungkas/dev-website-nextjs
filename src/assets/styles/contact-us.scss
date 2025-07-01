@@ -1,0 +1,328 @@
+@import "mixins";
+@import "vars";
+
+.contact-us {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  width: 100vw;
+  background-size: cover;
+  background: url("../../assets/images/bg/contact-us.svg") no-repeat bottom left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 24px;
+  padding-bottom: 160px;
+  overflow: hidden;
+
+  @include mobile {
+    padding-left: $padding-sm;
+    padding-right: $padding-sm;
+  }
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw;
+    height: 100%;
+    background: url("../../assets/images/about-pages/ornament-top-sm.svg")
+      no-repeat;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: url("../../assets/images/about-pages/ornament-bottom-sm.svg")
+      no-repeat;
+    width: 110px;
+    height: 132px;
+    z-index: 2;
+  }
+
+  @include tablet {
+    padding-top: 65px;
+    padding-bottom: 142px;
+
+    &:before {
+      background: url("../../assets/images/about-pages/ornament-top-md.svg")
+        no-repeat;
+      width: 251px;
+      height: 246px;
+    }
+
+    &:after {
+      background: url("../../assets/images/about-pages/ornament-bottom-md.svg")
+        no-repeat;
+      width: 205px;
+      height: 246px;
+    }
+  }
+
+  @include desktop-lg {
+    padding-top: 35px;
+    padding-bottom: 89px;
+
+    &:before {
+      background: url("../../assets/images/about-pages/ornament-top-lg.svg")
+        no-repeat;
+      width: 266px;
+      height: 261px;
+    }
+
+    &:after {
+      background: url("../../assets/images/about-pages/ornament-bottom-lg.svg")
+        no-repeat;
+      width: 148px;
+      height: 210px;
+    }
+  }
+
+  @include desktop-xl {
+    padding-top: 323px;
+    padding-bottom: 323px;
+
+    &:before {
+      background: url("../../assets/images/about-pages/ornament-top-xl.svg")
+        no-repeat;
+      width: 261px;
+      height: 299px;
+    }
+
+    &:after {
+      background: url("../../assets/images/about-pages/ornament-bottom-xl.svg")
+        no-repeat;
+      width: 261px;
+      height: 299px;
+    }
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    @include desktop-xl {
+      flex-direction: row;
+      max-width: 1489px;
+      margin: 0 auto;
+    }
+  }
+
+  &__block {
+    width: 100%;
+
+    @include mobile {
+      &:first-child {
+        max-width: 80%;
+        margin: 0 auto;
+      }
+    }
+
+    @include tablet {
+      max-width: 668px;
+      margin: 0 auto;
+    }
+
+    @include desktop-lg {
+      max-width: 879px;
+    }
+
+    @include desktop-xl {
+      width: 50%;
+      margin: 0;
+      max-width: unset;
+    }
+  }
+
+  &__title {
+    margin: 0 0 36px;
+    text-align: center;
+    color: map-get($colors, "black");
+    font-weight: map-get($font-weight, "black");
+    font-size: 25px;
+    line-height: 31px;
+
+    @include tablet {
+      margin: 0 0 30px;
+      font-size: 35px;
+      line-height: 44px;
+    }
+    @include desktop-lg {
+      margin: 0 0 32px;
+      font-size: 39px;
+      line-height: 49px;
+    }
+    @include desktop-xl {
+      text-align: left;
+      font-size: 70px;
+      line-height: 45px;
+      margin: 0 0 45px;
+    }
+  }
+
+  &__text {
+    margin: 0 0 15px;
+    text-align: center;
+    color: map-get($colors, "black");
+    font-weight: map-get($font-weight, "regular");
+    font-size: 18px;
+    line-height: 22px;
+
+    @include tablet {
+      margin: 0 auto 35px;
+      font-size: 25px;
+      line-height: 31px;
+      max-width: 630px;
+    }
+    @include desktop-lg {
+      margin: 0 0 45px;
+      font-size: 27px;
+      line-height: 34px;
+      max-width: unset;
+    }
+    @include desktop-xl {
+      text-align: left;
+      font-size: 26px;
+      line-height: 45px;
+      margin: 0 0 60px;
+      max-width: 541px;
+    }
+  }
+
+  &__contact-block {
+    padding: 0 0 10px;
+
+    @include tablet {
+      padding: 0 0 15px;
+    }
+    @include desktop-lg {
+      padding: 0 0 20px;
+    }
+    @include desktop-xl {
+      padding: 0 0 30px;
+    }
+  }
+
+  &__contact-block-title {
+    margin: 0 0 5px;
+    color: map-get($colors, "black-secondary");
+    font-weight: map-get($font-weight, "black");
+    font-size: 10px;
+    line-height: 13px;
+
+    @include tablet {
+      margin: 0 0 10px;
+      font-size: 18px;
+      line-height: 22px;
+    }
+
+    @include desktop-xl {
+      margin: 0 0 20px;
+    }
+  }
+
+  &__contact-block-href {
+    color: map-get($colors, "red");
+    font-weight: map-get($font-weight, "black");
+    font-size: 14px;
+    line-height: 18px;
+    text-decoration: underline;
+    transition: all 0.3s;
+    padding-left: 10px;
+    padding-bottom: 20px;
+    display: block;
+
+    &:hover,
+    &:active,
+    &:focus {
+      text-decoration: none;
+    }
+
+    @include tablet {
+      font-size: 22px;
+      line-height: 27px;
+    }
+  }
+
+  &__contact-block-text {
+    color: map-get($colors, "black");
+    font-weight: map-get($font-weight, "regular");
+    font-size: 14px;
+    line-height: 18px;
+    padding-left: 10px;
+
+    @include tablet {
+      font-size: 22px;
+      line-height: 27px;
+      max-width: 100%;
+    }
+
+    @include desktop-xl {
+      max-width: 475px;
+    }
+  }
+}
+
+.contact-us-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 25px;
+
+  @include tablet {
+    padding-top: 40px;
+  }
+
+  @include desktop-lg {
+    padding-top: 60px;
+    max-width: 736px;
+    margin: 0 auto;
+  }
+
+  @include desktop-xl {
+    padding-top: 0;
+    max-width: unset;
+    margin: 0;
+  }
+
+  &__btn {
+    margin: 30px auto 0;
+
+    @include tablet {
+      margin: 30px 0 0;
+      width: 100%;
+      font-size: 24px;
+      line-height: 58px;
+    }
+  }
+
+  &__message {
+    text-align: center;
+    width: 100%;
+    font-size: 16px;
+    line-height: 20px;
+    color: map-get($colors, "green");
+
+    @include tablet {
+      font-size: 18px;
+      line-height: 22px;
+    }
+
+    &--failure {
+      color: map-get($colors, "black");
+    }
+  }
+}

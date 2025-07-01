@@ -1,0 +1,949 @@
+@import "vars";
+@import "mixins";
+
+.partners-page-promotion {
+  background: url("../../assets/images/partners/promotion-bg.svg") no-repeat
+    center;
+  background-size: cover;
+  padding-top: 90px;
+  padding-bottom: 48px;
+
+  @include tablet {
+    padding-top: 90px;
+    padding-bottom: 112px;
+  }
+
+  @include desktop-lg {
+    padding-top: 150px;
+    padding-bottom: 50px;
+  }
+
+  @include desktop-xl {
+    padding-top: 161px;
+    padding-bottom: 112px;
+  }
+
+  .top-market-promotion__wrapper {
+    flex-direction: column-reverse;
+
+    @include desktop-xl {
+      flex-direction: row;
+    }
+  }
+
+  .top-market-promotion__description {
+    max-width: 799px;
+
+    @include desktop-lg {
+      max-width: 780px;
+    }
+  }
+
+  .top-market-promotion__text {
+    font-weight: map-get($font-weight, "black");
+    font-size: 28px;
+    line-height: 35px;
+    text-align: center;
+    padding-bottom: 85px;
+
+    @include tablet {
+      font-size: 41px;
+      line-height: 51px;
+      padding-bottom: 78px;
+    }
+
+    @include tablet {
+      padding-top: 40px;
+      padding-bottom: 20px;
+    }
+
+    @include desktop-xl {
+      font-size: 48px;
+      line-height: 60px;
+      text-align: left;
+    }
+  }
+
+  .top-market-promotion__block {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+
+    @include desktop-xl {
+      display: block;
+    }
+  }
+}
+
+.partners-page-bottom-promotion {
+  background: map-get($colors, "red");
+  padding-top: 18px;
+  padding-bottom: 38px;
+
+  @include tablet {
+    padding-top: 35px;
+    padding-bottom: 42px;
+  }
+
+  @include desktop-lg {
+    padding-top: 46px;
+    padding-bottom: 48px;
+  }
+
+  @include desktop-xl {
+    padding-top: 86px;
+    padding-bottom: 130px;
+  }
+
+  .top-market-promotion__wrapper {
+    flex-direction: column-reverse;
+  }
+
+  .top-market-promotion__block {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    width: unset;
+  }
+
+  .top-market-promotion__description {
+    margin: unset;
+
+    @include tablet {
+      max-width: 508px;
+    }
+
+    @include desktop-lg {
+      max-width: 626px;
+    }
+
+    @include desktop-xl {
+      max-width: 1294px;
+    }
+  }
+
+  .top-market-promotion__text {
+    font-weight: map-get($font-weight, "black");
+    font-size: 19px;
+    line-height: 23px;
+    text-align: center;
+    padding-top: 25px;
+
+    @include tablet {
+      font-size: 23px;
+      line-height: 28px;
+      padding-top: 31px;
+    }
+
+    @include desktop-lg {
+      font-size: 32px;
+      line-height: 40px;
+      padding-top: 45px;
+    }
+
+    @include desktop-xl {
+      font-size: 60px;
+      line-height: 75px;
+      padding-top: 56px;
+    }
+  }
+
+  .top-market-promotion__img {
+    width: 67px;
+    margin-bottom: unset;
+
+    @include desktop-lg {
+      width: 89px;
+    }
+
+    @include desktop-xl {
+      width: 166px;
+    }
+  }
+}
+
+.partners-income {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: map-get($colors, "white");
+
+  @include tablet {
+    background: url("../../assets/images/bg/top-market-page/left/bottom-md.svg")
+      no-repeat bottom;
+  }
+
+  @include desktop-lg {
+    background: url("../../assets/images/bg/top-market-page/left/bottom-lg.svg")
+      no-repeat bottom;
+  }
+
+  @include desktop-xl {
+    background: url("../../assets/images/bg/top-market-page/left/bottom-xl.svg")
+      no-repeat bottom;
+  }
+
+  padding: 72px 56px;
+
+  &__wrapper {
+    position: relative;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    gap: 15px;
+    grid-template-areas: "title title" "desc desc" "total-clients total-income" "slider slider";
+
+    @include tablet {
+      max-width: 720px;
+      gap: 30px 9px;
+      grid-template-areas: "title desc" "total-clients total-income" "slider slider";
+    }
+
+    @include desktop-lg {
+      max-width: 1200px;
+      gap: 40px 25px;
+      grid-template-areas: "title title title desc desc" "total-clients slider slider slider total-income";
+    }
+
+    @include desktop-xl {
+      max-width: 1680px;
+      gap: 49px 60px;
+      grid-template-areas: "title title desc" "total-clients slider total-income";
+      padding: 204px 0;
+    }
+
+    @include desktop-2k {
+      max-width: 2400px;
+    }
+
+    @include desktop-5k {
+      max-width: 3840px;
+    }
+  }
+
+  &__title {
+    font-weight: map-get($font-weight, "regular");
+    font-size: 15px;
+    line-height: 19px;
+    margin: 0;
+    width: 233px;
+    grid-area: title;
+    justify-self: center;
+    text-align: center;
+
+    @include tablet {
+      font-size: 21px;
+      line-height: 26px;
+      width: 287px;
+      justify-self: start;
+      text-align: left;
+    }
+
+    @include desktop-lg {
+      font-size: 34px;
+      line-height: 42px;
+      width: 480px;
+    }
+
+    @include desktop-xl {
+      font-size: 48px;
+      line-height: 60px;
+      width: 823px;
+    }
+  }
+
+  &__description {
+    font-weight: map-get($font-weight, "regular");
+    font-size: 10px;
+    line-height: 13px;
+    color: map-get($colors, "grey");
+    margin: 0;
+    width: 264px;
+    grid-area: desc;
+    justify-self: center;
+    text-align: center;
+
+    @include tablet {
+      font-size: 18px;
+      line-height: 22px;
+      justify-self: right;
+      width: 291px;
+      text-align: left;
+    }
+
+    @include desktop-lg {
+      font-size: 22px;
+      line-height: 27px;
+      width: 356px;
+    }
+
+    @include desktop-xl {
+      justify-self: unset;
+      width: 476px;
+    }
+  }
+
+  &__total-clients {
+    display: flex;
+    flex-direction: column;
+    width: 80px;
+    grid-area: total-clients;
+    justify-self: start;
+    text-align: left;
+
+    @include tablet {
+      width: 197px;
+    }
+
+    @include desktop-lg {
+      width: 142px;
+    }
+
+    @include desktop-xl {
+      width: 150px;
+    }
+  }
+
+  &__total-income {
+    display: flex;
+    flex-direction: column;
+    width: 87px;
+    grid-area: total-income;
+    justify-self: end;
+    text-align: right;
+
+    @include tablet {
+      width: 180px;
+    }
+
+    @include desktop-lg {
+      width: 247px;
+      text-align: left;
+    }
+
+    @include desktop-xl {
+      justify-self: unset;
+      text-align: left;
+    }
+  }
+
+  &__total-num {
+    font-weight: map-get($font-weight, "black");
+    font-size: 16px;
+    line-height: 20px;
+    margin: 0;
+
+    @include tablet {
+      font-size: 25px;
+      line-height: 31px;
+    }
+
+    @include desktop-lg {
+      font-size: 60px;
+      line-height: 75px;
+    }
+  }
+
+  &__total-note {
+    font-weight: map-get($font-weight, "black");
+    font-size: 9px;
+    line-height: 12px;
+
+    @include tablet {
+      font-size: 15px;
+      line-height: 19px;
+    }
+
+    @include desktop-lg {
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+
+  &__slider {
+    width: 257px;
+    padding-top: 5px;
+    grid-area: slider;
+    justify-self: center;
+
+    @include tablet {
+      width: 574px;
+    }
+
+    @include desktop-lg {
+      width: 470px;
+      padding-top: 62px;
+    }
+
+    @include desktop-xl {
+      width: 630px;
+      padding-top: 62px;
+      justify-self: unset;
+    }
+  }
+
+  &__slider-track {
+    height: 2px;
+    top: 10px;
+
+    @include tablet {
+      height: 4px;
+      top: 17px;
+    }
+
+    @include desktop-lg {
+      top: 72px;
+    }
+
+    @include desktop-xl {
+      height: 7px;
+      top: 73px;
+    }
+
+    &-0 {
+      background: map-get($colors, "red");
+    }
+
+    &-1 {
+      background: map-get($colors, "black-secondary");
+    }
+  }
+
+  &__slider-thumb {
+    width: 12px;
+    height: 12px;
+    background: map-get($colors, "red");
+    border-radius: 100%;
+    cursor: pointer;
+    outline: none;
+
+    @include tablet {
+      width: 27px;
+      height: 27px;
+    }
+
+    @include desktop-lg {
+      width: 23px;
+      height: 23px;
+    }
+
+    @include desktop-xl {
+      width: 29px;
+      height: 29px;
+    }
+  }
+
+  &__slider-mark {
+    display: flex;
+    flex-direction: column;
+
+    &-v-line {
+      top: 15px;
+      height: 7px;
+      width: 0;
+      border: 1px solid map-get($colors, "grey");
+
+      @include tablet {
+        top: 30px;
+        height: 14px;
+      }
+
+      @include desktop-lg {
+        top: 80px;
+        height: 12px;
+      }
+
+      @include desktop-xl {
+        top: 85px;
+        height: 16px;
+      }
+    }
+
+    &-number {
+      top: 23px;
+      font-weight: map-get($font-weight, "regular");
+      font-size: 7px;
+      line-height: 9px;
+      color: map-get($colors, "grey");
+
+      @include tablet {
+        top: 43px;
+        font-size: 13px;
+        line-height: 17px;
+      }
+
+      @include desktop-lg {
+        top: 92px;
+        font-size: 8px;
+        line-height: 10px;
+      }
+
+      @include desktop-xl {
+        top: 100px;
+        font-size: 18px;
+        line-height: 22px;
+      }
+    }
+  }
+}
+
+.partners-advantages {
+  scroll-snap-align: start;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  padding-top: 51px;
+  padding-bottom: 53px;
+  width: 100vw;
+  background-size: cover;
+  background: map-get($colors, "white");
+  background-image: url("../../assets/images/partners/advantages-bg-sm.svg");
+  background-repeat: no-repeat;
+  background-position: top center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+
+  @include tablet {
+    padding-top: 47px;
+    padding-bottom: 60px;
+    background-image: url("../../assets/images/partners/advantages-bg-md.svg");
+  }
+
+  @include desktop-lg {
+    padding-top: 87px;
+    padding-bottom: 150px;
+    background-image: url("../../assets/images/partners/advantages-bg-lg.svg");
+  }
+
+  @include desktop-xl {
+    padding-top: 98px;
+    padding-bottom: 128px;
+    background-image: url("../../assets/images/partners/advantages-bg-xl.svg");
+  }
+
+  &__wrapper {
+    position: relative;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @include tablet {
+      max-width: 720px;
+    }
+
+    @include desktop-lg {
+      max-width: 1200px;
+    }
+
+    @include desktop-xl {
+      max-width: 1680px;
+    }
+
+    @include desktop-2k {
+      max-width: 2400px;
+    }
+
+    @include desktop-5k {
+      max-width: 3840px;
+    }
+  }
+
+  &__advantages {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 23px;
+
+    @include desktop-xl {
+      padding-top: 96px;
+      max-width: 1540px;
+    }
+
+    .advantage-block {
+      margin: 8px;
+      width: 136px;
+      padding: 9px;
+      text-align: center;
+      transition: all ease-in-out 0.4s;
+
+      @include tablet {
+        margin: 9px;
+        width: 230px;
+        padding: 15px 9px;
+      }
+
+      @include desktop-xl {
+        margin: 20px;
+        width: 330px;
+        padding: 30px 9px;
+      }
+    }
+
+    .advantage-block__text {
+      font-weight: map-get($font-weight, "black");
+      font-size: 10px;
+      line-height: 13px;
+
+      @include tablet {
+        font-size: 16px;
+        line-height: 20px;
+      }
+
+      @include desktop-xl {
+        font-size: 20px;
+        line-height: 25px;
+      }
+    }
+
+    .advantage-block__icon {
+      width: 40px;
+
+      @include tablet {
+        width: 86px;
+      }
+
+      @include desktop-xl {
+        width: 100px;
+      }
+    }
+  }
+
+  &__title {
+    font-weight: map-get($font-weight, "black");
+    font-size: 22px;
+    line-height: 27px;
+    text-align: center;
+    max-width: 202px;
+
+    @include tablet {
+      font-size: 36px;
+      line-height: 45px;
+      max-width: unset;
+    }
+
+    @include desktop-lg {
+      font-size: 40px;
+      line-height: 50px;
+    }
+
+    @include desktop-xl {
+      font-size: 60px;
+      line-height: 75px;
+    }
+  }
+}
+
+.partners-start {
+  scroll-snap-align: start;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  width: 100vw;
+  background-size: cover;
+  align-items: center;
+  background: map-get($colors, "black-secondary") 0 0 no-repeat padding-box;
+  padding-top: 59px;
+  padding-bottom: 39px;
+
+  @include tablet {
+    padding-top: 194px;
+    padding-bottom: 164px;
+  }
+
+  @include desktop-lg {
+    padding-top: 40px;
+    padding-bottom: 53px;
+  }
+
+  @include desktop-xl {
+    padding-top: 98px;
+    padding-bottom: 111px;
+  }
+
+  &:before {
+    content: "";
+    position: absolute;
+    background: url("../../assets/images/partners/start-bg-top-sm.svg")
+      no-repeat;
+    width: 92px;
+    height: 110px;
+    top: 0;
+    left: 0;
+
+    @include tablet {
+      background: url("../../assets/images/partners/start-bg-top-md.svg")
+        no-repeat;
+      width: 187px;
+      height: 226px;
+    }
+
+    @include desktop-lg {
+      background: url("../../assets/images/partners/start-bg-top-lg.svg")
+        no-repeat;
+      width: 177px;
+      height: 213px;
+    }
+
+    @include desktop-xl {
+      background: url("../../assets/images/partners/start-bg-top-xl.svg")
+        no-repeat;
+      width: 261px;
+      height: 299px;
+    }
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    background: url("../../assets/images/partners/start-bg-bot-sm.svg")
+      no-repeat;
+    width: 92px;
+    height: 110px;
+    bottom: 0;
+    right: 0;
+
+    @include tablet {
+      background: url("../../assets/images/partners/start-bg-bot-md.svg")
+        no-repeat;
+      width: 188px;
+      height: 225px;
+    }
+
+    @include desktop-lg {
+      background: url("../../assets/images/partners/start-bg-bot-lg.svg")
+        no-repeat;
+      width: 177px;
+      height: 213px;
+    }
+
+    @include desktop-xl {
+      background: url("../../assets/images/partners/start-bg-bot-xl.svg")
+        no-repeat;
+      width: 261px;
+      height: 299px;
+    }
+  }
+
+  &__wrapper {
+    position: relative;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+
+    @include desktop-lg {
+      max-width: 1200px;
+    }
+
+    @include desktop-xl {
+      max-width: 1680px;
+    }
+  }
+
+  &__title {
+    font-weight: map-get($font-weight, "black");
+    font-size: 18px;
+    line-height: 22px;
+    color: map-get($colors, "red");
+    padding-bottom: 49px;
+    margin: 0;
+
+    @include tablet {
+      font-size: 26px;
+      line-height: 32px;
+      padding-bottom: 67px;
+    }
+
+    @include desktop-lg {
+      font-size: 30px;
+      line-height: 37px;
+      padding-bottom: 70px;
+    }
+
+    @include desktop-xl {
+      font-size: 60px;
+      line-height: 75px;
+      padding-bottom: 134px;
+    }
+  }
+
+  &__items {
+    display: grid;
+    grid-template-areas: "a b c";
+    font-weight: map-get($font-weight, "black");
+    font-size: 12px;
+    line-height: 15px;
+    z-index: 2;
+
+    @include tablet {
+      font-size: 18px;
+      line-height: 22px;
+    }
+
+    @include desktop-lg {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+
+    @include desktop-xl {
+      font-size: 24px;
+      line-height: 30px;
+    }
+  }
+
+  &__btn {
+    background: map-get($colors, "black-secondary");
+    font-weight: map-get($font-weight, "black");
+    font-size: 11px;
+    line-height: 31px;
+    border: 1px solid map-get($colors, "red");
+    width: 190px;
+
+    &:hover {
+      background: map-get($colors, "white");
+      border-color: map-get($colors, "white");
+      color: map-get($colors, "red");
+    }
+
+    @include tablet {
+      font-size: 24px;
+      line-height: 62px;
+      width: 380px;
+    }
+  }
+
+  &__arrow1 {
+    position: absolute;
+    top: 135px;
+    left: calc(50% - 250px);
+    z-index: 1;
+
+    @include mobile {
+      top: 85px;
+      display: none;
+    }
+
+    @include tablet {
+      top: 305px;
+      left: calc(50% - 370px);
+      display: none;
+    }
+
+    @include desktop-lg {
+      top: 115px;
+      left: calc(50% - 375px);
+    }
+
+    @include desktop-xl {
+      top: 240px;
+      left: calc(50% - 755px);
+    }
+  }
+
+  &__arrow2 {
+    position: absolute;
+    top: 275px;
+    right: calc(50% - 250px);
+    z-index: 1;
+
+    @include mobile {
+      top: 215px;
+      right: calc(50% - 250px);
+      display: none;
+    }
+
+    @include tablet {
+      top: 520px;
+      right: calc(50% - 370px);
+      display: none;
+    }
+  }
+}
+
+.partners-start-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 110px;
+
+  @include tablet {
+    width: 194px;
+  }
+
+  @include desktop-lg {
+    width: 149px;
+  }
+
+  @include desktop-xl {
+    width: 280px;
+  }
+
+  &__text {
+    padding-top: 10px;
+    padding-bottom: 28px;
+    text-align: center;
+    max-width: 98px;
+    margin: 0;
+
+    @include tablet {
+      padding-top: 10px;
+      padding-bottom: 66px;
+      max-width: 154px;
+    }
+
+    @include desktop-lg {
+      padding-top: 10px;
+      padding-bottom: 31px;
+      max-width: 126px;
+    }
+
+    @include desktop-xl {
+      padding-top: 20px;
+      padding-bottom: 134px;
+      max-width: 252px;
+    }
+  }
+
+  &__icon {
+    width: 55px;
+
+    @include tablet {
+      width: 87px;
+    }
+
+    @include desktop-lg {
+      width: 71px;
+    }
+
+    @include desktop-xl {
+      width: 142px;
+    }
+  }
+}

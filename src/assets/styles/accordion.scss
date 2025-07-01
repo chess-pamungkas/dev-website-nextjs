@@ -1,0 +1,26 @@
+@import "vars";
+
+.accordion {
+  &__title {
+    width: 100%;
+    padding: 0;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+
+    &:focus {
+      outline: none;
+      transition: all ease-in-out 0.4s;
+    }
+  }
+
+  &__icon {
+    transition: transform 0.3s;
+  }
+
+  &--open {
+    & .accordion__icon {
+      transform: scale(1, -1);
+    }
+  }
+}

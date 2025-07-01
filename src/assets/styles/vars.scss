@@ -1,0 +1,58 @@
+$sm: 375px;
+$max-sm: 767px;
+$md: 768px;
+$max-lg: 1023px;
+$lg: 1024px;
+$max-xl: 1919px;
+$xl: 1920px;
+$xxl: 2560px;
+$max-xxl: 5119px;
+$xxxl: 5120px;
+
+$xl-height: 1080px;
+
+$font: "Sofia Pro", sans-serif;
+$font-secondary: "Lato", sans-serif;
+$fontJP: "Noto Sans JP", sans-serif;
+$font-sidebar: "Montserrat", sans-serif;
+
+$font-weight: (
+  "light": 300,
+  "regular": normal,
+  "bold": bold,
+  "black": 900,
+);
+
+$colors: (
+  "white": #ffffff,
+  "red": #ff4400,
+  "red-secondary": #ff1200,
+  "green": #11ba55,
+  "light-green": #00ff66,
+  "grey": #9b9b9b,
+  "black": #232323,
+  "black-secondary": #1a1a1a,
+  "table-grey": #e3e3e3,
+  "bg-grey": #b7b7b7,
+);
+
+$padding-sm: 15px;
+$padding-md: 35px;
+$padding-lg: 35px;
+$padding-xl: 70px;
+
+$border-radius-default: 31px;
+$border-radius-header: 27px;
+
+$button-default: (
+  "height": 62px,
+  "width": 380px,
+);
+$button-header: (
+  "height": 40px,
+  "width": unset,
+);
+
+$header-height: 150px;
+$header-height-small: 115px;
+$header-height-small-mobile: 65px;

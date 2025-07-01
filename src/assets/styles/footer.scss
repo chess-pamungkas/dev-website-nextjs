@@ -1,0 +1,179 @@
+@import "vars";
+@import "mixins";
+
+.footer {
+  scroll-snap-align: start;
+  position: relative;
+  background-color: map-get($colors, "black");
+  // @include content-alignment(0);
+  padding-top: 68px;
+  padding-bottom: 40px;
+  z-index: 5;
+
+  &__wrapper {
+    @include desktop-xl {
+      display: flex;
+      align-items: flex-start;
+    }
+  }
+
+  &__logo-wrapper {
+    margin: 0 0 35px;
+
+    @include desktop-xl {
+      max-width: 520px;
+      margin: 0 217px 0 0;
+    }
+  }
+
+  &__text {
+    color: map-get($colors, "grey");
+    margin: 0;
+    padding: 30px 0;
+    font-weight: map-get($font-weight, "light");
+    font-size: 12px;
+    line-height: 15px;
+
+    @include desktop-lg {
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+}
+
+.copy-right-block {
+  background-color: map-get($colors, "black");
+
+  .container {
+    border-top: 1px solid map-get($colors, "red");
+    border-bottom: 1px solid map-get($colors, "bg-grey");
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+    @include mobile {
+      padding-bottom: 0;
+    }
+
+    @include desktop-xl {
+      padding-top: 40px;
+      padding-bottom: 40px;
+    }
+  }
+
+  &__text {
+    color: map-get($colors, "grey");
+    font-weight: map-get($font-weight, "light");
+    font-size: 12px;
+    line-height: 15px;
+
+    @include desktop-xl {
+      font-size: 16px;
+      line-height: 20px;
+    }
+
+    a {
+      color: map-get($colors, "red");
+      text-decoration: underline;
+      transition: all 0.3s;
+
+      &:hover,
+      &:active,
+      &:focus {
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.copy-right-block-company {
+  background-color: map-get($colors, "black");
+
+  .container {
+    padding-top: 10px;
+
+    @include mobile {
+      padding-top: 0;
+    }
+  }
+
+  &__text {
+    color: map-get($colors, "grey");
+    font-weight: map-get($font-weight, "light");
+    font-size: 12px;
+    line-height: 15px;
+
+    @include desktop-xl {
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+}
+
+.menu {
+  display: block;
+  columns: 2;
+
+  &__wrapper {
+    break-inside: avoid;
+    padding: 0 0 35px;
+  }
+
+  @include tablet {
+    columns: unset;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 30px 50px;
+  }
+
+  @include desktop-xl {
+    gap: 30px 85px;
+  }
+
+  &__column-title {
+    color: map-get($colors, "red");
+    font-weight: map-get($font-weight, "black");
+    font-size: 12px;
+    line-height: 15px;
+    margin: 0 0 25px;
+
+    @include desktop-lg {
+      font-size: 16px;
+      line-height: 20px;
+      margin: 0 0 20px;
+    }
+  }
+}
+
+.menu-column {
+  list-style-type: none;
+
+  &__item {
+    margin-bottom: 25px;
+
+    @include desktop-lg {
+      margin-bottom: 20px;
+    }
+  }
+
+  &__subtitles {
+    margin-top: 20px;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: map-get($colors, "grey");
+    font-weight: map-get($font-weight, "light");
+    font-size: 12px;
+    line-height: 15px;
+
+    @include desktop-lg {
+      font-size: 16px;
+      line-height: 20px;
+    }
+
+    &--bold {
+      font-weight: map-get($font-weight, "black");
+      color: map-get($colors, "white");
+    }
+  }
+}

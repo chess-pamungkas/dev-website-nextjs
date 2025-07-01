@@ -1,0 +1,94 @@
+@import "mixins";
+@import "vars";
+
+.tabs {
+  width: 100%;
+
+  &__tablist-wrapper {
+    display: flex;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px #0000001a;
+  }
+
+  &__tablist {
+    width: 100%;
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+  }
+
+  &__dropdown {
+    width: 100%;
+    margin: 30px 15px;
+  }
+
+  &__tab {
+    color: map-get($colors, "black");
+    font-size: 11px;
+    line-height: 23px;
+    font-weight: map-get($font-weight, "regular");
+    cursor: pointer;
+    text-align: center;
+    padding: 0 20px;
+    min-width: 67px;
+
+    &--active {
+      color: map-get($colors, "white");
+      background-color: map-get($colors, "red");
+      box-shadow: 0 3px 24px #00000029;
+      border-radius: 16px;
+    }
+
+    @include tablet {
+      min-width: 112px;
+      font-size: 18px;
+      line-height: 31px;
+    }
+  }
+
+  &__panels {
+    width: 100%;
+    max-width: 100%;
+    padding: 10px;
+
+    @include tablet {
+      padding: 20px;
+    }
+  }
+
+  &__panel {
+    display: none;
+
+    &--active {
+      display: block;
+    }
+  }
+
+  &__images {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  &__img {
+    width: 34px;
+    box-shadow: 0 0 10px rgba(0,0,0, .16);
+    border-radius: 5px;
+
+    @include tablet {
+      width: 38px;
+    }
+
+    @include desktop-lg {
+      width: 54px;
+    }
+
+    @include desktop-xl {
+      width: 63px;
+    }
+  }
+}

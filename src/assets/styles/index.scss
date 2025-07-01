@@ -1,0 +1,172 @@
+@import "vars";
+@import "mixins";
+@import "container";
+@import "typography";
+
+@import "button-link";
+@import "main-promotion";
+@import "promotion";
+@import "trading-tools";
+@import "trade-with-promotion";
+@import "performance";
+@import "faq";
+@import "top-market";
+@import "top-market-layout";
+@import "header";
+@import "footer";
+@import "navbar-item";
+@import "lang-select";
+@import "burger-menu";
+@import "accordion";
+@import "search-bar";
+@import "dropdown-item";
+@import "dropdown";
+@import "trading-ticker";
+@import "tabs";
+@import "table";
+@import "popup";
+@import "lang-options";
+@import "search-page";
+@import "cookies-popup";
+@import "gdpr-popup";
+@import "notification-stripe";
+@import "promotion-markets";
+@import "top-market-promotion";
+@import "video-banner";
+@import "split-text-promotion";
+@import "company-advantages";
+@import "energies";
+@import "all-markets";
+@import "market-item";
+@import "market-item-advantages";
+@import "legal";
+@import "documents";
+@import "system-info";
+@import "meta-trader";
+@import "mt4";
+@import "mt5";
+@import "ctrader-and-trading-view";
+@import "copy-trading";
+@import "mt-promotion";
+@import "withdrawal";
+@import "professional-qualification";
+@import "text-banner";
+@import "spreads-and-fees";
+@import "help-center";
+@import "partners";
+@import "accounts-type";
+@import "contact-us";
+@import "form";
+@import "education";
+@import "playlist";
+@import "career";
+@import "job-openings";
+@import "trading-tools-page";
+@import "marketing-static-images";
+@import "privacy-policy";
+@import "marketing-circle";
+@import "loader";
+@import "vps";
+@import "swap-free";
+@import "popup-registration";
+
+// rtl should import last
+@import "rtl";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: $font;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  &.overflow-hidden {
+    overflow: hidden;
+  }
+
+  & #gatsby-focus-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    & main {
+      flex-grow: 1;
+      // overflow-x: hidden; checking if solved the problem
+    }
+  }
+}
+
+.scroll-container {
+  max-height: 100vh;
+}
+
+.highlighted {
+  &-in-red {
+    color: map-get($colors, "red");
+  }
+
+  &-in-black {
+    color: map-get($colors, "black");
+  }
+
+  &-in-white {
+    color: map-get($colors, "white");
+  }
+}
+
+.bold {
+  font-weight: map-get($font-weight, "bold");
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.hidden-on-mobile {
+  @include mobile {
+    display: none;
+  }
+}
+
+.display-block {
+  display: block;
+}
+
+.mocked-li {
+  display: list-item;
+}
+
+#default-nojs {
+  display: none;
+}
+
+.jp-font {
+  font-family: $fontJP;
+
+  button {
+    font-family: $fontJP;
+  }
+
+  input {
+    font-family: $fontJP;
+  }
+}
+
+button {
+  font-family: $font;
+}
+
+input {
+  font-family: $font;
+}

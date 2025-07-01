@@ -1,0 +1,220 @@
+@import "vars";
+@import "mixins";
+
+.corner-panel {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 10px;
+
+  @include desktop-lg {
+    padding-top: 17px;
+  }
+
+  &__content {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+  }
+
+  &__link {
+    text-align: center;
+    font-weight: map-get($font-weight, "regular");
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: 0.28px;
+    color: map-get($colors, "white");
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+  }
+
+  &__separator {
+    text-align: center;
+    font-weight: map-get($font-weight, "regular");
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: 0.28px;
+    color: map-get($colors, "white");
+    padding: 0px 8px;
+  }
+}
+
+.header {
+  &-wrapper {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    width: 100%;
+  }
+
+  &__main-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    background-color: transparent;
+    height: 65px;
+
+    // @include desktop-lg {
+    //   padding: 12px 0;
+    // }
+  }
+
+  &--small {
+    background: map-get($colors, "white") 0% 0% no-repeat padding-box;
+    height: $header-height-small;
+    transition: all 0.4s ease-in-out;
+    transform: translateY(-40px);
+    box-shadow: 0 6px 8px #00000029;
+
+    // @include desktop-xl {
+    //   height: 140px;
+    // }
+  }
+
+  &--big {
+    background: transparent linear-gradient(180deg, #ff4400 0%, #ff440000 100%)
+      0% 0% no-repeat padding-box;
+    height: $header-height;
+    transition: all 0.4s ease-in-out;
+    box-shadow: unset;
+  }
+
+  width: 100%;
+
+  background: map-get($colors, "white") 0% 0% no-repeat padding-box;
+  height: $header-height-small-mobile;
+  box-shadow: 0 6px 8px #00000029;
+
+  &__logo {
+    height: 33px;
+    width: auto;
+    transition: all 0.3s ease;
+  }
+
+  &__center {
+    display: flex;
+    align-items: center;
+    flex: 1;
+
+    @include tablet {
+      justify-content: center;
+      padding: 0 20px;
+    }
+  }
+
+  &__left {
+    display: flex;
+    align-items: center;
+    padding: 10px 11px;
+
+    @include tablet {
+      min-width: 120px;
+      padding: 10px 0;
+    }
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    min-width: 120px;
+
+    @include tablet {
+      justify-content: flex-end;
+    }
+  }
+
+  &__signin {
+    margin-left: 26px;
+    padding: 0 33px;
+
+    &--red {
+      color: map-get($colors, "red");
+
+      &:hover,
+      &:active,
+      &:focus {
+        border: 2px solid map-get($colors, "red");
+      }
+    }
+
+    @include desktop-xl {
+      margin-left: 50px;
+      padding: 0 38px;
+    }
+  }
+
+  &__start {
+    margin-left: 10px;
+    padding: 0 16px;
+    background-color: map-get($colors, "white");
+    color: map-get($colors, "red");
+    text-transform: uppercase;
+    border: 2px solid map-get($colors, "white");
+
+    &--red {
+      border: 2px solid map-get($colors, "red");
+    }
+
+    @include desktop-xl {
+      padding: 0 36px;
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+      background: map-get($colors, "red");
+      color: map-get($colors, "white");
+    }
+  }
+
+  &__navigation {
+    display: none;
+
+    @include desktop-lg {
+      display: flex;
+      align-self: stretch;
+    }
+  }
+
+  &__controls {
+    display: none;
+
+    @include desktop-lg {
+      display: flex;
+    }
+  }
+
+  &__search {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1002;
+    transition: all 0.4s ease-in-out;
+    pointer-events: none;
+
+    &.active {
+      pointer-events: all;
+    }
+
+    &--small {
+      top: 70%;
+    }
+
+    &-wrapper {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      padding: 30px 0;
+    }
+
+    @include desktop-lg {
+      display: block;
+    }
+  }
+}

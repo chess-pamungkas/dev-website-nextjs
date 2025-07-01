@@ -1,0 +1,223 @@
+@import "vars";
+@import "mixins";
+
+.burger-menu {
+  @include desktop-lg {
+    display: none;
+  }
+
+  &__cbox {
+    position: absolute;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+
+    &:checked {
+      & ~ .burger-menu__navbar {
+        visibility: visible;
+        opacity: 1;
+        z-index: 22;
+      }
+    }
+  }
+
+  &__trigger {
+    position: absolute;
+    top: 20px;
+    right: 26px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    &--open {
+      & > .burger-menu__bar {
+        &:first-child,
+        &:last-child {
+          height: 3px;
+          box-shadow: 0 0 0 2px map-get($colors, "red");
+        }
+
+        &:first-child {
+          top: 11px;
+          transform: rotate(45deg);
+        }
+
+        &:nth-child(2) {
+          opacity: 0;
+        }
+
+        &:last-child {
+          top: -11px;
+          transform: rotate(-45deg);
+        }
+      }
+    }
+  }
+
+  &__bar {
+    width: 31px;
+    height: 5px;
+    position: relative;
+    display: block;
+    border-radius: 3px;
+    background-color: map-get($colors, "white");
+    transition: 0.3s ease-out;
+
+    & + & {
+      margin-top: 7px;
+    }
+
+    &--red {
+      background-color: map-get($colors, "red");
+    }
+  }
+
+  &__navbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 10%;
+    padding: 78px 30px;
+    overflow-y: auto;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    background-color: map-get($colors, "white");
+    box-shadow: 0 5px 10px #0000001a;
+
+    &--lang-popup-opened {
+      left: 0;
+    }
+
+    @include tablet {
+      padding: 85px 26px 26px 96px;
+    }
+
+    &::-webkit-scrollbar {
+      width: 2px;
+      background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #cfcfcf;
+    }
+  }
+
+  &__item {
+    text-align: right;
+
+    &:not(:last-child) {
+      padding-bottom: 30px;
+      border-bottom: 1px solid rgba(35, 35, 35, 0.1);
+    }
+
+    & + & {
+      margin-top: 30px;
+    }
+  }
+
+  &__btns {
+    display: flex;
+    align-items: center;
+  }
+
+  &__lang-select {
+    &-mobile {
+      position: absolute;
+      top: 18px;
+    }
+
+    &-tablet {
+      margin-left: 20px;
+    }
+  }
+
+  &__start {
+    text-transform: uppercase;
+
+    @include tablet {
+      height: 40px;
+      padding: 0 18px;
+      background-color: map-get($colors, "red");
+      color: map-get($colors, "white");
+    }
+
+    &--tablet {
+      margin-top: 20px;
+      margin-left: auto;
+    }
+  }
+
+  &__search {
+    position: relative;
+    flex-grow: 1;
+
+    @include tablet {
+      margin-left: 20px;
+    }
+  }
+
+  &__signin {
+    margin-left: auto;
+  }
+
+  &__navigation {
+    &-item {
+      & + & {
+        margin-top: 30px;
+      }
+    }
+  }
+
+  &__accordion {
+    & .accordion__title {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 8px;
+      color: map-get($colors, "black");
+      font-weight: map-get($font-weight, "bold");
+      font-size: 18px;
+      line-height: 22px;
+
+      @include tablet {
+        font-size: 24px;
+        line-height: 30px;
+      }
+    }
+
+    & .accordion__expandable {
+      margin-top: 12px;
+
+      @include tablet {
+        margin-top: 19px;
+      }
+    }
+  }
+
+  &__link {
+    color: map-get($colors, "red");
+    font-family: $font;
+    font-weight: map-get($font-weight, "light");
+    font-size: 15px;
+    line-height: 19px;
+
+    @include tablet {
+      font-size: 16px;
+      line-height: 20px;
+    }
+
+    &-item {
+      & + & {
+        margin-top: 20px;
+      }
+    }
+  }
+
+  &__subtitles {
+    margin-top: 20px;
+  }
+}
