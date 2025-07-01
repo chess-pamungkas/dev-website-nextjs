@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 /**
- * This script copies the registration popup script to the static folder
- * so it can be accessed during development.
+ * This script copies the registration popup script to the public folder
+ * so it can be accessed during development and by external websites.
  * It also creates a minified version of the script.
  *
  * Environment variables used by the script:
@@ -22,14 +22,14 @@ const registrationScriptDir = path.join(
 );
 const registrationScriptFile = path.join(registrationScriptDir, "index.js");
 
-const staticDir = path.join(root, "static");
-const staticScriptsDir = path.join(staticDir, "scripts");
+const publicDir = path.join(root, "public");
+const publicScriptsDir = path.join(publicDir, "scripts");
 const regularOutputPath = path.join(
-  staticScriptsDir,
+  publicScriptsDir,
   "registration-popup-script.js"
 );
 const minifiedOutputPath = path.join(
-  staticScriptsDir,
+  publicScriptsDir,
   "registration-popup-script.min.js"
 );
 
@@ -40,8 +40,8 @@ console.log("Regular output path:", regularOutputPath);
 console.log("Minified output path:", minifiedOutputPath);
 
 // Ensure directories exist
-fs.ensureDirSync(staticDir);
-fs.ensureDirSync(staticScriptsDir);
+fs.ensureDirSync(publicDir);
+fs.ensureDirSync(publicScriptsDir);
 
 async function processScripts() {
   try {
@@ -52,7 +52,7 @@ async function processScripts() {
 
     // Copy the unminified registration script
     fs.copySync(registrationScriptFile, regularOutputPath);
-    console.log("✓ Registration script copied to static folder");
+    console.log("✓ Registration script copied to public folder");
 
     // Read the source file for minification
     const sourceCode = fs.readFileSync(registrationScriptFile, "utf8");
