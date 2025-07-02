@@ -181,22 +181,6 @@ function MyApp({ Component, pageProps }) {
     if (i18n && i18n.language !== currentLang) {
       console.log(`[App] Syncing i18n language to: ${currentLang}`);
       i18n.changeLanguage(currentLang);
-
-      // Cleanup reCAPTCHA when language changes to prevent conflicts
-      if (typeof window !== "undefined" && window.grecaptcha) {
-        try {
-          // Reset reCAPTCHA to prevent "already rendered" errors
-          const recaptchaElements =
-            document.querySelectorAll(".grecaptcha-badge");
-          recaptchaElements.forEach((element) => {
-            if (element.parentNode) {
-              element.parentNode.removeChild(element);
-            }
-          });
-        } catch (error) {
-          console.warn("[ReCaptcha] Error cleaning up reCAPTCHA:", error);
-        }
-      }
     }
   }, [currentLang]);
 
@@ -419,7 +403,7 @@ function MyApp({ Component, pageProps }) {
   };
 
   return (
-    <MemoizedReCaptchaProvider>
+    <MemoizedReCaptchaProvider language={currentLang}>
       <MemoizedLanguageProvider>
         <MemoizedCommonProvider>
           <MemoizedCookieProvider>

@@ -78,7 +78,7 @@ const nextConfig = {
                     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
                     "font-src 'self' https://fonts.gstatic.com",
                     "img-src 'self' data: https:",
-                    "connect-src 'self' https://www.google.com https://webchat.conv.rs https://dev-back.oqt-ima.com",
+                    "connect-src 'self' https://www.google.com https://webchat.conv.rs https://dev-back.oqt-ima.com wss://dev-back.oqt-ima.com",
                     "frame-src 'self' https://www.google.com https://webchat.conv.rs",
                     "frame-ancestors 'self' https://www.google.com https://www.gstatic.com",
                     "worker-src 'self' https://www.google.com https://webchat.conv.rs blob:",

@@ -1,18 +1,34 @@
 import React, { useEffect, useRef, useState } from "react";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
-const ReCaptchaProvider = ({ children, showBadge = false }) => {
+const ReCaptchaProvider = ({
+  children,
+  showBadge = false,
+  language = "en",
+}) => {
   const scriptLoadedRef = useRef(false);
   const cleanupRef = useRef(null);
+  const languageRef = useRef(language);
   const [isScriptReady, setIsScriptReady] = useState(false);
+  const [isCleaningUp, setIsCleaningUp] = useState(false);
 
   useEffect(() => {
     // Cleanup any existing reCAPTCHA instances before loading new one
-    const cleanupReCaptcha = () => {
+    const cleanupReCaptcha = async () => {
+      setIsCleaningUp(true);
+
       // Remove existing reCAPTCHA script
       const existingScript = document.getElementById("google-recaptcha-v3");
       if (existingScript) {
         document.body.removeChild(existingScript);
+      }
+
+      // Remove existing reCAPTCHA provider script
+      const existingProviderScript = document.getElementById(
+        "google-recaptcha-v3-provider"
+      );
+      if (existingProviderScript) {
+        document.body.removeChild(existingProviderScript);
       }
 
       // Remove existing reCAPTCHA style
@@ -35,92 +51,108 @@ const ReCaptchaProvider = ({ children, showBadge = false }) => {
           element.parentNode.removeChild(element);
         }
       });
+
+      // Wait a bit to ensure cleanup is complete
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      setIsCleaningUp(false);
+      scriptLoadedRef.current = false;
     };
 
     // Store cleanup function for later use
     cleanupRef.current = cleanupReCaptcha;
 
-    // Only load reCAPTCHA if not already loaded
-    if (
-      scriptLoadedRef.current ||
-      document.getElementById("google-recaptcha-v3")
-    ) {
-      return;
-    }
+    // Check if language has changed or if we need to load for the first time
+    const shouldReload =
+      !scriptLoadedRef.current || languageRef.current !== language;
 
-    // Load reCAPTCHA script immediately to ensure it's available
-    const loadReCaptcha = () => {
-      // Cleanup first
-      cleanupReCaptcha();
+    if (shouldReload && !isCleaningUp) {
+      // Update language reference
+      languageRef.current = language;
 
       // Load reCAPTCHA script with better performance settings
-      const script = document.createElement("script");
-      script.src = `https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_GOOGLE_CAPTCHA_SITE_KEY}`;
-      script.async = true;
-      script.defer = false; // Changed to false to ensure immediate loading
-      script.id = "google-recaptcha-v3";
+      const loadReCaptcha = async () => {
+        // Cleanup first if needed
+        if (scriptLoadedRef.current) {
+          await cleanupReCaptcha();
+        }
 
-      // Add performance attributes
-      script.setAttribute("importance", "high"); // Changed to high priority
-      script.setAttribute("loading", "eager"); // Changed to eager loading
-      // Load script immediately and wait for it to be ready
-      script.onload = () => {
-        scriptLoadedRef.current = true;
-        // Wait a bit more to ensure grecaptcha is fully initialized
-        setTimeout(() => {
-          setIsScriptReady(true);
-        }, 100);
+        // Check if script is already being loaded
+        if (document.getElementById("google-recaptcha-v3")) {
+          return;
+        }
+
+        const script = document.createElement("script");
+        script.src = `https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_GOOGLE_CAPTCHA_SITE_KEY}&hl=${language}`;
+        script.async = true;
+        script.defer = false;
+        script.id = "google-recaptcha-v3";
+
+        // Add performance attributes
+        script.setAttribute("importance", "high");
+        script.setAttribute("loading", "eager");
+
+        // Load script immediately and wait for it to be ready
+        script.onload = () => {
+          scriptLoadedRef.current = true;
+          // Wait a bit more to ensure grecaptcha is fully initialized
+          setTimeout(() => {
+            setIsScriptReady(true);
+          }, 100);
+        };
+
+        script.onerror = (error) => {
+          console.warn("[ReCaptcha] Script loading failed:", error);
+          scriptLoadedRef.current = false;
+          setIsScriptReady(false);
+          // Retry after a delay
+          setTimeout(() => {
+            if (!scriptLoadedRef.current) {
+              loadReCaptcha();
+            }
+          }, 2000);
+        };
+
+        // Load script immediately
+        document.body.appendChild(script);
+
+        // Update style to position badge at bottom left with better performance
+        const style = document.createElement("style");
+        style.setAttribute("data-recaptcha-style", "true");
+        style.innerHTML = `
+        .grecaptcha-badge { 
+          visibility: ${showBadge ? "visible" : "hidden"} !important;
+          left: 0 !important;
+          right: auto !important;
+          bottom: 0 !important;
+          position: fixed !important;
+          z-index: 999999 !important;
+          width: 70px !important;
+          transition: width 0.2s ease !important;
+          overflow: hidden !important;
+          transform: none !important;
+          direction: ltr !important;
+          will-change: width !important;
+        }
+        .grecaptcha-badge:hover {
+          width: 256px !important;
+        }
+        .grecaptcha-badge .grecaptcha-logo {
+          transform: none !important;
+        }
+        [dir="rtl"] .grecaptcha-badge {
+          transform: none !important;
+        }
+        [dir="rtl"] .grecaptcha-badge .grecaptcha-logo {
+          transform: none !important;
+        }
+      `;
+        document.head.appendChild(style);
       };
 
-      script.onerror = (error) => {
-        console.warn("[ReCaptcha] Script loading failed:", error);
-        // Retry after a delay
-        setTimeout(() => {
-          if (!scriptLoadedRef.current) {
-            loadReCaptcha();
-          }
-        }, 2000);
-      };
-
-      // Load script immediately
-      document.body.appendChild(script);
-
-      // Update style to position badge at bottom left with better performance
-      const style = document.createElement("style");
-      style.setAttribute("data-recaptcha-style", "true");
-      style.innerHTML = `
-      .grecaptcha-badge { 
-        visibility: ${showBadge ? "visible" : "hidden"} !important;
-        left: 0 !important;
-        right: auto !important;
-        bottom: 0 !important;
-        position: fixed !important;
-        z-index: 999999 !important;
-        width: 70px !important;
-          transition: width 0.2s ease !important; /* Reduced from 0.3s */
-        overflow: hidden !important;
-        transform: none !important;
-        direction: ltr !important;
-          will-change: width !important; /* Optimize for animation */
-      }
-      .grecaptcha-badge:hover {
-        width: 256px !important;
-      }
-      .grecaptcha-badge .grecaptcha-logo {
-        transform: none !important;
-      }
-      [dir="rtl"] .grecaptcha-badge {
-        transform: none !important;
-      }
-      [dir="rtl"] .grecaptcha-badge .grecaptcha-logo {
-        transform: none !important;
-      }
-    `;
-      document.head.appendChild(style);
-    };
-
-    // Load reCAPTCHA immediately
-    loadReCaptcha();
+      // Load reCAPTCHA immediately
+      loadReCaptcha();
+    }
 
     return () => {
       // Cleanup script when component unmounts
@@ -128,10 +160,10 @@ const ReCaptchaProvider = ({ children, showBadge = false }) => {
         cleanupRef.current();
       }
     };
-  }, [showBadge]);
+  }, [showBadge, language]);
 
-  // Only render the provider when the script is ready
-  if (!isScriptReady) {
+  // Only render the provider when the script is ready and not cleaning up
+  if (!isScriptReady || isCleaningUp) {
     return (
       <>
         {children}
@@ -151,7 +183,7 @@ const ReCaptchaProvider = ({ children, showBadge = false }) => {
           id: "google-recaptcha-v3-provider",
           importance: "high",
         }}
-        language="en"
+        language={language}
         useEnterprise={false}
         container={{
           element: "captcha-placeholder",
@@ -162,7 +194,10 @@ const ReCaptchaProvider = ({ children, showBadge = false }) => {
           },
         }}
         onLoad={() => {
-          console.log("[ReCaptcha] Provider loaded successfully");
+          console.log(
+            "[ReCaptcha] Provider loaded successfully for language:",
+            language
+          );
         }}
         onError={(error) => {
           console.warn("[ReCaptcha] Error loading reCAPTCHA:", error);
