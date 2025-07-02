@@ -2,7 +2,6 @@ import React from "react";
 import cn from "classnames";
 import PropTypes from "prop-types";
 import { useTranslationWithVariables } from "../../../../helpers/hooks/use-translation-with-vars";
-import image from "../../../../assets/images/trading-tools/market-buzz.png";
 import { MARKET_BUZZ_INFO } from "../../../../helpers/trading-tools.config";
 import { stringTransformToKebabCase } from "../../../../helpers/services/string-service";
 
@@ -12,7 +11,7 @@ const MarketBuzzInfo = ({ className }) => {
   return (
     <div className={cn("mb-info", className)}>
       <img
-        src={image}
+        src="/images/trading-tools/market-buzz.png"
         className="mb-info__img"
         alt={t("trading-tools_market-buzz_title")}
       />

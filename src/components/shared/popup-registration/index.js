@@ -7,7 +7,6 @@ import { useTranslationWithVariables } from "../../../helpers/hooks/use-translat
 import { useRtlDirection } from "../../../helpers/hooks/use-rtl-direction";
 import { currentEntity } from "../../../helpers/entity-resolver";
 import { useWindowSize } from "../../../helpers/hooks/use-window-size";
-import bulletImage from "../../../assets/images/icons/bullet.png";
 import PopupRegistrationForm from "./components/popup-registration-form";
 
 const RTL_LANGUAGES = ["ar"];
@@ -1620,7 +1619,7 @@ const PopupRegistration = ({ isOpen, onClose, className, params }) => {
                 isMobile ||
                 window.matchMedia("(orientation: landscape)").matches) && (
                 <img
-                  src="/icons/close-icon.svg"
+                  src="/images/icons/close-icon.svg"
                   alt="Close"
                   className={cn(
                     isRTLMode
@@ -1656,7 +1655,7 @@ const PopupRegistration = ({ isOpen, onClose, className, params }) => {
             >
               {!isRTLMode && !isMobile && (
                 <img
-                  src="/icons/close-icon.svg"
+                  src="/images/icons/close-icon.svg"
                   alt="Close"
                   className="popup-registration__close"
                   onClick={handleClose}
@@ -1685,17 +1684,6 @@ const PopupRegistration = ({ isOpen, onClose, className, params }) => {
   );
 
   return ReactDOM.createPortal(popupContent, document.body);
-};
-
-const Bullet = () => {
-  return (
-    <img
-      src={bulletImage}
-      alt="Bullet"
-      style={{ width: "10px", height: "10px" }}
-      className="object-cover"
-    />
-  );
 };
 
 PopupRegistration.propTypes = {

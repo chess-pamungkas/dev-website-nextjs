@@ -799,63 +799,60 @@ const PopupRegistrationForm = ({ params }) => {
     }
   }, [safeParams]);
 
-  // Update state values when params change - optimized for performance
+  // Update state values when params change
   useEffect(() => {
-    // Use requestAnimationFrame to batch state updates
-    requestAnimationFrame(() => {
-      // Handle referral_type - could be number or string
-      if (
-        safeParams.referral_type !== undefined &&
-        safeParams.referral_type !== null
-      ) {
-        // Convert string to number if it's numeric
-        const typeValue = !isNaN(safeParams.referral_type)
-          ? Number(safeParams.referral_type)
-          : safeParams.referral_type;
+    // Handle referral_type - could be number or string
+    if (
+      safeParams.referral_type !== undefined &&
+      safeParams.referral_type !== null
+    ) {
+      // Convert string to number if it's numeric
+      const typeValue = !isNaN(safeParams.referral_type)
+        ? Number(safeParams.referral_type)
+        : safeParams.referral_type;
 
-        setReferralType(typeValue);
+      setReferralType(typeValue);
 
-        // Also store in session storage for persistence
-        try {
-          sessionStorage.setItem("oqtima_referral_type", typeValue);
-          // Also set as a global variable as a fallback
-          window.__OQTIMA_REFERRAL_TYPE__ = typeValue;
-        } catch (e) {
-          /* ignore storage errors */
-        }
+      // Also store in session storage for persistence
+      try {
+        sessionStorage.setItem("oqtima_referral_type", typeValue);
+        // Also set as a global variable as a fallback
+        window.__OQTIMA_REFERRAL_TYPE__ = typeValue;
+      } catch (e) {
+        /* ignore storage errors */
       }
+    }
 
-      // Handle referral_value
-      if (
-        safeParams.referral_value !== undefined &&
-        safeParams.referral_value !== null
-      ) {
-        setReferralValue(safeParams.referral_value);
+    // Handle referral_value
+    if (
+      safeParams.referral_value !== undefined &&
+      safeParams.referral_value !== null
+    ) {
+      setReferralValue(safeParams.referral_value);
 
-        // Also store in session storage for persistence
-        try {
-          sessionStorage.setItem(
-            "oqtima_referral_value",
-            safeParams.referral_value
-          );
-          // Also set as a global variable as a fallback
-          window.__OQTIMA_REFERRAL_VALUE__ = safeParams.referral_value;
-        } catch (e) {
-          /* ignore storage errors */
-        }
+      // Also store in session storage for persistence
+      try {
+        sessionStorage.setItem(
+          "oqtima_referral_value",
+          safeParams.referral_value
+        );
+        // Also set as a global variable as a fallback
+        window.__OQTIMA_REFERRAL_VALUE__ = safeParams.referral_value;
+      } catch (e) {
+        /* ignore storage errors */
       }
+    }
 
-      // Update language from safeParams if available
-      if (safeParams.langParam) {
-        // Highest priority is langParam from safeParams
-        setLanguageFromUrl(null); // Reset language from URL
-        setLanguageFromMessage(null); // Reset language from message
+    // Update language from safeParams if available
+    if (safeParams.langParam) {
+      // Highest priority is langParam from safeParams
+      setLanguageFromUrl(null); // Reset language from URL
+      setLanguageFromMessage(null); // Reset language from message
 
-        // We'll set languageFromUrl based on safeParams.langParam
-        // This ensures our language priority logic works correctly
-        setLanguageFromUrl(safeParams.langParam);
-      }
-    });
+      // We'll set languageFromUrl based on safeParams.langParam
+      // This ensures our language priority logic works correctly
+      setLanguageFromUrl(safeParams.langParam);
+    }
   }, [safeParams]);
 
   // Listen for messages from parent window with higher priority
@@ -1059,24 +1056,41 @@ const PopupRegistrationForm = ({ params }) => {
           }
         }
 
-        // If language detected from URL, set it
+        // Set the language if detected from any source
         if (detectedLanguage) {
-          const sanitizedLang = sanitizeLanguageCode(detectedLanguage);
-          if (sanitizedLang) {
-            setLanguageFromMessage(sanitizedLang);
+          // Clean up the language code to ensure proper formatting
+          const cleanLang = sanitizeLanguageCode(detectedLanguage);
+          // console.log("Setting language from URL:", cleanLang);
+
+          // Special handling for Arabic
+          if (isRTLLanguage(cleanLang)) {
+            // Set RTL flags in session storage and globals
+            try {
+              sessionStorage.setItem("oqtima_tab_rtl", "true");
+              sessionStorage.setItem("isRTL", "true");
+              window.__FORCE_RTL__ = true;
+              window.__ORIGINAL_RTL__ = true;
+            } catch (e) {
+              // console.warn("Error storing RTL flags:", e);
+            }
           }
+
+          setLanguageFromUrl(cleanLang);
         }
-      } catch (error) {
-        console.error("Error extracting URL parameters:", error);
+      } catch (err) {
+        // console.error("Error extracting parameters:", err);
       }
     };
 
-    // Execute URL parameter extraction immediately
+    // Extract parameters from URL immediately
     extractUrlParams();
 
-    // Cleanup function to remove event listener
+    // Try again after a short delay (for late-loading cases)
+    const timeout = setTimeout(extractUrlParams, 500);
+
     return () => {
       window.removeEventListener("message", handleMessage);
+      clearTimeout(timeout);
     };
   }, []);
 
@@ -1468,12 +1482,6 @@ const PopupRegistrationForm = ({ params }) => {
   useEffect(() => {
     const fetchPolicyLinks = async () => {
       try {
-        // Check if API_URL is available
-        if (!API_URL) {
-          console.warn("API_URL is not defined, skipping policy links fetch");
-          return;
-        }
-
         // Create a local copy of portalLanguageCode that we can modify within this function scope
         let apiLanguageCode = portalLanguageCode;
 
@@ -1515,14 +1523,7 @@ const PopupRegistrationForm = ({ params }) => {
           cookiePolicy: cookieLink || "",
         });
       } catch (error) {
-        console.error("Error fetching policy links:", error);
         sendLog({ message: error.message, type: error.name });
-
-        // Set empty policy links as fallback
-        setPolicyLinks({
-          privacyPolicy: "",
-          cookiePolicy: "",
-        });
       }
     };
 
@@ -1953,7 +1954,32 @@ const PopupRegistrationForm = ({ params }) => {
   // Update the handleRegistrationtForm function to ensure referral parameters are included
   const handleRegistrationtForm = async (values) => {
     setIsLoading(true);
-    const token = await executeRecaptcha("popup_registration");
+    let token = null;
+    try {
+      // Always require reCAPTCHA, even in development
+      if (!executeRecaptcha) {
+        setErrorMessage(
+          "reCAPTCHA is required and could not be loaded. Please refresh the page."
+        );
+        setIsLoading(false);
+        return;
+      }
+      // Try to get reCAPTCHA token with timeout
+      const tokenPromise = executeRecaptcha("popup_registration");
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error("reCAPTCHA timeout")), 5000)
+      );
+      token = await Promise.race([tokenPromise, timeoutPromise]);
+      if (!token) {
+        setErrorMessage("reCAPTCHA verification failed. Please try again.");
+        setIsLoading(false);
+        return;
+      }
+    } catch (error) {
+      setErrorMessage("reCAPTCHA verification failed. Please try again.");
+      setIsLoading(false);
+      return;
+    }
 
     // Create a local copy of portalLanguageCode that we can modify
     let submissionLanguage = portalLanguageCode;
@@ -2104,7 +2130,11 @@ const PopupRegistrationForm = ({ params }) => {
         language: submissionLanguage,
         token,
         redirect: "register",
-        register_ip: clientIpAddress || clientConfig?.ipAddress || "",
+        // Robust: fallback to 127.0.0.1 if all else fails, and prevent crash if clientConfig is undefined
+        register_ip:
+          clientIpAddress ||
+          (clientConfig && clientConfig.ipAddress) ||
+          "127.0.0.1",
         agreement: true,
         privacy: policyLinks.privacyPolicy,
         cookie: policyLinks.cookiePolicy,
@@ -2364,7 +2394,7 @@ const PopupRegistrationForm = ({ params }) => {
               stroke="#ff4400"
             >
               <path
-                strokeDasharray="1200 1200"
+                stroke-dasharray="1200 1200"
                 d="M402.2,179c0.6-1.1,1.3-2.2,1.9-3.4c0.2-0.4,0.4-0.8,0.6-1.2c0.4-0.9,0.9-1.7,1.3-2.6c0.7-1.3,1.3-2.7,1.9-4.1
                 c0.6-1.3,1.1-2.6,1.6-4c0-0.1,0.1-0.2,0.1-0.3c0.5-1.3,1-2.7,1.4-4c0-0.1,0.1-0.2,0.1-0.3c3.2-9.8,4.7-20,4.7-30.7
                 c0-1.5,0-3-0.1-4.6c2.1-36.8,32.6-66,70-66c38.7,0,70.1,31.4,70.1,70.1c0,12.9-3.5,24.9-9.6,35.3h0l23.6,21.8
@@ -2381,7 +2411,7 @@ const PopupRegistrationForm = ({ params }) => {
               />
               <path
                 id="oqtima"
-                strokeDasharray="1200 1200"
+                stroke-dasharray="1200 1200"
                 d="M485.8,130.6v42.5v7.1v18c-27.5,0-51.3-15.9-62.8-38.9c-1.3,4.4-2.8,8.8-4.6,13c-3.1,7.2-6.9,13.9-11.3,20.2
                 c18.7,22.7,47,37.3,78.7,37.3c11.1,0,21.7-1.8,31.7-5.1l0.1,0v0v-20.1l25.2,25.2h42.8C583.2,229.7,485.8,130.6,485.8,130.6z"
               />
@@ -2399,7 +2429,7 @@ const PopupRegistrationForm = ({ params }) => {
               ? countries.find(
                   (country) =>
                     country.name.toLowerCase() ===
-                    (clientConfig?.countryName || "").toLowerCase()
+                    clientConfig.countryName.toLowerCase()
                 )?.code || ""
               : "",
             mobile: "",
@@ -2428,7 +2458,7 @@ const PopupRegistrationForm = ({ params }) => {
                 const matchingCountry = countries.find(
                   (country) =>
                     country.name.toLowerCase() ===
-                    (clientConfig?.countryName || "").toLowerCase()
+                    clientConfig.countryName.toLowerCase()
                 );
                 if (matchingCountry) {
                   setSelectedCountry(matchingCountry.name);
@@ -2593,7 +2623,7 @@ const PopupRegistrationForm = ({ params }) => {
                             </span>
                           )}
                           <img
-                            src="/icons/arrow-down.png"
+                            src="/images/icons/arrow-down.png"
                             alt="dropdown"
                             className="custom-dropdown__arrow"
                           />
@@ -2647,7 +2677,7 @@ const PopupRegistrationForm = ({ params }) => {
                               </span>
                             )}
                             <img
-                              src="/icons/arrow-down.png"
+                              src="/images/icons/arrow-down.png"
                               alt="dropdown"
                               className="custom-dropdown__arrow"
                             />

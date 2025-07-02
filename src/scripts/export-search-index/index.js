@@ -5,9 +5,7 @@ const path = require("path");
 // This script generates a search index from the website content
 
 // Configuration
-const PAGES_DIR = "./src/pages";
-const COMPONENTS_DIR = "./src/components";
-const LOCALES_DIR = "../src/locales";
+const LOCALES_DIR = path.resolve(__dirname, "../../locales");
 const OUTPUT_FILE = "./src/data/search-index.json";
 
 // Supported languages (based on the locales directory)
@@ -18,28 +16,13 @@ const SUPPORTED_LANGUAGES = [
   "cn",
   "zh",
   "fr",
-  "pt",
   "vn",
   "th",
   "id",
   "jp",
   "br",
-  "de",
   "my",
   "ar",
-  "bd",
-  "cz",
-  "da",
-  "gr",
-  "in",
-  "kr",
-  "nl",
-  "no",
-  "ph",
-  "pl",
-  "ro",
-  "ru",
-  "sw",
 ];
 
 // Search index structure
@@ -120,18 +103,13 @@ async function exportSearchIndex() {
     });
     // Load locale files
     const locales = await loadLocaleFiles();
-    // For each language, output entries in the format Gatsby expects
+    // For each language, output all string entries as { key, value }
     Object.keys(locales).forEach((lang) => {
       const localeData = locales[lang] || {};
       const entries = Object.entries(localeData)
-        .filter(
-          ([key, value]) => typeof value === "string" && key.includes("_")
-        )
-        .map(([key, value]) => {
-          const page = key.split("_")[0];
-          return `${page === "index" ? "/" : "/" + page + "/"}_${value}`;
-        });
-      searchIndex[lang] = Array.from(new Set(entries));
+        .filter(([key, value]) => typeof value === "string")
+        .map(([key, value]) => ({ key, value }));
+      searchIndex[lang] = entries;
       console.log(
         `[${lang}] Added ${searchIndex[lang].length} entries from locale`
       );

@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
 const ReCaptchaProvider = ({ children, showBadge = false }) => {
   const scriptLoadedRef = useRef(false);
   const cleanupRef = useRef(null);
+  const [isScriptReady, setIsScriptReady] = useState(false);
 
   useEffect(() => {
     // Cleanup any existing reCAPTCHA instances before loading new one
@@ -47,7 +48,7 @@ const ReCaptchaProvider = ({ children, showBadge = false }) => {
       return;
     }
 
-    // Defer reCAPTCHA loading to reduce initial load time
+    // Load reCAPTCHA script immediately to ensure it's available
     const loadReCaptcha = () => {
       // Cleanup first
       cleanupReCaptcha();
@@ -56,33 +57,33 @@ const ReCaptchaProvider = ({ children, showBadge = false }) => {
       const script = document.createElement("script");
       script.src = `https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_GOOGLE_CAPTCHA_SITE_KEY}`;
       script.async = true;
-      script.defer = true;
+      script.defer = false; // Changed to false to ensure immediate loading
       script.id = "google-recaptcha-v3";
 
       // Add performance attributes
-      script.setAttribute("importance", "low");
-      script.setAttribute("loading", "lazy");
-
-      // Add CSP nonce if available
-      const nonce = document
-        .querySelector('meta[name="csp-nonce"]')
-        ?.getAttribute("content");
-      if (nonce) {
-        script.setAttribute("nonce", nonce);
-      }
-
-      // Use requestIdleCallback to defer loading if possible
-      const loadScript = () => {
-        document.body.appendChild(script);
+      script.setAttribute("importance", "high"); // Changed to high priority
+      script.setAttribute("loading", "eager"); // Changed to eager loading
+      // Load script immediately and wait for it to be ready
+      script.onload = () => {
         scriptLoadedRef.current = true;
+        // Wait a bit more to ensure grecaptcha is fully initialized
+        setTimeout(() => {
+          setIsScriptReady(true);
+        }, 100);
       };
 
-      if ("requestIdleCallback" in window) {
-        requestIdleCallback(loadScript, { timeout: 2000 });
-      } else {
-        // Use requestAnimationFrame for better performance
-        requestAnimationFrame(loadScript);
-      }
+      script.onerror = (error) => {
+        console.warn("[ReCaptcha] Script loading failed:", error);
+        // Retry after a delay
+        setTimeout(() => {
+          if (!scriptLoadedRef.current) {
+            loadReCaptcha();
+          }
+        }, 2000);
+      };
+
+      // Load script immediately
+      document.body.appendChild(script);
 
       // Update style to position badge at bottom left with better performance
       const style = document.createElement("style");
@@ -118,13 +119,8 @@ const ReCaptchaProvider = ({ children, showBadge = false }) => {
       document.head.appendChild(style);
     };
 
-    // Defer reCAPTCHA loading to after initial render
-    if ("requestIdleCallback" in window) {
-      requestIdleCallback(loadReCaptcha, { timeout: 800 });
-    } else {
-      // Use requestAnimationFrame for better performance
-      requestAnimationFrame(loadReCaptcha);
-    }
+    // Load reCAPTCHA immediately
+    loadReCaptcha();
 
     return () => {
       // Cleanup script when component unmounts
@@ -134,17 +130,26 @@ const ReCaptchaProvider = ({ children, showBadge = false }) => {
     };
   }, [showBadge]);
 
+  // Only render the provider when the script is ready
+  if (!isScriptReady) {
+    return (
+      <>
+        {children}
+        <div id="captcha-placeholder" />
+      </>
+    );
+  }
+
   return (
     <>
       <GoogleReCaptchaProvider
         reCaptchaKey={process.env.NEXT_PUBLIC_GOOGLE_CAPTCHA_SITE_KEY}
         scriptProps={{
           async: true,
-          defer: true,
+          defer: false,
           appendTo: "body",
-          nonce: undefined,
           id: "google-recaptcha-v3-provider",
-          importance: "low",
+          importance: "high",
         }}
         language="en"
         useEnterprise={false}
@@ -157,8 +162,7 @@ const ReCaptchaProvider = ({ children, showBadge = false }) => {
           },
         }}
         onLoad={() => {
-          // Remove console.log to reduce performance impact
-          // console.log("ReCaptcha Provider loaded");
+          console.log("[ReCaptcha] Provider loaded successfully");
         }}
         onError={(error) => {
           console.warn("[ReCaptcha] Error loading reCAPTCHA:", error);

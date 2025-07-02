@@ -21,34 +21,30 @@ export const useSearchData = () => {
       if (!currentLocaleIndexedData || !currentLocaleIndexedData.length)
         return [];
 
-      const results = currentLocaleIndexedData.reduce((acc, piece) => {
-        //TODO Refactor and test
-        var [url, content] = piece.split("_");
-        content = replaceLocaleVariables(content, localizationVariables);
-        if (!url || !content) return acc;
+      const transformedQuery = query.toLowerCase();
+      const exactMatches = [];
+      const partialMatches = [];
+      const seen = new Set();
 
+      currentLocaleIndexedData.forEach((piece) => {
+        const { key, value } = piece;
+        const content = replaceLocaleVariables(value, localizationVariables);
+        if (!key || !content) return;
         const transformedContent = content.toLowerCase();
-        const transformedQuery = query.toLowerCase();
-        const isContentRelevant =
-          url !== currentPageUrl &&
-          transformedContent.includes(transformedQuery);
-        if (isContentRelevant) {
-          /**
-           * Latest Chrome versions support auto scroll to highlighted text
-           * if a special url parameter "#:~:text=" is provided.
-           * To make it work it's required to get full matched phrase.
-           * Will be ignored on not-supported platforms.
-           *
-           * Nevertheless, this parameter is not accessible
-           * via "window.location" method, and this project parses url
-           * on every navigate action on localization demands.
-           * This makes engagement of this feature useless at this point.
-           *
-           * The code below detecting "fullMatch" property is left
-           * as a hint in terms of further development.
-           */
 
-          // TODO: replace with reliable regExp if possible
+        // Exclude accent strings from the results (e.g. strings like '12,13,22,25,23')
+        if (/^[0-9,]+$/.test(content)) return;
+
+        // Prioritize exact matches
+        if (transformedContent === transformedQuery && !seen.has(content)) {
+          exactMatches.push({ key, content, fullMatch: content });
+          seen.add(content);
+        } else if (
+          transformedContent.includes(transformedQuery) &&
+          !seen.has(content)
+        ) {
+          // Partial matches
+          // Highlighting logic (unchanged)
           let fullMatch = transformedQuery;
           const lastMatchedIndex =
             transformedContent.indexOf(transformedQuery) +
@@ -70,16 +66,13 @@ export const useSearchData = () => {
             fullMatch = transformedContent[i - 1] + fullMatch;
           }
 
-          // exclude accent strings from the results (e.g. strings like '12,13,22,25,23')
-          if (!/^[0-9,]+$/.test(content)) {
-            acc.push({ url, content, fullMatch });
-          }
+          partialMatches.push({ key, content, fullMatch });
+          seen.add(content);
         }
+      });
 
-        return acc;
-      }, []);
-
-      return results;
+      // Return exact matches first, then partial matches
+      return [...exactMatches, ...partialMatches];
     },
     [currentLocaleIndexedData, currentPageUrl, localizationVariables]
   );
