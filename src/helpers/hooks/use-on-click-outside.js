@@ -15,11 +15,11 @@ export const useOnClickOutside = (ref, handler) => {
       };
 
       document.addEventListener("mousedown", listener);
-      document.addEventListener("touchstart", listener);
+      document.addEventListener("touchstart", listener, { passive: true });
 
       return () => {
         document.removeEventListener("mousedown", listener);
-        document.removeEventListener("touchstart", listener);
+        document.removeEventListener("touchstart", listener, { passive: true });
       };
     },
     // Add ref and handler to effect dependencies

@@ -14,16 +14,30 @@ export const useWindowSize = () => {
     // Debounce: clear previous timer
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    }, 100); // 100ms debounce
+      // Use requestIdleCallback for better performance
+      if ("requestIdleCallback" in window) {
+        requestIdleCallback(
+          () => {
+            setWindowSize({
+              width: window.innerWidth,
+              height: window.innerHeight,
+            });
+          },
+          { timeout: 50 }
+        );
+      } else {
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      }
+    }, 150); // Increased from 100ms for better performance
   }, []);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      window.addEventListener("resize", handleResize);
+      // Use passive event listener for better performance
+      window.addEventListener("resize", handleResize, { passive: true });
       return () => {
         window.removeEventListener("resize", handleResize);
         if (debounceRef.current) clearTimeout(debounceRef.current);

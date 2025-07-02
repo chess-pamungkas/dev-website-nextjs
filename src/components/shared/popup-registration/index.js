@@ -667,14 +667,16 @@ const PopupRegistration = ({ isOpen, onClose, className, params }) => {
   const styleLoadedRef = React.useRef(false);
   const initialRenderRef = React.useRef(true);
 
-  // Preload styles effect - runs immediately
+  // Preload styles effect - optimized for performance
   useEffect(() => {
     if (typeof window === "undefined" || !isExternalLoad) return;
 
-    // Add initial loading styles to prevent flash
-    const preloadStyle = document.createElement("style");
-    preloadStyle.id = "popup-registration-preload-styles";
-    preloadStyle.innerHTML = `
+    // Use requestIdleCallback for heavy style injection
+    const injectStyles = () => {
+      // Add initial loading styles to prevent flash
+      const preloadStyle = document.createElement("style");
+      preloadStyle.id = "popup-registration-preload-styles";
+      preloadStyle.innerHTML = `
       /* Initial state styles */
       .popup-registration {
         visibility: hidden;
@@ -794,7 +796,17 @@ const PopupRegistration = ({ isOpen, onClose, className, params }) => {
         opacity: 1;
       }
     `;
-    document.head.appendChild(preloadStyle);
+
+      document.head.appendChild(preloadStyle);
+    };
+
+    // Use requestIdleCallback for style injection
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(injectStyles, { timeout: 200 });
+    } else {
+      // Use requestAnimationFrame for better performance
+      requestAnimationFrame(injectStyles);
+    }
 
     return () => {
       const preloadStyleEl = document.getElementById(
@@ -804,21 +816,38 @@ const PopupRegistration = ({ isOpen, onClose, className, params }) => {
     };
   }, [isExternalLoad]);
 
-  // Content ready effect
+  // Content ready effect - optimized for performance
   useEffect(() => {
     if (!isOpen || !isExternalLoad) return;
 
-    const timer = setTimeout(() => {
+    // Use requestIdleCallback for better performance
+    const loadContent = () => {
       setIsLoading(false);
       requestAnimationFrame(() => {
         setIsStylesLoaded(true);
-        setTimeout(() => {
-          setIsContentReady(true);
-        }, 300);
+        // Use requestIdleCallback for the final step
+        if ("requestIdleCallback" in window) {
+          requestIdleCallback(
+            () => {
+              setIsContentReady(true);
+            },
+            { timeout: 100 }
+          );
+        } else {
+          setTimeout(() => {
+            setIsContentReady(true);
+          }, 200); // Reduced from 300ms
+        }
       });
-    }, 500);
+    };
 
-    return () => clearTimeout(timer);
+    // Use requestIdleCallback for initial loading
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(loadContent, { timeout: 300 });
+    } else {
+      // Use requestAnimationFrame for better performance
+      requestAnimationFrame(loadContent);
+    }
   }, [isOpen, isExternalLoad]);
 
   // Separate effect for initial setup

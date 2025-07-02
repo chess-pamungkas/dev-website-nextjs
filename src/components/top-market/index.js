@@ -170,7 +170,7 @@ TopMarket.propTypes = {
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   isTitleUppercase: PropTypes.bool,
   isChildrenHasSmallSize: PropTypes.bool,
-  image: PropTypes.string,
+  image: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   btn1Title: PropTypes.string,
   link1: PropTypes.string,
   btn2Title: PropTypes.string,

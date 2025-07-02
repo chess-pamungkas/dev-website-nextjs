@@ -136,7 +136,7 @@ const NotificationsContainer = ({ className, setSectionOptions }) => {
       }
     }
     if (isRiskWarningNotification) {
-      const bottom = isMobile ? "135px" : isMD ? "110px" : "10px";
+      const bottom = isMobile ? "135px" : isMD ? "110px" : "50px";
 
       const livechat = document.getElementById("convrs-chat-channel-container");
 

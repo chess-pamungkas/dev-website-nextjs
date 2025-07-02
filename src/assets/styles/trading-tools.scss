@@ -308,14 +308,14 @@
 
 .device-block.device-block--animated {
   .device-block__img {
-    transition: 0.5s;
+    transition: 0.3s;
 
     &--phone {
-      transition-delay: 1.15s;
+      transition-delay: 0.8s;
     }
 
     &--tablet {
-      transition-delay: 0.65s;
+      transition-delay: 0.4s;
     }
 
     &--laptop {

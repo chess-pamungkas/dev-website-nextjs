@@ -119,49 +119,64 @@ const TableComponent = ({
           {...getTableProps()}
         >
           <thead className="table__head">
-            {headerGroups.map((headerGroup, index) => (
-              <tr
-                key={headerGroup.id}
-                className={cn("table__head-row", {
-                  "table__head-row--grouped": isGroupedHeader(),
-                })}
-                {...headerGroup.getHeaderGroupProps()}
-              >
-                {headerGroup.headers.map((column) => (
-                  <th
-                    key={`header-${column.render("id")}`}
-                    className={cn("table__head-column", {
-                      "table__head-column--grouped":
-                        isGroupedHeader() && index === 0,
-                      "table__head-column--empty":
-                        isGroupedHeader() && column.render("Header") === "",
-                    })}
-                    {...column.getHeaderProps()}
-                    {...(isSorting
+            {headerGroups.map((headerGroup, index) => {
+              const { key, ...restHeaderGroupProps } =
+                headerGroup.getHeaderGroupProps();
+              return (
+                <tr
+                  key={headerGroup.id || `header-group-${index}`}
+                  className={cn("table__head-row", {
+                    "table__head-row--grouped": isGroupedHeader(),
+                  })}
+                  {...restHeaderGroupProps}
+                >
+                  {headerGroup.headers.map((column, columnIndex) => {
+                    const { key: thKey, ...restThProps } =
+                      column.getHeaderProps();
+                    const sortProps = isSorting
                       ? column.getHeaderProps(column.getSortByToggleProps())
-                      : {})}
-                  >
-                    {column.render("Header")}
-                  </th>
-                ))}
-              </tr>
-            ))}
+                      : {};
+                    const { key: sortKey, ...restSortProps } = sortProps;
+                    return (
+                      <th
+                        key={`header-${
+                          column.render("id") || columnIndex
+                        }-${index}`}
+                        className={cn("table__head-column", {
+                          "table__head-column--grouped":
+                            isGroupedHeader() && index === 0,
+                          "table__head-column--empty":
+                            isGroupedHeader() && column.render("Header") === "",
+                        })}
+                        {...restThProps}
+                        {...restSortProps}
+                      >
+                        {column.render("Header")}
+                      </th>
+                    );
+                  })}
+                </tr>
+              );
+            })}
           </thead>
           <tbody className="table__body" {...getTableBodyProps()}>
             {(isPagination ? page : rows).map((row, index) => {
               prepareRow(row);
+              const { key: rowKey, ...restRowProps } = row.getRowProps();
               return (
                 <tr
-                  key={index}
-                  {...row.getRowProps()}
+                  key={row.id || rowKey || index}
+                  {...restRowProps}
                   className="table__body-row"
                 >
-                  {row.cells.map((cell) => {
+                  {row.cells.map((cell, cellIndex) => {
+                    const { key: cellKey, ...restCellProps } =
+                      cell.getCellProps();
                     return (
                       <td
-                        key={cell.getCellProps().key}
+                        key={cellKey || `${row.id || index}-cell-${cellIndex}`}
                         className="table__body-column"
-                        {...cell.getCellProps()}
+                        {...restCellProps}
                       >
                         {cell.render("Cell")}
                       </td>

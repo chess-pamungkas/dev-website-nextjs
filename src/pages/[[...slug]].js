@@ -84,19 +84,29 @@ const PAGE_MAP = {
   "all-markets": AllMarketsPage,
 };
 
-export default function CatchAllPage({ slug, locale }) {
+export default function CatchAllPage({ slug, detectedLocale }) {
   const router = useRouter();
+
+  // Extract locale from slug if present
+  let actualSlug = slug || [];
+  let locale = detectedLocale;
+
+  // Check if first slug segment is a language code
+  if (actualSlug.length > 0 && locales.includes(actualSlug[0])) {
+    locale = actualSlug[0];
+    actualSlug = actualSlug.slice(1);
+  }
+
   // If slug is undefined or empty, treat as home page
-  const isHome =
-    !slug || slug.length === 0 || (slug.length === 1 && slug[0] === "");
-  const path = isHome ? "" : slug.join("/");
+  const isHome = actualSlug.length === 0;
+  const path = isHome ? "" : actualSlug.join("/");
   const cleanPath = path.replace(/\/$/, "");
 
   let PageComponent = isHome ? MainHomePage : PAGE_MAP[cleanPath] || null;
 
   // Handle dynamic/nested routes like /legal/:slug, /privacy-policy/:slug, /platforms/:slug
-  if (!PageComponent && slug && slug.length > 1) {
-    const [parent, ...rest] = slug;
+  if (!PageComponent && actualSlug.length > 1) {
+    const [parent, ...rest] = actualSlug;
     if (DYNAMIC_PAGE_MAP[parent]) {
       PageComponent = DYNAMIC_PAGE_MAP[parent];
     }
@@ -128,7 +138,7 @@ export default function CatchAllPage({ slug, locale }) {
           href={`/${locale !== defaultLangKey ? locale + "/" : ""}${cleanPath}`}
         />
       </Head>
-      <PageComponent slug={slug} locale={locale} />
+      <PageComponent slug={actualSlug} locale={locale} />
     </>
   );
 }
@@ -180,25 +190,54 @@ export async function getStaticPaths() {
     ["platforms", "trading-view"],
   ];
   const paths = [];
+
+  // Generate paths for each locale with language prefix
   for (const locale of locales) {
-    // Home page for each locale (slug: [])
-    paths.push({ params: { slug: [] }, locale });
-    for (const page of pages) {
-      if (page) paths.push({ params: { slug: [page] }, locale });
+    // Home page for each locale
+    if (locale === defaultLangKey) {
+      paths.push({ params: { slug: [] } });
+    } else {
+      paths.push({ params: { slug: [locale] } });
     }
+
+    // Regular pages for each locale
+    for (const page of pages) {
+      if (page) {
+        if (locale === defaultLangKey) {
+          paths.push({ params: { slug: [page] } });
+        } else {
+          paths.push({ params: { slug: [locale, page] } });
+        }
+      }
+    }
+
+    // Dynamic pages for each locale
     for (const slugArr of dynamicSlugs) {
-      paths.push({ params: { slug: slugArr }, locale });
+      if (locale === defaultLangKey) {
+        paths.push({ params: { slug: slugArr } });
+      } else {
+        paths.push({ params: { slug: [locale, ...slugArr] } });
+      }
     }
   }
+
   return { paths, fallback: false };
 }
 
-export async function getStaticProps({ params, locale }) {
+export async function getStaticProps({ params }) {
   // params.slug is an array or undefined
+  const slug = params.slug || [];
+
+  // Detect locale from slug
+  let detectedLocale = defaultLangKey;
+  if (slug.length > 0 && locales.includes(slug[0])) {
+    detectedLocale = slug[0];
+  }
+
   return {
     props: {
       slug: params.slug || [],
-      locale,
+      detectedLocale,
     },
   };
 }

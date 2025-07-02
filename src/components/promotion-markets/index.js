@@ -51,7 +51,7 @@ const PromotionMarkets = ({
     ...OPACITY_1,
     top: "0",
     config: {
-      duration: 1000,
+      duration: 1500, // Increased from 1000 to 1500ms
     },
   };
 
@@ -59,7 +59,7 @@ const PromotionMarkets = ({
     ...OPACITY_0,
     top: "40px",
     config: {
-      duration: 1000,
+      duration: 1500, // Increased from 1000 to 1500ms
     },
   };
 
@@ -72,9 +72,9 @@ const PromotionMarkets = ({
   const [isAnimationReverse, setIsAnimationReverse] = useState(false);
 
   const [chartAnimationStyles, chartAnimationApi] = useSpring(() => ({
-    delay: 250,
+    delay: 400, // Increased from 250 to 400ms
     config: {
-      duration: 1000,
+      duration: 1500, // Increased from 1000 to 1500ms
       easing: easings.easeInOutCubic,
     },
   }));
@@ -119,9 +119,14 @@ const PromotionMarkets = ({
           ? TITLES_ANIMATION_DEFAULT_FROM_CONFIG
           : animationToStep2Config,
         config: {
-          duration: 500,
+          duration: 800, // Increased from 500 to 800ms
         },
         onRest: () => {
+          if (!children || !Array.isArray(children)) {
+            setIsAnimationReady(true);
+            return;
+          }
+
           setCurrentTitle(children[currentScroll]);
 
           titleAnimationApi.start({
@@ -132,7 +137,7 @@ const PromotionMarkets = ({
               ? animationToStep1Config
               : animationToStep1Config,
             config: {
-              duration: 500,
+              duration: 800, // Increased from 500 to 800ms
             },
             onRest: () => {
               setIsAnimationReady(true);
@@ -215,14 +220,18 @@ const PromotionMarkets = ({
 
     if (isAnimationStarted && !isAnimationFinished) {
       promoElement.addEventListener("wheel", wheelHandler);
-      promoElement.addEventListener("touchstart", touchStartHandler);
+      promoElement.addEventListener("touchstart", touchStartHandler, {
+        passive: true,
+      });
       promoElement.addEventListener("touchend", touchEndHandler);
       promoElement.addEventListener("touchmove", touchMoveHandler);
     }
 
     return () => {
       promoElement.removeEventListener("wheel", wheelHandler);
-      promoElement.removeEventListener("touchstart", touchStartHandler);
+      promoElement.removeEventListener("touchstart", touchStartHandler, {
+        passive: true,
+      });
       promoElement.removeEventListener("touchend", touchEndHandler);
       promoElement.removeEventListener("touchmove", touchMoveHandler);
     };

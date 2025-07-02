@@ -9,7 +9,17 @@ export const useIntersectionObserver = (
   const frozen = entry?.isIntersecting && freezeOnceVisible;
 
   const updateEntry = ([entry]) => {
-    setEntry(entry);
+    // Use requestIdleCallback for better performance
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(
+        () => {
+          setEntry(entry);
+        },
+        { timeout: 50 }
+      );
+    } else {
+      setEntry(entry);
+    }
   };
 
   useEffect(() => {
@@ -19,7 +29,13 @@ export const useIntersectionObserver = (
 
     if (!hasIOSupport || frozen || !node) return;
 
-    const observerParams = { threshold, root, rootMargin };
+    const observerParams = {
+      threshold,
+      root,
+      rootMargin,
+      // Add performance optimizations
+      delay: 100, // Add delay to reduce frequency
+    };
     const observer = new IntersectionObserver(updateEntry, observerParams);
 
     observer.observe(node);

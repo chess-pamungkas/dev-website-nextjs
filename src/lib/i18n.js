@@ -116,16 +116,24 @@ export const detectInitialLanguage = (recommendedLanguage) => {
   return findLangById(detectedLang);
 };
 
-// Hook to get current locale from Next.js router
+// Hook to get current locale from URL or cookie
 export const useLocale = () => {
   const router = useRouter();
-  return router.locale || defaultLangKey;
+
+  // Get language from URL first
+  const urlLang = getLangFromUrl(router.asPath);
+  if (urlLang) {
+    return urlLang;
+  }
+
+  // Fallback to cookie or default
+  const cookieLang = cookies.get(LAST_LANGUAGE_KEY);
+  return cookieLang || defaultLangKey;
 };
 
 // Hook to get current language object
 export const useCurrentLanguage = () => {
-  const router = useRouter();
-  const locale = router.locale || defaultLangKey;
+  const locale = useLocale();
   return findLangById(locale);
 };
 
@@ -134,10 +142,13 @@ export const useLanguageSwitch = () => {
   const router = useRouter();
 
   return (newLanguage) => {
+    console.log(`[useLanguageSwitch] Called with language: ${newLanguage.id}`);
     const { pathname, search } = router;
+    console.log(`[useLanguageSwitch] Current pathname: ${pathname}`);
 
     // Don't change URL for popup-registration page
     if (pathname.includes("popup-registration")) {
+      console.log(`[useLanguageSwitch] Skipping popup-registration page`);
       return;
     }
 
@@ -149,13 +160,15 @@ export const useLanguageSwitch = () => {
       document.documentElement.setAttribute("lang", newLanguage.id);
     }
 
-    // Handle URL path changes
-    if (!pathname.startsWith(`/${newLanguage.id}/`)) {
-      const newPath = `${newLanguage.URIPart}${pathname.replace(
-        /\/[a-z]{2}\//,
-        "/"
-      )}`;
-      router.push(`${newPath}${search}`, undefined, { locale: newLanguage.id });
+    // IMPORTANT: Change i18n language immediately
+    if (i18n && i18n.language !== newLanguage.id) {
+      console.log(
+        `[i18n] Changing language from ${i18n.language} to ${newLanguage.id}`
+      );
+      i18n.changeLanguage(newLanguage.id);
+      console.log(`[i18n] Language changed successfully to: ${i18n.language}`);
+    } else {
+      console.log(`[i18n] Language already set to: ${newLanguage.id}`);
     }
   };
 };
@@ -173,6 +186,14 @@ export const useChangeLocale = () => {
     // Update document language attribute
     if (typeof document !== "undefined") {
       document.documentElement.setAttribute("lang", newLocale);
+    }
+
+    // IMPORTANT: Change i18n language immediately
+    if (i18n && i18n.language !== newLocale) {
+      console.log(
+        `[i18n] Changing language from ${i18n.language} to ${newLocale}`
+      );
+      i18n.changeLanguage(newLocale);
     }
 
     // Navigate to new locale

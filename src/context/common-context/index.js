@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useRef,
   useState,
+  useCallback,
 } from "react";
 import PropTypes from "prop-types";
 import { useWindowSize } from "../../helpers/hooks/use-window-size";
@@ -30,15 +31,31 @@ export const CommonProvider = ({ children }) => {
     }
   };
 
+  // Add throttling for scroll events
+  const throttledCheckIsScrolled = useCallback(() => {
+    let ticking = false;
+
+    return () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          checkIsScrolled();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+  }, []);
+
   useEffect(() => {
     if (isBrowser()) {
-      window.addEventListener("scroll", checkIsScrolled);
+      const throttledHandler = throttledCheckIsScrolled();
+      window.addEventListener("scroll", throttledHandler, { passive: true });
 
       return () => {
-        window.removeEventListener("scroll", checkIsScrolled);
+        window.removeEventListener("scroll", throttledHandler);
       };
     }
-  }, []);
+  }, [throttledCheckIsScrolled]);
 
   useEffect(() => {
     const updateOffset = () => {
@@ -56,15 +73,35 @@ export const CommonProvider = ({ children }) => {
       }
     };
 
-    // workaround to actually update offset, doesn't work without timeout
-    setTimeout(() => {
-      updateOffset();
-    }, 100);
+    // Use requestIdleCallback for better performance
+    const updateOffsets = () => {
+      if ("requestIdleCallback" in window) {
+        requestIdleCallback(
+          () => {
+            updateOffset();
+            updateDropdownOffset();
+          },
+          { timeout: 100 }
+        );
+      } else {
+        // Fallback to requestAnimationFrame
+        requestAnimationFrame(() => {
+          updateOffset();
+          updateDropdownOffset();
+        });
+      }
+    };
+
+    // Initial update with minimal delay
+    const initialTimer = setTimeout(updateOffsets, 50);
 
     // We should do this after header transition (0.4s) ends
-    setTimeout(() => {
-      updateDropdownOffset();
-    }, 500);
+    const transitionTimer = setTimeout(updateOffsets, 400);
+
+    return () => {
+      clearTimeout(initialTimer);
+      clearTimeout(transitionTimer);
+    };
   }, [
     headerRef,
     sectionOptions,

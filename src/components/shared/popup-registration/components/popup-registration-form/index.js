@@ -799,60 +799,63 @@ const PopupRegistrationForm = ({ params }) => {
     }
   }, [safeParams]);
 
-  // Update state values when params change
+  // Update state values when params change - optimized for performance
   useEffect(() => {
-    // Handle referral_type - could be number or string
-    if (
-      safeParams.referral_type !== undefined &&
-      safeParams.referral_type !== null
-    ) {
-      // Convert string to number if it's numeric
-      const typeValue = !isNaN(safeParams.referral_type)
-        ? Number(safeParams.referral_type)
-        : safeParams.referral_type;
+    // Use requestAnimationFrame to batch state updates
+    requestAnimationFrame(() => {
+      // Handle referral_type - could be number or string
+      if (
+        safeParams.referral_type !== undefined &&
+        safeParams.referral_type !== null
+      ) {
+        // Convert string to number if it's numeric
+        const typeValue = !isNaN(safeParams.referral_type)
+          ? Number(safeParams.referral_type)
+          : safeParams.referral_type;
 
-      setReferralType(typeValue);
+        setReferralType(typeValue);
 
-      // Also store in session storage for persistence
-      try {
-        sessionStorage.setItem("oqtima_referral_type", typeValue);
-        // Also set as a global variable as a fallback
-        window.__OQTIMA_REFERRAL_TYPE__ = typeValue;
-      } catch (e) {
-        /* ignore storage errors */
+        // Also store in session storage for persistence
+        try {
+          sessionStorage.setItem("oqtima_referral_type", typeValue);
+          // Also set as a global variable as a fallback
+          window.__OQTIMA_REFERRAL_TYPE__ = typeValue;
+        } catch (e) {
+          /* ignore storage errors */
+        }
       }
-    }
 
-    // Handle referral_value
-    if (
-      safeParams.referral_value !== undefined &&
-      safeParams.referral_value !== null
-    ) {
-      setReferralValue(safeParams.referral_value);
+      // Handle referral_value
+      if (
+        safeParams.referral_value !== undefined &&
+        safeParams.referral_value !== null
+      ) {
+        setReferralValue(safeParams.referral_value);
 
-      // Also store in session storage for persistence
-      try {
-        sessionStorage.setItem(
-          "oqtima_referral_value",
-          safeParams.referral_value
-        );
-        // Also set as a global variable as a fallback
-        window.__OQTIMA_REFERRAL_VALUE__ = safeParams.referral_value;
-      } catch (e) {
-        /* ignore storage errors */
+        // Also store in session storage for persistence
+        try {
+          sessionStorage.setItem(
+            "oqtima_referral_value",
+            safeParams.referral_value
+          );
+          // Also set as a global variable as a fallback
+          window.__OQTIMA_REFERRAL_VALUE__ = safeParams.referral_value;
+        } catch (e) {
+          /* ignore storage errors */
+        }
       }
-    }
 
-    // Update language from safeParams if available
-    if (safeParams.langParam) {
-      // Highest priority is langParam from safeParams
-      setLanguageFromUrl(null); // Reset language from URL
-      setLanguageFromMessage(null); // Reset language from message
+      // Update language from safeParams if available
+      if (safeParams.langParam) {
+        // Highest priority is langParam from safeParams
+        setLanguageFromUrl(null); // Reset language from URL
+        setLanguageFromMessage(null); // Reset language from message
 
-      // We'll set languageFromUrl based on safeParams.langParam
-      // This ensures our language priority logic works correctly
-      setLanguageFromUrl(safeParams.langParam);
-    }
+        // We'll set languageFromUrl based on safeParams.langParam
+        // This ensures our language priority logic works correctly
+        setLanguageFromUrl(safeParams.langParam);
+      }
+    });
   }, [safeParams]);
 
   // Listen for messages from parent window with higher priority

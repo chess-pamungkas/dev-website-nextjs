@@ -11,6 +11,9 @@ import { useTranslation } from "react-i18next";
 import { useTranslationWithVariables } from "../../../../helpers/hooks/use-translation-with-vars";
 import { useLanguageSwitch, useCurrentLanguage } from "../../../../lib/i18n";
 
+// Force defaultLangKey for debug and clarity
+const defaultLangKey = "en";
+
 const LangSelectItem = ({
   language: { id, icon: Icon, name } = {},
   language,
@@ -48,11 +51,16 @@ const LangSelectItem = ({
     const langConfig = LANG_SELECT_OPTIONS.find((l) => l.id === language.id);
     let path = getCurrentPath();
 
-    if (path === "/" || path === undefined) {
+    // Remove any existing language prefix (2-letter code at start of path)
+    path = path.replace(/^\/[a-z]{2}(?=\/|$)/, "");
+
+    // Handle home page
+    if (path === "/" || path === "" || path === undefined) {
       return language.id === defaultLocale
         ? "/"
         : langConfig.URIPart || "/" + language.id;
     } else {
+      // For other pages, add locale prefix if not default
       return language.id === defaultLocale
         ? path
         : (langConfig.URIPart || "/" + language.id) + path;
@@ -61,37 +69,47 @@ const LangSelectItem = ({
 
   const handleLanguageChange = (e) => {
     e.preventDefault();
-    const langConfig = LANG_SELECT_OPTIONS.find((l) => l.id === language.id);
-    let path = getCurrentPath();
-
-    // If home page, use '/' for default locale, '/[locale]' for others
-    if (path === "/" || path === undefined) {
-      path =
-        language.id === defaultLocale
-          ? "/"
-          : langConfig.URIPart || "/" + language.id;
-    } else {
-      // For other pages, add locale prefix if not default
-      path =
-        language.id === defaultLocale
-          ? path
-          : (langConfig.URIPart || "/" + language.id) + path;
-    }
-
-    // Ensure path is a string and properly encoded
-    if (typeof path !== "string") {
-      console.error(
-        "router.push called with non-string path:",
-        path,
-        typeof path
-      );
-      path = "/"; // Fallback to home page
-    }
-
-    path = encodeURI(path);
-    router.push(path, path, { locale: language.id });
     languageSelectHandler(language);
-    document.documentElement.setAttribute("lang", language.id);
+
+    let path = router.asPath;
+
+    // Always remove any existing language prefix (including /en, /es, /jp, etc.)
+    path = path.replace(/^\/[a-z]{2}(?=\/|$)/, "");
+
+    // If path is empty or just slash, treat as home
+    if (path === "" || path === "/" || path === undefined) {
+      path = "/";
+    }
+
+    // Debug log
+    console.log(
+      "Switching to:",
+      language.id,
+      "Default locale is:",
+      defaultLangKey
+    );
+
+    if (language.id === defaultLangKey) {
+      // Ensure no /en at the start, just in case
+      path = path.replace(/^\/en(\/|$)/, "/");
+      // Remove double slashes
+      path = path.replace(/\/\//g, "/");
+      // Ensure path starts with /
+      if (!path.startsWith("/")) path = "/" + path;
+      // If path is empty, set to /
+      if (path === "") path = "/";
+    } else {
+      // For other languages, add prefix unless path is just /
+      if (path === "/") {
+        path = `/${language.id}`;
+      } else {
+        path = `/${language.id}${path}`;
+      }
+      // Remove double slashes
+      path = path.replace(/\/\//g, "/");
+    }
+
+    router.push(path, undefined, { shallow: true });
   };
 
   return (
@@ -100,10 +118,10 @@ const LangSelectItem = ({
         "lang-options__item--selected": selectedId === id,
       })}
     >
-      <Link
+      <a
         href={getLanguageHref(language)}
-        locale={language.id}
         className="lang-options__select"
+        onClick={handleLanguageChange}
       >
         {Icon && <Icon className="lang-options__flag" />}
         <span
@@ -115,7 +133,7 @@ const LangSelectItem = ({
         >
           {name}
         </span>
-      </Link>
+      </a>
     </li>
   );
 };

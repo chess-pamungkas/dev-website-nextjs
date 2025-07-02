@@ -1,38 +1,29 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import cn from "classnames";
 import PropTypes from "prop-types";
 import { AngleDownIcon } from "../../../shared/icons";
 import { ANGLE_ICON_COLOR } from "../../../../helpers/constants";
 import { useModal } from "../../../../helpers/hooks/use-modal";
-import LanguageContext from "../../../../context/language-context";
 import Popup from "../../../shared/popup";
 import LangOptions from "../lang-options";
 import { useRouter } from "next/router";
+import { useCurrentLanguage } from "../../../../lib/i18n";
 
 const LangSelect = ({ className, isHeader = false, setIsLangPopupOpened }) => {
-  const {
-    selectedLanguage,
-    selectedLanguage: { icon: Icon } = {},
-    setSelectedLanguage,
-  } = useContext(LanguageContext);
   const { isShow, handleOpen, handleClose } = useModal();
   const router = useRouter();
+  const currentLanguage = useCurrentLanguage();
+  const { icon: Icon } = currentLanguage || {};
 
   const closePopup = () => {
     setIsLangPopupOpened?.(false);
     handleClose();
   };
 
-  const onLangSelect = (selected) => {
-    setSelectedLanguage(selected);
-    closePopup();
-  };
-
   const setIconColor = (isShow) => {
     if (isHeader) {
       return isShow ? ANGLE_ICON_COLOR.white : ANGLE_ICON_COLOR.white;
     }
-
     return isShow ? ANGLE_ICON_COLOR.white : ANGLE_ICON_COLOR.red;
   };
 
@@ -44,7 +35,10 @@ const LangSelect = ({ className, isHeader = false, setIsLangPopupOpened }) => {
     return () => {
       router.events.off("routeChangeComplete", handleRouteChange);
     };
-  }, []);
+  }, [router]);
+
+  // Re-render when language changes (router.asPath changes)
+  useEffect(() => {}, [router.asPath]);
 
   return (
     <>
@@ -61,11 +55,9 @@ const LangSelect = ({ className, isHeader = false, setIsLangPopupOpened }) => {
         }}
       >
         {Icon && <Icon className="lang-select__flag" />}
-
         {isHeader && (
-          <span className="lang-select__title">{selectedLanguage.id}</span>
+          <span className="lang-select__title">{currentLanguage.id}</span>
         )}
-
         <AngleDownIcon
           className={cn("lang-select__icon", {
             "lang-select__icon--up": isShow,
@@ -73,11 +65,10 @@ const LangSelect = ({ className, isHeader = false, setIsLangPopupOpened }) => {
           color={setIconColor(isShow)}
         />
       </button>
-
       <Popup isPopupOpen={isShow} handlePopupClose={closePopup}>
         <LangOptions
-          selectedLanguage={selectedLanguage}
-          languageSelectHandler={onLangSelect}
+          selectedLanguage={currentLanguage}
+          languageSelectHandler={closePopup}
         />
       </Popup>
     </>

@@ -28,11 +28,18 @@ const TradingSymbols = ({ className, symbols }) => {
   const performScroll = () => {
     const cont = document.getElementById("trading-symbols");
 
+    // Add null check to prevent errors
+    if (!cont) {
+      return;
+    }
+
     if (isMiddleOfScroll(cont.scrollWidth, cont.scrollLeft)) {
       // move first child to the end when center of scroll width passed
       const first = document.querySelector("#trading-symbols .trading-symbol");
-      cont.appendChild(first);
-      cont.scrollTo(cont.scrollLeft - first.offsetWidth - margin, 0);
+      if (first) {
+        cont.appendChild(first);
+        cont.scrollTo(cont.scrollLeft - first.offsetWidth - margin, 0);
+      }
     }
     if (
       isMiddleOfScrollReversed(cont.scrollWidth, cont.scrollLeft) &&
@@ -40,8 +47,10 @@ const TradingSymbols = ({ className, symbols }) => {
     ) {
       // move last child to the start when center of scroll width passed in reversed direction while manual scroll is active
       const lastchild = cont.lastChild;
-      cont.prepend(lastchild);
-      cont.scrollTo(cont.scrollLeft + lastchild.offsetWidth + margin, 0);
+      if (lastchild) {
+        cont.prepend(lastchild);
+        cont.scrollTo(cont.scrollLeft + lastchild.offsetWidth + margin, 0);
+      }
     }
     // perform auto scroll when not touched
     if (cont.scrollLeft !== cont.scrollWidth && !isTouched) {
@@ -53,18 +62,27 @@ const TradingSymbols = ({ className, symbols }) => {
     // for RTL it is almost the same as normal, the only thing that is important to know here is that ScrollLeft has a negative value and decreases
     const cont = document.getElementById("trading-symbols");
 
+    // Add null check to prevent errors
+    if (!cont) {
+      return;
+    }
+
     if (isMiddleOfScroll(cont.scrollWidth, cont.scrollLeft)) {
       const first = document.querySelector("#trading-symbols .trading-symbol");
-      cont.appendChild(first);
-      cont.scrollTo(cont.scrollLeft - -first.offsetWidth - -margin, 0);
+      if (first) {
+        cont.appendChild(first);
+        cont.scrollTo(cont.scrollLeft - -first.offsetWidth - -margin, 0);
+      }
     }
     if (
       isMiddleOfScrollReversed(cont.scrollWidth, cont.scrollLeft) &&
       isTouched
     ) {
       const lastchild = cont.lastChild;
-      cont.prepend(lastchild);
-      cont.scrollTo(cont.scrollLeft + -lastchild.offsetWidth + -margin, 0);
+      if (lastchild) {
+        cont.prepend(lastchild);
+        cont.scrollTo(cont.scrollLeft + -lastchild.offsetWidth + -margin, 0);
+      }
     }
     if (cont.scrollLeft !== cont.scrollWidth && !isTouched) {
       cont.scrollTo(cont.scrollLeft - 1, 0);
@@ -72,13 +90,44 @@ const TradingSymbols = ({ className, symbols }) => {
   };
 
   useEffect(() => {
-    const intervalId = setInterval(
-      isRTL ? performScrollRTL : performScroll,
-      20
-    );
+    let animationId;
+    let lastTime = 0;
+    const targetInterval = 30; // Increased from 20ms to 30ms for better performance
+
+    const animate = (currentTime) => {
+      if (currentTime - lastTime >= targetInterval) {
+        // Use requestIdleCallback for better performance
+        if ("requestIdleCallback" in window) {
+          requestIdleCallback(
+            () => {
+              if (isRTL) {
+                performScrollRTL();
+              } else {
+                performScroll();
+              }
+            },
+            { timeout: 16 }
+          );
+        } else {
+          if (isRTL) {
+            performScrollRTL();
+          } else {
+            performScroll();
+          }
+        }
+        lastTime = currentTime;
+      }
+      animationId = requestAnimationFrame(animate);
+    };
+
+    if (!isTouched) {
+      animationId = requestAnimationFrame(animate);
+    }
 
     return () => {
-      clearInterval(intervalId);
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
     };
   }, [isTouched, isRTL]);
 

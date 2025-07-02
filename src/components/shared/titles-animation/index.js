@@ -28,6 +28,30 @@ const TitlesAnimation = ({
   const [items, setItems] = useState(null);
   const [index, setIndex] = useState(0);
 
+  // Custom slower animation configurations
+  const customStep1Config = {
+    ...TITLES_ANIMATION_DEFAULT_TO_STEP_1_CONFIG,
+    config: {
+      ...TITLES_ANIMATION_DEFAULT_TO_STEP_1_CONFIG.config,
+      duration: 120, // Increased from 60 to 120ms
+      mass: 1.0, // Increased from 0.8 to 1.0 for even smoother movement
+      tension: 150, // Reduced from 200 to 150 for slower animation
+      friction: 30, // Increased from 25 to 30 for more damping
+    },
+  };
+
+  const customStep2Config = {
+    ...TITLES_ANIMATION_DEFAULT_TO_STEP_2_CONFIG,
+    config: {
+      ...TITLES_ANIMATION_DEFAULT_TO_STEP_2_CONFIG.config,
+      duration: 120, // Increased from 60 to 120ms
+      mass: 1.0, // Increased from 0.8 to 1.0 for even smoother movement
+      tension: 150, // Reduced from 200 to 150 for slower animation
+      friction: 30, // Increased from 25 to 30 for more damping
+    },
+    delay: 1500, // Increased from 1000 to 1500ms for longer delay
+  };
+
   useEffect(() => {
     let shouldReset = false;
     if (prevLanguage.current !== selectedLanguage?.id) {
@@ -63,26 +87,28 @@ const TitlesAnimation = ({
     loop: true,
     from: TITLES_ANIMATION_DEFAULT_FROM_CONFIG,
     to: [
-      animationToStep1Config || TITLES_ANIMATION_DEFAULT_TO_STEP_1_CONFIG,
+      animationToStep1Config || customStep1Config,
       {
-        ...(animationToStep2Config ||
-          TITLES_ANIMATION_DEFAULT_TO_STEP_2_CONFIG),
+        ...(animationToStep2Config || customStep2Config),
         onRest: () => {
-          if (index < items.length - 1) {
-            setActiveItem(
-              isChildrenAnimation ? items[index + 1] : t(items[index + 1])
-            );
-            setIndex(index + 1);
-          }
+          // Add a small delay before changing to next item
+          setTimeout(() => {
+            if (index < items.length - 1) {
+              setActiveItem(
+                isChildrenAnimation ? items[index + 1] : t(items[index + 1])
+              );
+              setIndex(index + 1);
+            }
 
-          if (index === items.length - 2) {
-            setActiveItem(
-              isChildrenAnimation
-                ? items[items.length - 1]
-                : t(items[titles.length - 1])
-            );
-            setIsAnimationFinished(true);
-          }
+            if (index === items.length - 2) {
+              setActiveItem(
+                isChildrenAnimation
+                  ? items[items.length - 1]
+                  : t(items[titles.length - 1])
+              );
+              setIsAnimationFinished(true);
+            }
+          }, 200); // Add 200ms delay between transitions
         },
       },
     ],

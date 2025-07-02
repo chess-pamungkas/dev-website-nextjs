@@ -30,26 +30,43 @@ function Bookmark() {
 
   const initiateClosingSequence = () => {
     setShaking(true);
-    setTimeout(() => {
-      setShaking(false);
-      setClosing(true);
+    // Use requestAnimationFrame for better performance
+    requestAnimationFrame(() => {
       setTimeout(() => {
-        setExpanded(false);
-        setClosing(false);
-        setHasBeenClosed(true);
-        setBlinking(false);
-      }, 500);
-    }, 2000);
+        setShaking(false);
+        setClosing(true);
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            setExpanded(false);
+            setClosing(false);
+            setHasBeenClosed(true);
+            setBlinking(false);
+          }, 300);
+        });
+      }, 1500);
+    });
   };
 
   useEffect(() => {
     if (isVisible && !isExpanded && !hasBeenClosed) {
-      const autoOpenTimeout = setTimeout(() => {
-        setExpanded(true);
-        const autoCloseTimeout = setTimeout(initiateClosingSequence, 2000);
-        return () => clearTimeout(autoCloseTimeout);
-      }, 4000);
-      return () => clearTimeout(autoOpenTimeout);
+      // Use requestIdleCallback for better performance
+      const scheduleAutoOpen = () => {
+        const autoOpenTimeout = setTimeout(() => {
+          setExpanded(true);
+          const autoCloseTimeout = setTimeout(initiateClosingSequence, 1500);
+          return () => clearTimeout(autoCloseTimeout);
+        }, 3000);
+        return () => clearTimeout(autoOpenTimeout);
+      };
+
+      if ("requestIdleCallback" in window) {
+        const idleCallback = requestIdleCallback(scheduleAutoOpen, {
+          timeout: 1000,
+        });
+        return () => cancelIdleCallback(idleCallback);
+      } else {
+        return scheduleAutoOpen();
+      }
     }
   }, [isVisible, isExpanded, hasBeenClosed]);
 
@@ -62,25 +79,36 @@ function Bookmark() {
   };
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const wasVisible = isVisible;
-      setVisible(scrollPosition > 100);
+    let ticking = false;
 
-      if (wasVisible && scrollPosition <= 100) {
-        // Reset states when scrolled back to top
-        resetBookmark();
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrollPosition = window.scrollY;
+          const wasVisible = isVisible;
+          setVisible(scrollPosition > 100);
+
+          if (wasVisible && scrollPosition <= 100) {
+            // Reset states when scrolled back to top
+            resetBookmark();
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isVisible]);
 
   const handleBookmarkClick = () => {
     if (!isExpanded) {
       setExpanded(true);
-      setTimeout(initiateClosingSequence, 1000);
+      // Use requestAnimationFrame for better performance
+      requestAnimationFrame(() => {
+        setTimeout(initiateClosingSequence, 1000);
+      });
     }
   };
 

@@ -25,28 +25,47 @@ const TypingAnimation = ({ keywords }) => {
     from: {
       opacity: 0,
       config: {
-        duration: 50,
+        duration: 30, // Reduced from 50ms
+        mass: 0.5,
+        tension: 300,
+        friction: 20,
       },
     },
     enter: [
       {
         opacity: 1,
         config: {
-          duration: 100,
+          duration: 80, // Reduced from 100ms
           easing: easings.linear,
+          mass: 0.5,
+          tension: 300,
+          friction: 20,
         },
       },
     ],
     leave: {
       opacity: 0,
       config: {
-        duration: 50,
+        duration: 30, // Reduced from 50ms
+        mass: 0.5,
+        tension: 300,
+        friction: 20,
       },
     },
-    trail: 50,
+    trail: 30, // Reduced from 50ms
     onRest: (_result, _spring, item) => {
+      // Add null checks to prevent errors
+      if (
+        !keywords ||
+        !Array.isArray(keywords) ||
+        !chars ||
+        !Array.isArray(chars)
+      ) {
+        return;
+      }
+
       if (keywordIndex + 1 !== keywords.length) {
-        if (!removeChars && item.key === chars.length - 1) {
+        if (!removeChars && item && item.key === chars.length - 1) {
           setWrapperRefWidth(wrapperRef?.current?.offsetWidth);
           setTimeout(() => {
             setRemoveChars(true);

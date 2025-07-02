@@ -1,23 +1,36 @@
 import { easings } from "react-spring";
 
-const ANIMATION_DURATION = 700;
-const TEXT_ANIMATION_DURATION = 500;
-const TWP_SECTION_ANIMATION_DURATION = 2000;
+const ANIMATION_DURATION = 400;
+const TEXT_ANIMATION_DURATION = 300;
+const TWP_SECTION_ANIMATION_DURATION = 800;
 
-export const BACKGROUND_ANIMATION_DURATION = 1000;
+export const BACKGROUND_ANIMATION_DURATION = 500;
 
 export const SPRING_CONFIG_BG = {
-  config: { duration: ANIMATION_DURATION },
+  config: {
+    duration: ANIMATION_DURATION,
+    mass: 0.8,
+    tension: 150,
+    friction: 25,
+  },
 };
 
 export const SPRING_CONFIG_TEXT = {
-  config: { duration: TEXT_ANIMATION_DURATION },
+  config: {
+    duration: TEXT_ANIMATION_DURATION,
+    mass: 0.8,
+    tension: 150,
+    friction: 25,
+  },
 };
 
 export const TWP_SECTION_CONFIG_BG = {
   config: {
     duration: TWP_SECTION_ANIMATION_DURATION,
     easing: easings.easeInOutQuad,
+    mass: 0.5,
+    tension: 200,
+    friction: 20,
   },
 };
 
@@ -116,7 +129,10 @@ export const TITLES_ANIMATION_DEFAULT_TO_STEP_1_CONFIG = {
   ...OPACITY_1,
   top: "0",
   config: {
-    duration: 150,
+    duration: 60, // Increased from 30 to 60ms
+    mass: 0.8, // Increased from 0.5 to 0.8 for smoother movement
+    tension: 200, // Reduced from 300 to 200 for slower animation
+    friction: 25, // Increased from 20 to 25 for more damping
   },
 };
 
@@ -124,9 +140,12 @@ export const TITLES_ANIMATION_DEFAULT_TO_STEP_2_CONFIG = {
   ...OPACITY_0,
   top: "40px",
   config: {
-    duration: 150,
+    duration: 60, // Increased from 30 to 60ms
+    mass: 0.8, // Increased from 0.5 to 0.8 for smoother movement
+    tension: 200, // Reduced from 300 to 200 for slower animation
+    friction: 25, // Increased from 20 to 25 for more damping
   },
-  delay: 2000,
+  delay: 1000, // Increased from 800 to 1000ms for longer delay
 };
 
 export const setPositionY = (value) => ({
@@ -134,4 +153,4 @@ export const setPositionY = (value) => ({
 });
 
 export const DEFAULT_WRAPPER_WIDTH = 90;
-export const DELAY_BEFORE_NEXT_KEYWORD = 2000;
+export const DELAY_BEFORE_NEXT_KEYWORD = 1800; // Increased from 1200 to 1800ms for slower keyword transitions

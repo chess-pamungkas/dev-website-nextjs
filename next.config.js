@@ -10,12 +10,13 @@ const {
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Enable internationalization with URL-based routing
-  i18n: {
-    locales: list,
-    defaultLocale: defaultLangKey,
-    localeDetection: false,
-  },
+  // Disable Next.js built-in i18n since we handle it manually
+  // i18n: {
+  //   locales: list,
+  //   defaultLocale: defaultLangKey,
+  //   localeDetection: false,
+  //   localePrefix: "never",
+  // },
 
   // Enable static exports if needed
   trailingSlash: true,
@@ -29,7 +30,6 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 
   // SASS support (replaces gatsby-plugin-sass)
@@ -42,6 +42,12 @@ const nextConfig = {
   env: {
     CUSTOM_KEY: process.env.CUSTOM_KEY,
     NEXT_PUBLIC_ENTITY: process.env.NEXT_PUBLIC_ENTITY || "FSA",
+    NEXT_PUBLIC_OPTIMIZE_DEV:
+      process.env.NODE_ENV === "development" ? "true" : "false",
+    NEXT_PUBLIC_DISABLE_REACT_SPRING:
+      process.env.DISABLE_REACT_SPRING === "true" ? "true" : "false",
+    NEXT_PUBLIC_DISABLE_PERF_MONITORING:
+      process.env.DISABLE_PERF_MONITORING === "true" ? "true" : "false",
   },
 
   // Webpack configuration for legacy dependencies
@@ -84,6 +90,23 @@ const nextConfig = {
             key: "Permissions-Policy",
             value: "camera=(), microphone=(), geolocation=()",
           },
+          {
+            key: "Content-Security-Policy",
+            value:
+              process.env.NODE_ENV === "development"
+                ? "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:;"
+                : [
+                    "default-src 'self'",
+                    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com https://www.gstatic.com https://webchat.conv.rs",
+                    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+                    "font-src 'self' https://fonts.gstatic.com",
+                    "img-src 'self' data: https:",
+                    "connect-src 'self' https://www.google.com https://webchat.conv.rs",
+                    "frame-src 'self' https://www.google.com https://webchat.conv.rs",
+                    "worker-src 'self' https://www.google.com https://webchat.conv.rs blob:",
+                    "child-src 'self' https://www.google.com https://webchat.conv.rs",
+                  ].join("; "),
+          },
         ],
       },
       {
@@ -102,45 +125,6 @@ const nextConfig = {
   async redirects() {
     const redirects = [];
 
-    // Language-specific redirects for entity-based routing
-    const entity = process.env.NEXT_PUBLIC_ENTITY || "FSA";
-
-    if (entity === "FSA") {
-      // FSA entity redirects
-      redirects.push(
-        {
-          source: "/",
-          destination: "/en",
-          locale: false,
-          permanent: false,
-        },
-        {
-          source: "/fr",
-          destination: "/fr",
-          locale: false,
-          permanent: false,
-        },
-        {
-          source: "/br",
-          destination: "/br",
-          locale: false,
-          permanent: false,
-        }
-        // Add more language redirects as needed
-      );
-    } else {
-      // CYSEC entity redirects
-      redirects.push(
-        {
-          source: "/",
-          destination: "/en",
-          locale: false,
-          permanent: false,
-        }
-        // Add CYSEC-specific redirects
-      );
-    }
-
     // Legacy Gatsby redirects
     redirects.push({
       source: "/gatsby/:path*",
@@ -155,12 +139,12 @@ const nextConfig = {
   async rewrites() {
     const rewrites = [];
 
-    // Handle language-specific routes
+    // Handle language-specific routes - simplified to avoid conflicts
     list.forEach((locale) => {
       if (locale !== defaultLangKey) {
         rewrites.push({
-          source: `/${locale}/:path*`,
-          destination: `/${locale}/:path*`,
+          source: `/${locale}`,
+          destination: `/${locale}`,
         });
       }
     });
@@ -178,6 +162,64 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",
   },
+
+  // Development-specific optimizations
+  ...(process.env.NODE_ENV === "development" && {
+    // Reduce bundle analysis overhead in development
+    webpack: (config, { isServer, dev }) => {
+      if (dev && !isServer) {
+        // Disable source maps in development for better performance
+        config.devtool = false;
+
+        // Reduce bundle analysis
+        config.optimization = {
+          ...config.optimization,
+          splitChunks: {
+            chunks: "all",
+            cacheGroups: {
+              default: false,
+              vendors: false,
+              // Only split vendor chunks in development
+              vendor: {
+                name: "vendor",
+                chunks: "all",
+                test: /node_modules/,
+                priority: 20,
+              },
+            },
+          },
+        };
+
+        // Optimize HMR for better performance
+        config.plugins = config.plugins.map((plugin) => {
+          if (plugin.constructor.name === "HotModuleReplacementPlugin") {
+            // Reduce HMR overhead
+            plugin.options = {
+              ...plugin.options,
+              multiStep: false,
+              fullBuildTimeout: 2000,
+              requestTimeout: 1000,
+            };
+          }
+          return plugin;
+        });
+      }
+      return config;
+    },
+
+    // Optimize development server
+    devIndicators: {
+      buildActivity: false, // Disable build activity indicator
+      buildActivityPosition: "bottom-right",
+    },
+
+    // Reduce development overhead
+    experimental: {
+      scrollRestoration: true,
+      optimizeCss: false, // Disable CSS optimization in development
+      optimizePackageImports: false, // Disable package import optimization
+    },
+  }),
 };
 
 // Copy registration script after build (from gatsby-node.js)

@@ -98,7 +98,7 @@ async function loadLocaleFiles() {
   const locales = {};
   for (const lang of SUPPORTED_LANGUAGES) {
     try {
-      const localePath = path.join(LOCALES_DIR, lang, "index.json");
+      const localePath = path.join(LOCALES_DIR, lang, "common.json");
       if (await fs.pathExists(localePath)) {
         const localeData = await fs.readJson(localePath);
         locales[lang] = localeData;

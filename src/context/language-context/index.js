@@ -34,24 +34,31 @@ export const LanguageProvider = ({ children }) => {
     router.push(router.asPath, router.asPath, { locale: langObj.id });
   };
 
-  // Handle RTL
+  // Handle RTL - optimized for performance
   useEffect(() => {
     const rtlLanguages = ["ar"];
     const isRTL = rtlLanguages.includes(selectedLanguage.id);
-    document.documentElement.dir = isRTL ? "rtl" : "ltr";
-    if (isRTL) {
-      document.documentElement.classList.add("rtl");
-    } else {
-      document.documentElement.classList.remove("rtl");
-    }
+
+    // Use requestAnimationFrame to batch DOM updates
+    requestAnimationFrame(() => {
+      document.documentElement.dir = isRTL ? "rtl" : "ltr";
+      if (isRTL) {
+        document.documentElement.classList.add("rtl");
+      } else {
+        document.documentElement.classList.remove("rtl");
+      }
+    });
   }, [selectedLanguage]);
 
   useEffect(() => {
-    if (selectedLanguage.id === "jp") {
-      document.body.classList.add("jp-font");
-    } else {
-      document.body.classList.remove("jp-font");
-    }
+    // Use requestAnimationFrame to batch DOM updates
+    requestAnimationFrame(() => {
+      if (selectedLanguage.id === "jp") {
+        document.body.classList.add("jp-font");
+      } else {
+        document.body.classList.remove("jp-font");
+      }
+    });
   }, [selectedLanguage]);
 
   return (

@@ -76,6 +76,11 @@ const MetalsContent = () => {
       <MarketingCircle
         animation={animation}
         btnOnClick={handleShowRegistrationPopup}
+        isCrypto={false}
+        isEtf={false}
+        isIndices={false}
+        isForex={false}
+        isEnergies={false}
         upper={
           <HighlightedLocalizationText
             localizationText="metals_marketing-circle-upper"
@@ -95,7 +100,7 @@ const MetalsContent = () => {
         rightUpper={
           <HighlightedLocalizationText
             localizationText="metals_marketing-circle-right-upper"
-            wordsToHighlight="metals_marketing-circle-right-upper-accent"
+            wordsToHighlight="metals-marketing-circle-right-upper-accent"
             primaryClassName="highlighted-in-black"
             accentClassName="highlighted-in-red"
           />
