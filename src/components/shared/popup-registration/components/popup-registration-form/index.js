@@ -292,6 +292,8 @@ const RTLAwareForm = ({ children, isRTLMode, language }) => {
   );
 };
 
+console.log("=== POPUP REGISTRATION FORM MOUNTED ===");
+
 const PopupRegistrationForm = ({ params }) => {
   const { t } = useTranslationWithVariables();
   const isRTL = useRtlDirection();
