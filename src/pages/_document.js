@@ -1,4 +1,5 @@
 import { Html, Head, Main, NextScript } from "next/document";
+import Script from "next/script";
 
 export default function Document() {
   return (
@@ -48,18 +49,19 @@ export default function Document() {
         <Main />
         <NextScript />
         {/* Livechat script injected like Gatsby */}
-        <script
-          defer
+        <Script
           id="convrs-webchat"
           src={
             process.env.NEXT_PUBLIC_CONVRS_LIVECHAT ||
             "https://app.convrs.io/webchat/bootstrap.js?c=oqtima"
           }
+          strategy="afterInteractive"
         />
         {/* MetaTrader WebTerminal script */}
-        <script
-          type="text/javascript"
+        <Script
+          id="metatrader-webterminal"
           src="https://metatraderweb.app/trade/widget.js"
+          strategy="afterInteractive"
         />
       </body>
     </Html>
