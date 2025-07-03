@@ -301,6 +301,15 @@ const PopupRegistrationForm = ({ params }) => {
   const [isSentSuccessful, setIsSentSuccessful] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const API_URL = process.env.NEXT_PUBLIC_OQTIMA_API_URL;
+
+  // Debug: Log API URL to console
+  useEffect(() => {
+    console.log("API_URL:", API_URL);
+    console.log(
+      "process.env.NEXT_PUBLIC_OQTIMA_API_URL:",
+      process.env.NEXT_PUBLIC_OQTIMA_API_URL
+    );
+  }, [API_URL]);
   const { executeRecaptcha } = useGoogleReCaptcha();
   const { clientConfig } = useContext(ClientResolverContext);
   const { selectedLanguage, setSelectedLanguage } = useContext(LanguageContext);
@@ -2154,6 +2163,10 @@ const PopupRegistrationForm = ({ params }) => {
         registrationData.referral_value = finalReferralValue;
       }
 
+      // Debug: Log the request data
+      console.log("Registration API URL:", `${API_URL}crm-register`);
+      console.log("Registration Data:", registrationData);
+
       // Make the API request
       const response = await axios.post(
         `${API_URL}crm-register`,
@@ -2253,6 +2266,11 @@ const PopupRegistrationForm = ({ params }) => {
         }
       }
     } catch (error) {
+      console.error("Registration error:", error);
+      console.error("Error response:", error.response);
+      console.error("Error status:", error.response?.status);
+      console.error("Error data:", error.response?.data);
+
       const errorMessage = error.response?.data?.message || "An error occurred";
       const errorCode = error.response?.data?.code;
       sendLog({ message: error.message, type: error.name, code: errorCode });
