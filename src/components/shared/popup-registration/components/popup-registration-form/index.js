@@ -303,7 +303,7 @@ const PopupRegistrationForm = ({ params }) => {
   const API_URL = process.env.NEXT_PUBLIC_OQTIMA_API_URL;
   const { executeRecaptcha } = useGoogleReCaptcha();
   const { clientConfig } = useContext(ClientResolverContext);
-  const { selectedLanguage, setCurrentLanguage } = useContext(LanguageContext);
+  const { selectedLanguage, setSelectedLanguage } = useContext(LanguageContext);
 
   // Add effect to prevent incorrect language and RTL settings
   useEffect(() => {
@@ -1233,7 +1233,7 @@ const PopupRegistrationForm = ({ params }) => {
       }
 
       // For RTL languages, update the language context
-      if (setCurrentLanguage && typeof setCurrentLanguage === "function") {
+      if (setSelectedLanguage && typeof setSelectedLanguage === "function") {
         try {
           // Create proper language object expected by the context
           const isRtlLang = isRTLLanguage(sanitizedLang);
@@ -1243,7 +1243,7 @@ const PopupRegistrationForm = ({ params }) => {
             URIPart: `/${sanitizedLang}/`,
             isRTL: isRtlLang,
           };
-          setCurrentLanguage(langObject);
+          setSelectedLanguage(langObject);
         } catch (e) {
           // console.warn("Error updating language context:", e);
         }

@@ -10,8 +10,6 @@ import {
   mt5DownloadTabs,
   getAnimationStyle,
 } from "../../../helpers/platforms.config";
-import image from "../../../assets/images/mt4/MT4andMT5.png";
-import icon from "../../../assets/images/icon--white.svg";
 import { ShowRegistrationPopup } from "../../../helpers/constants";
 import { useWindowSize } from "../../../helpers/hooks/use-window-size";
 import { useTranslationWithVariables } from "../../../helpers/hooks/use-translation-with-vars";
@@ -99,7 +97,7 @@ const Mt5PageContent = () => {
         advantagesTitle={t("mt5_market-items-list_title")}
         advantages={mt5Advantages}
         downloadTitle={t("mt5_download-title")}
-        image={image}
+        image="/images/mt4/MT4andMT5.png"
         tabs={mt5DownloadTabs()}
         ref={downloadRef}
       />
@@ -108,7 +106,7 @@ const Mt5PageContent = () => {
           className={cn("bottom-promotion", {
             "bottom-promotion--rtl": isRTL,
           })}
-          image={icon}
+          image="/images/icon--white.svg"
           btnClassName="button-link--red"
           btnTitle={t("mt5_top-market-promo-btn3")}
           btnOnClick={handleShowRegistrationPopup}

@@ -81,23 +81,9 @@ const LangSelectItem = ({
       path = "/";
     }
 
-    // Debug log
-    console.log(
-      "Switching to:",
-      language.id,
-      "Default locale is:",
-      defaultLangKey
-    );
-
     if (language.id === defaultLangKey) {
-      // Ensure no /en at the start, just in case
-      path = path.replace(/^\/en(\/|$)/, "/");
-      // Remove double slashes
-      path = path.replace(/\/\//g, "/");
-      // Ensure path starts with /
-      if (!path.startsWith("/")) path = "/" + path;
-      // If path is empty, set to /
-      if (path === "") path = "/";
+      // For EN, always go to root and force reload
+      window.location.assign("/");
     } else {
       // For other languages, add prefix unless path is just /
       if (path === "/") {
@@ -107,9 +93,8 @@ const LangSelectItem = ({
       }
       // Remove double slashes
       path = path.replace(/\/\//g, "/");
+      router.replace(path);
     }
-
-    router.push(path, undefined, { shallow: true });
   };
 
   return (

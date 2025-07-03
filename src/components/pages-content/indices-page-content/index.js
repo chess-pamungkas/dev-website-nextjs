@@ -21,6 +21,7 @@ import {
 import { updateTableDataWithLiveColumn } from "../../../helpers/services/update-table-data-with-live-column";
 import TradingContext from "../../../context/trading-context";
 import { setLangParam } from "../../../helpers/services/language-service";
+import Seo from "../../shared/seo";
 
 const IndicesContent = () => {
   const { t } = useTranslationWithVariables();
@@ -40,6 +41,10 @@ const IndicesContent = () => {
 
   return (
     <>
+      <Seo
+        title={t("page-indices-title")}
+        description={t("page-indices-description")}
+      />
       <TopMarket
         title={
           <HighlightedLocalizationText

@@ -75,7 +75,7 @@ const FundingPageContent = () => {
         image={promotion}
         note={
           <HighlightedLocalizationText
-            localizationText={t("withdrawal_top-market-promo-note-fsa")}
+            localizationText="withdrawal_top-market-promo-note-fsa"
             wordsToHighlight={t("withdrawal_top-market-promo-note-accent-fsa")}
             primaryClassName="highlighted-in-black"
             accentClassName="highlighted-in-white"

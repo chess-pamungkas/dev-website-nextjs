@@ -2,7 +2,6 @@ import React from "react";
 import cn from "classnames";
 import PropTypes from "prop-types";
 import { useTranslationWithVariables } from "../../../../helpers/hooks/use-translation-with-vars";
-import vpsImg from "../../../../assets/images/vps/vps.png";
 import { useRtlDirection } from "../../../../helpers/hooks/use-rtl-direction";
 import HighlightedLocalizationText from "../../../shared/highlighted-localization-text";
 
@@ -18,7 +17,11 @@ const VPSTopPromotion = ({ className }) => {
     >
       <div className={cn("vps-promotion__wrapper")}>
         <div className="vps-promotion__img-block">
-          <img src={vpsImg} alt="" className="vps-promotion__img" />
+          <img
+            src="/images/vps/vps.png"
+            alt=""
+            className="vps-promotion__img"
+          />
         </div>
         <div className="vps-promotion__text-block">
           <p className="vps-promotion__title">

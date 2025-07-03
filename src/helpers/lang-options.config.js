@@ -16,7 +16,7 @@ import {
 } from "../components/shared/icons";
 
 // Import language configuration using CommonJS
-const { ENTITY_LANGUAGES } = require("./lang.config");
+const { LANG_CONFIG } = require("./lang.config");
 
 const IconComponents = {
   EnFlagIcon,
@@ -35,7 +35,7 @@ const IconComponents = {
   ArFlagIcon,
 };
 
-export const LANG_SELECT_OPTIONS = ENTITY_LANGUAGES.map((languageItem) => {
+export const LANG_SELECT_OPTIONS = LANG_CONFIG.map((languageItem) => {
   languageItem.icon = IconComponents[languageItem.icon];
 
   return languageItem;

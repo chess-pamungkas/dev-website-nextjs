@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import Link from "next/link";
 import cn from "classnames";
 import PropTypes from "prop-types";
-import { modifyInternalLinkForLP } from "../../../helpers/services/modify-internal-links";
+import LanguageContext from "../../../context/language-context";
 
 const InternalLink = ({ children, className, to, onClick }) => {
-  // Better error handling for the 'to' prop
+  const { selectedLanguage } = useContext(LanguageContext) || {};
+
   if (!to) {
     console.error('InternalLink: "to" prop is missing or undefined');
     return <span className={cn(className)}>{children}</span>;
@@ -16,21 +17,38 @@ const InternalLink = ({ children, className, to, onClick }) => {
     return <span className={cn(className)}>{children}</span>;
   }
 
-  const processedTo = modifyInternalLinkForLP(to);
-
-  if (String(processedTo).startsWith("http")) {
+  // If link is external, do not modify
+  if (String(to).startsWith("http")) {
     return (
-      <a href={processedTo} className={cn(className)} onClick={onClick}>
+      <a href={to} className={cn(className)} onClick={onClick}>
         {children}
       </a>
     );
-  } else {
+  }
+
+  // If link already starts with a language code, do not modify
+  if (/^\/[a-z]{2}(\/|$)/.test(to)) {
     return (
-      <Link href={processedTo} className={cn(className)} onClick={onClick}>
+      <Link href={to} className={cn(className)} onClick={onClick}>
         {children}
       </Link>
     );
   }
+
+  // Prepend language prefix if not English and not already present
+  let processedTo = to;
+  if (selectedLanguage && selectedLanguage.id && selectedLanguage.id !== "en") {
+    // Ensure no double slashes
+    processedTo = `/${selectedLanguage.id}${
+      to.startsWith("/") ? to : "/" + to
+    }`.replace(/\/\//g, "/");
+  }
+
+  return (
+    <Link href={processedTo} className={cn(className)} onClick={onClick}>
+      {children}
+    </Link>
+  );
 };
 
 InternalLink.propTypes = {

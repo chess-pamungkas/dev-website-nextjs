@@ -14,12 +14,14 @@ const TradingTicker = ({
   isInfiniteAutoScroll,
 }) => {
   const tradingSection = getTradingSections();
-  const {
-    tradingSymbols,
-    selectedSection,
-    setSelectedSection,
-    setNeedToLoadSymbols,
-  } = useContext(TradingContext);
+  const tradingContext = useContext(TradingContext);
+
+  // Handle case when TradingContext is not available (during lazy loading)
+  const tradingSymbols = tradingContext?.tradingSymbols || [];
+  const selectedSection = tradingContext?.selectedSection || tradingSection[0];
+  const setSelectedSection = tradingContext?.setSelectedSection || (() => {});
+  const setNeedToLoadSymbols =
+    tradingContext?.setNeedToLoadSymbols || (() => {});
 
   useEffect(() => {
     setSelectedSection(pageSpecificSection || tradingSection[0]);
@@ -37,7 +39,10 @@ const TradingTicker = ({
         setSelectedSection={setSelectedSection}
       />
       <TradingSymbols
-        symbols={filterSymbols(tradingSymbols, selectedSection.id)}
+        symbols={filterSymbols(
+          tradingSymbols,
+          selectedSection?.id || tradingSection[0]?.id
+        )}
         isInfiniteAutoScroll={isInfiniteAutoScroll}
       />
     </section>

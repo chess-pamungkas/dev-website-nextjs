@@ -13,10 +13,12 @@ export const ClientResolverProvider = ({ children }) => {
   const [isPopupShown, setIsPopupShown] = useState(false);
 
   useEffect(() => {
+    console.log("currentEntity", currentEntity);
     if (currentEntity) {
       axios
         .get(`${API_URL}client-detection?entity=${currentEntity}`)
         .then((response) => {
+          console.log(`[Client Resolver] API response:`, response.data);
           setClientConfig(response.data);
           return response.data;
         })

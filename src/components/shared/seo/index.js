@@ -22,7 +22,6 @@ const Seo = ({ title, description, fsaTitle, fsaDescription, fsaRobots }) => {
       />
       <meta name="robots" content={noIndex ? "noindex" : fsaRobots} />
       {microsoftAds && <meta name="msvalidate.01" content={microsoftAds} />}
-      <html lang={selectedLanguage.id} dir={isRTL ? DIR_RTL : DIR_LTR} />
     </Head>
   );
 };

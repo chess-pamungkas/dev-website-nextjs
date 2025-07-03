@@ -13,6 +13,7 @@ import { FAQ_SHARES } from "../../../helpers/faq";
 import animation from "../../../assets/images/bg/promotions/shares/shares.json";
 import MarketingCircle from "../../marketing-circle";
 import { setLangParam } from "../../../helpers/services/language-service";
+import Seo from "../../shared/seo";
 
 const SharesContent = () => {
   const { t } = useTranslationWithVariables();
@@ -29,10 +30,14 @@ const SharesContent = () => {
 
   return (
     <>
+      <Seo
+        title={t("page-shares-title")}
+        description={t("page-shares-description")}
+      />
       <TopMarket
         title={
           <HighlightedLocalizationText
-            localizationText={t(`shares_top-market-title-fsa`)}
+            localizationText="shares_top-market-title-fsa"
             wordsToHighlight="shares_top-market-title-accent"
             primaryClassName="highlighted-in-white"
             accentClassName="highlighted-in-black"

@@ -7,22 +7,13 @@ const SearchContext = createContext();
 export const SearchProvider = ({ children }) => {
   const [searchState, setSearchState] = useState(INITIAL_SEARCH_STATE);
 
-  // Memoize the setSearchState function to prevent unnecessary re-renders
-  const memoizedSetSearchState = useCallback((newState) => {
-    setSearchState(newState);
-  }, []);
-
-  // Memoize the context value to prevent unnecessary re-renders
-  const contextValue = useMemo(
-    () => ({
-      searchState,
-      setSearchState: memoizedSetSearchState,
-    }),
-    [searchState, memoizedSetSearchState]
-  );
-
   return (
-    <SearchContext.Provider value={contextValue}>
+    <SearchContext.Provider
+      value={{
+        searchState,
+        setSearchState,
+      }}
+    >
       {children}
     </SearchContext.Provider>
   );

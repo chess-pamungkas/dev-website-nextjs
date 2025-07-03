@@ -10,8 +10,6 @@ import {
   cTraderDownloadTabs,
   getAnimationStyle,
 } from "../../../helpers/platforms.config";
-import image from "../../../assets/images/mt4/cTrader.png";
-import icon from "../../../assets/images/icon--white.svg";
 import { ShowRegistrationPopup } from "../../../helpers/constants";
 import { useWindowSize } from "../../../helpers/hooks/use-window-size";
 import { useRtlDirection } from "../../../helpers/hooks/use-rtl-direction";
@@ -97,7 +95,7 @@ const CtraderPageContent = () => {
         advantagesTitle={t("ctrader_market-items-list_title")}
         advantages={CTRADER_ADVANTAGES}
         downloadTitle={t("ctrader_download-title")}
-        image={image}
+        image="/images/mt4/cTrader.png"
         tabs={cTraderDownloadTabs()}
         ref={downloadRef}
         className="mt-promotion--ctrader"
@@ -106,7 +104,7 @@ const CtraderPageContent = () => {
         className={cn("bottom-promotion", {
           "bottom-promotion--rtl": isRTL,
         })}
-        image={icon}
+        image="/images/icon--white.svg"
         btnClassName="button-link--red"
         btnTitle={t("ctrader_top-market-promo-btn3")}
         btnOnClick={handleShowRegistrationPopup}

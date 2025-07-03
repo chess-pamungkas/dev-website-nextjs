@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useTranslationWithVariables } from "../../../helpers/hooks/use-translation-with-vars";
 import TopMarket from "../../top-market";
-import topPromo from "../../../assets/images/vps/top-promo.svg";
 import { ShowRegistrationPopup } from "../../../helpers/constants";
 import HighlightedLocalizationText from "../../shared/highlighted-localization-text";
 import VPSTopPromotion from "../../vps/components/vps-top-promotion";
@@ -35,7 +34,7 @@ const VPSContent = () => {
             accentClassName="highlighted-in-white"
           />
         }
-        image={topPromo}
+        image="/images/vps/top-promo.svg"
         btn1Title={t("vps_top-market-btn")}
         btnOnClick1={handleShowRegistrationPopup}
       >

@@ -21,6 +21,7 @@ import MarketingCircle from "../../marketing-circle";
 import { updateTableDataWithLiveColumn } from "../../../helpers/services/update-table-data-with-live-column";
 import TradingContext from "../../../context/trading-context";
 import { setLangParam } from "../../../helpers/services/language-service";
+import Seo from "../../shared/seo";
 
 const CryptoContent = () => {
   const { t } = useTranslationWithVariables();
@@ -40,6 +41,10 @@ const CryptoContent = () => {
 
   return (
     <>
+      <Seo
+        fsaTitle={t("page-crypto-title-fsa")}
+        fsaDescription={t("page-crypto-description-fsa")}
+      />
       <TopMarket
         title={t(`crypto_top-market-title-fsa`)}
         image={image}

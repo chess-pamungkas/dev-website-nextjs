@@ -12,6 +12,7 @@ import LegalRegulators from "../../legal/components/legal-regulators";
 import { LEGAL_REGULATORS } from "../../../helpers/legal.config";
 import Documents from "../../documents";
 import { getLegalDocs } from "../../../helpers/documents";
+import Seo from "../../shared/seo";
 
 const LegalContentGlobal = () => {
   const { t } = useTranslationWithVariables();
@@ -19,6 +20,7 @@ const LegalContentGlobal = () => {
 
   return (
     <>
+      <Seo title={t("page-legal-title")} />
       <TopMarket
         className={cn("legal-page-promotion-global", {
           "legal-page-promotion-global--rtl": isRTL,

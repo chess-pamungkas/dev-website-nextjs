@@ -5,6 +5,7 @@ const { list, defaultLangKey } = require("./src/helpers/lang.config");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: false,
   // Enhanced image optimization (replaces gatsby-plugin-sharp & gatsby-transformer-sharp)
   images: {
     unoptimized: false,
@@ -182,6 +183,8 @@ const nextConfig = {
       buildActivityPosition: "bottom-right",
     },
   }),
+
+  trailingSlash: true,
 };
 
 module.exports = nextConfig;

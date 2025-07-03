@@ -10,7 +10,7 @@ Your Gatsby localization system has been **fully migrated** to Next.js with enha
 | -------------------- | ----------------------------- | ------------------------------ | ----------- |
 | URL Language Routing | `/fr/about`                   | `/fr/about`                    | ✅ Migrated |
 | Language Switching   | `gatsby-plugin-react-i18next` | `react-i18next` + Next.js i18n | ✅ Migrated |
-| Entity-based Config  | FSA/CYSEC                     | FSA/CYSEC                      | ✅ Migrated |
+| Language Config      | FSA Only                      | FSA Only                       | ✅ Migrated |
 | Cookie Persistence   | Manual                        | Automatic                      | ✅ Enhanced |
 | Language Detection   | Manual                        | Automatic                      | ✅ Enhanced |
 | SEO Meta Tags        | Manual                        | Automatic                      | ✅ Enhanced |
@@ -77,14 +77,9 @@ const LANG_CONFIG = [
   // ... all 13 languages
 ];
 
-// Entity-based configuration
-const getCurrentEntity = () => {
-  return process.env.NEXT_PUBLIC_ENTITY || "FSA";
-};
-
+// Language configuration
 const getLanguageConfig = () => {
-  const entity = getCurrentEntity();
-  return entity === "FSA" ? LANG_CONFIG : CYSEC_LANG_CONFIG;
+  return LANG_CONFIG;
 };
 ```
 
@@ -106,15 +101,12 @@ const nextConfig = {
   // Language-specific redirects
   async redirects() {
     const redirects = [];
-    const entity = process.env.NEXT_PUBLIC_ENTITY || "FSA";
 
-    if (entity === "FSA") {
-      redirects.push(
-        { source: "/", destination: "/en", locale: false, permanent: false },
-        { source: "/fr", destination: "/fr", locale: false, permanent: false }
-        // ... more language redirects
-      );
-    }
+    redirects.push(
+      { source: "/", destination: "/en", locale: false, permanent: false },
+      { source: "/fr", destination: "/fr", locale: false, permanent: false }
+      // ... more language redirects
+    );
 
     return redirects;
   },
@@ -214,7 +206,7 @@ const LangSelectItem = ({ language, languageSelectHandler }) => {
 - **URL-based detection:** `/fr/about` → French
 - **Cookie-based persistence:** Remembers user's language choice
 - **Browser language detection:** Falls back to browser preferences
-- **Entity-based configuration:** Different languages for FSA vs CYSEC
+- **Language configuration:** Unified language support
 
 ### 2. SEO Optimization
 
@@ -243,7 +235,7 @@ const LangSelectItem = ({ language, languageSelectHandler }) => {
 
 - [x] URL-based language routing
 - [x] Language switching with proper URL updates
-- [x] Entity-based language configuration (FSA/CYSEC)
+- [x] Language configuration
 - [x] Cookie-based language persistence
 - [x] Automatic language detection
 - [x] SEO meta tags for each language
@@ -378,7 +370,7 @@ document.querySelector("html").getAttribute("lang");
 - ✅ **Enhanced performance** with Next.js optimizations
 - ✅ **Better SEO** with automatic meta tags
 - ✅ **Improved developer experience** with better tooling
-- ✅ **Entity-based configuration** for FSA/CYSEC
+- ✅ **Language configuration** for unified support
 - ✅ **Automatic language detection** and persistence
 - ✅ **13 languages supported** with proper routing
 

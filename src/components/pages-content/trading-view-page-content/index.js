@@ -10,8 +10,6 @@ import {
   TRADING_VIEW_ADVANTAGES,
   TRADING_VIEW_DOWNLOAD_LINKS,
 } from "../../../helpers/platforms.config";
-import image from "../../../assets/images/mt4/trading-view.png";
-import icon from "../../../assets/images/icon--white.svg";
 import { ShowRegistrationPopup } from "../../../helpers/constants";
 import { useWindowSize } from "../../../helpers/hooks/use-window-size";
 import { useRtlDirection } from "../../../helpers/hooks/use-rtl-direction";
@@ -125,7 +123,7 @@ const TradingViewPageContent = () => {
         advantagesTitle={t("trading-view_market-items-list_title")}
         advantages={TRADING_VIEW_ADVANTAGES}
         downloadTitle={t("trading-view_download-title")}
-        image={image}
+        image="/images/mt4/trading-view.png"
         tabs={tabs}
         className="mt-promotion--ctrader"
       />
@@ -134,7 +132,7 @@ const TradingViewPageContent = () => {
         className={cn("bottom-promotion", {
           "bottom-promotion--rtl": isRTL,
         })}
-        image={icon}
+        image="/images/icon--white.svg"
         btnClassName="button-link--red"
         btnTitle={t("trading-view_top-market-promo-btn3")}
         btnOnClick={handleShowRegistrationPopup}

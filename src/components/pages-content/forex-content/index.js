@@ -23,6 +23,7 @@ import { updateTableDataWithLiveColumn } from "../../../helpers/services/update-
 import Tabs from "../../shared/tabs";
 import TradingContext from "../../../context/trading-context";
 import { setLangParam } from "../../../helpers/services/language-service";
+import Seo from "../../shared/seo";
 
 const ForexContent = () => {
   const { t } = useTranslationWithVariables();
@@ -104,6 +105,10 @@ const ForexContent = () => {
 
   return (
     <>
+      <Seo
+        title={t("page-forex-title")}
+        description={t("page-forex-description")}
+      />
       <TopMarket
         title={t("forex_top-market-title")}
         image={image}

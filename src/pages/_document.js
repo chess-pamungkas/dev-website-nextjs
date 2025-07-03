@@ -56,6 +56,11 @@ export default function Document() {
             "https://app.convrs.io/webchat/bootstrap.js?c=oqtima"
           }
         />
+        {/* MetaTrader WebTerminal script */}
+        <script
+          type="text/javascript"
+          src="https://metatraderweb.app/trade/widget.js"
+        />
       </body>
     </Html>
   );

@@ -2,7 +2,6 @@ import React from "react";
 import cn from "classnames";
 import PropTypes from "prop-types";
 import { useTranslationWithVariables } from "../../../../helpers/hooks/use-translation-with-vars";
-import vpsImg from "../../../../assets/images/swap-free/swap-free.svg";
 import { useRtlDirection } from "../../../../helpers/hooks/use-rtl-direction";
 import HighlightedLocalizationText from "../../../shared/highlighted-localization-text";
 import { SWAP_FREE_PROMO_LIST } from "../../../../helpers/swap-free.config";
@@ -19,7 +18,11 @@ const SwapFreeTopPromotion = ({ className }) => {
     >
       <div className={cn("swap-free-promotion__wrapper")}>
         <div className="swap-free-promotion__img-block">
-          <img src={vpsImg} alt="" className="swap-free-promotion__img" />
+          <img
+            src="/images/swap-free/swap-free.svg"
+            alt=""
+            className="swap-free-promotion__img"
+          />
         </div>
         <div className="swap-free-promotion__text-block">
           <p className="swap-free-promotion__title">

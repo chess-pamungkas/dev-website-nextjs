@@ -9,7 +9,6 @@ const {
   defaultLangKey,
   uniqueList,
   LANG_CONFIG,
-  CYSEC_LANG_CONFIG,
 } = require("../helpers/lang.config");
 
 // Import all locale files
@@ -74,25 +73,6 @@ if (!i18n.isInitialized) {
 const cookies = new Cookies();
 const LAST_LANGUAGE_KEY = "lastLanguage";
 
-// Language configuration utilities
-const getCurrentEntity = () => {
-  return process.env.NEXT_PUBLIC_ENTITY || "FSA";
-};
-
-const getLanguageConfig = () => {
-  const entity = getCurrentEntity();
-  return entity === "FSA" ? LANG_CONFIG : CYSEC_LANG_CONFIG;
-};
-
-// Find language by ID
-export const findLangById = (langId) => {
-  const config = getLanguageConfig();
-  return (
-    config.find((lang) => lang.id === langId) ||
-    config.find((lang) => lang.isDefault)
-  );
-};
-
 // Get language from URL
 export const getLangFromUrl = (pathname) => {
   if (typeof window !== "undefined") {
@@ -106,14 +86,13 @@ export const getLangFromUrl = (pathname) => {
   return null;
 };
 
-// Detect initial language
-export const detectInitialLanguage = (recommendedLanguage) => {
-  const urlLang = getLangFromUrl();
-  const cookieLang = cookies.get(LAST_LANGUAGE_KEY);
-  const detectedLang =
-    urlLang || cookieLang || recommendedLanguage || defaultLangKey;
-
-  return findLangById(detectedLang);
+// Find language by ID
+export const findLangById = (langId) => {
+  const config = LANG_CONFIG;
+  return (
+    config.find((lang) => lang.id === langId) ||
+    config.find((lang) => lang.isDefault)
+  );
 };
 
 // Hook to get current locale from URL or cookie
@@ -229,6 +208,10 @@ export const useLanguageParam = () => {
 // Initialize language on app start
 export const initializeLanguage = () => {
   if (typeof window !== "undefined") {
+    // Import detectInitialLanguage from language service
+    const {
+      detectInitialLanguage,
+    } = require("../helpers/services/language-service");
     const currentLang = detectInitialLanguage();
     const currentPath = window.location.pathname;
 
@@ -248,5 +231,5 @@ export const initializeLanguage = () => {
 };
 
 // Export language configuration
-export { list, defaultLangKey, uniqueList, LANG_CONFIG, CYSEC_LANG_CONFIG };
+export { list, defaultLangKey, uniqueList, LANG_CONFIG };
 export default i18n;

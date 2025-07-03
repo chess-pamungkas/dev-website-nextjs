@@ -5,9 +5,9 @@ import { list as locales, defaultLangKey } from "../helpers/lang.config";
 
 // Import all page components (static imports for main pages, dynamic for rarely visited)
 import MainHomePage from "../components/pages-content/main-home-page";
-import MainPromotionPage from "../components/pages-content/main-page-content/performance-content";
+import CompanyContent from "../components/pages-content/company-content";
 import ForexPage from "../components/pages-content/forex-content";
-import LegalPage from "../components/pages-content/legal-content";
+import LegalPage from "../components/pages-content/legal-global-content";
 import CareerPage from "../components/pages-content/career-content";
 import CryptoPage from "../components/pages-content/crypto-content";
 import SharesPage from "../components/pages-content/shares-content";
@@ -35,6 +35,10 @@ import CookiePolicyPage from "../components/pages-content/cookie-policy-page-con
 import NotFoundPage from "../components/pages-content/not-found-page-content";
 import PlatformsPage from "../components/pages-content/platforms-page-content";
 import AllMarketsPage from "../components/pages-content/all-markets-page-content";
+import Mt4WebTraderContent from "../components/pages-content/mt4-webtrader-content";
+import Mt5WebTraderContent from "../components/pages-content/mt5-webtrader-content";
+import ContactUsContent from "../components/pages-content/contact-us-content";
+import FaqContent from "../components/pages-content/faq-content";
 
 // Advanced: Dynamic/nested route support
 const DYNAMIC_PAGE_MAP = {
@@ -44,16 +48,18 @@ const DYNAMIC_PAGE_MAP = {
   platforms: PlatformsPage,
 };
 
+// Legal subdirectory mapping
+const LEGAL_SUBPAGES = {
+  privacy: PrivacyPolicyPage,
+  cookie: CookiePolicyPage,
+};
+
 // Map slugs to page components
 const PAGE_MAP = {
   "": MainHomePage,
-  company: MainPromotionPage,
-  "contact-us": dynamic(() =>
-    import("../components/pages-content/main-page-content/performance-content")
-  ),
-  faq: dynamic(() =>
-    import("../components/pages-content/main-page-content/performance-content")
-  ),
+  company: CompanyContent,
+  "contact-us": ContactUsContent,
+  faq: FaqContent,
   career: CareerPage,
   forex: ForexPage,
   crypto: CryptoPage,
@@ -82,6 +88,8 @@ const PAGE_MAP = {
   "professional-qualification": ProfessionalQualificationPage,
   search: SearchPage,
   "all-markets": AllMarketsPage,
+  "mt4-webtrader": Mt4WebTraderContent,
+  "mt5-webtrader": Mt5WebTraderContent,
 };
 
 export default function CatchAllPage({ slug, detectedLocale }) {
@@ -109,6 +117,13 @@ export default function CatchAllPage({ slug, detectedLocale }) {
     const [parent, ...rest] = actualSlug;
     if (DYNAMIC_PAGE_MAP[parent]) {
       PageComponent = DYNAMIC_PAGE_MAP[parent];
+    }
+    // Handle legal subdirectory pages like /legal/privacy, /legal/cookie
+    if (parent === "legal" && rest.length === 1) {
+      const subpage = rest[0];
+      if (LEGAL_SUBPAGES[subpage]) {
+        PageComponent = LEGAL_SUBPAGES[subpage];
+      }
     }
   }
 
@@ -172,15 +187,17 @@ export async function getStaticPaths() {
     "funding",
     "partners",
     "legal",
-    "privacy-policy",
-    "cookie-policy",
     "professional-qualification",
     "search",
     "all-markets",
+    "mt4-webtrader",
+    "mt5-webtrader",
   ];
   const dynamicSlugs = [
     ["legal", "terms"],
     ["legal", "disclaimer"],
+    ["legal", "privacy"],
+    ["legal", "cookie"],
     ["privacy-policy", "gdpr"],
     ["privacy-policy", "cookies"],
     ["professional-qualification", "details"],

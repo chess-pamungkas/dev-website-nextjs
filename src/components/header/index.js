@@ -42,6 +42,11 @@ const Header = ({ className }) => {
   } = useContext(CommonContext);
   const langParam = setLangParam();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const { selectedLanguage } = useContext(LanguageContext);
+  const homeLink =
+    selectedLanguage && selectedLanguage.id !== "en"
+      ? `/${selectedLanguage.id}/`
+      : "/";
 
   const handleShowRegistrationPopup = () => {
     setIsPopupOpen(true);
@@ -74,7 +79,7 @@ const Header = ({ className }) => {
         >
           <div className="header__main-wrapper" ref={headerMainWrapperRef}>
             <div className="header__left">
-              <InternalLink to={HOME_PAGE_LINK}>
+              <InternalLink to={homeLink}>
                 {/* Desktop only, where header transition */}
                 {isDesktop &&
                   (isScrolled ? (

@@ -44,34 +44,18 @@ const SearchPageContent = () => {
   const handleScroll = useCallback(() => {
     if (!searchResultsRef.current) return;
 
-    // Use requestAnimationFrame to prevent blocking the main thread
-    if ("requestAnimationFrame" in window) {
-      requestAnimationFrame(() => {
-        const { bottom: resultsElementBottom } =
-          searchResultsRef.current.getBoundingClientRect();
+    const { bottom: resultsElementBottom } =
+      searchResultsRef.current.getBoundingClientRect();
 
-        if (
-          typeof window !== "undefined" &&
-          resultsElementBottom < window.innerHeight
-        ) {
-          setResultsBundleCount((prevBundleCount) => prevBundleCount + 1);
-        }
-      });
-    } else {
-      // Fallback for older browsers
-      const { bottom: resultsElementBottom } =
-        searchResultsRef.current.getBoundingClientRect();
-
-      if (
-        typeof window !== "undefined" &&
-        resultsElementBottom < window.innerHeight
-      ) {
-        setResultsBundleCount((prevBundleCount) => prevBundleCount + 1);
-      }
+    if (
+      typeof window !== "undefined" &&
+      resultsElementBottom < window.innerHeight
+    ) {
+      setResultsBundleCount((prevBundleCount) => prevBundleCount + 1);
     }
   }, []);
 
-  // Initialize search from URL - optimized for performance
+  // Initialize search from URL
   useEffect(() => {
     const searchParamValue = getUrlParamValue(SEARCH_PARAM_NAME);
     if (!searchParamValue) {
@@ -88,25 +72,20 @@ const SearchPageContent = () => {
 
     if (query.length >= SEARCH_MIN_QUERY_LENGTH) {
       setResultsBundleCount(SEARCH_RESULTS_FIRST_BUNDLE);
+      const results = getSearchResults(query);
 
-      // Use requestIdleCallback for heavy search operation
-      const performSearch = () => {
-        const results = getSearchResults(query);
-        setLocalSearchResults(results);
-        setNoResultsFound(!results.length);
-      };
+      // Update local state
+      setLocalSearchResults(results);
+      setNoResultsFound(!results.length);
 
-      if ("requestIdleCallback" in window) {
-        requestIdleCallback(performSearch, { timeout: 100 });
-      } else {
-        // Fallback to setTimeout
-        setTimeout(performSearch, 50);
-      }
+      // Don't update context to avoid bidirectional sync issues
     } else {
       setLocalSearchResults([]);
       setNoResultsFound(false);
+
+      // Don't update context to avoid bidirectional sync issues
     }
-  }, [getSearchResults]);
+  }, [getSearchResults]); // Remove setSearchState from dependencies
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);

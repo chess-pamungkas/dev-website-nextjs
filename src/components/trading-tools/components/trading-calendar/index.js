@@ -9,7 +9,6 @@ import {
   ShowRegistrationPopup,
 } from "../../../../helpers/constants";
 import CalendarInfoBlock from "./components/info-block";
-import img from "../../../../assets/images/trading-tools/calendar.png";
 import HighlightedLocalizationText from "../../../shared/highlighted-localization-text";
 import FeatureItem from "./components/feature-item";
 import { TRADING_CALENDAR_FEATURES } from "../../../../helpers/trading-tools.config";
@@ -68,7 +67,7 @@ const TradingCalendar = ({ className }) => {
               accentClassName="highlighted-in-red"
             />
           }
-          img={img}
+          img="/images/trading-tools/calendar.png"
         />
 
         <div className="trading-calendar__features-block">

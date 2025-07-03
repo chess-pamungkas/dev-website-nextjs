@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import cn from "classnames";
 import PropTypes from "prop-types";
 import { useTranslationWithVariables } from "../../../../helpers/hooks/use-translation-with-vars";
-import bottomPromo from "../../../../assets/images/vps/bottom-promo.svg";
 import { useRtlDirection } from "../../../../helpers/hooks/use-rtl-direction";
 import HighlightedLocalizationText from "../../../shared/highlighted-localization-text";
 import ButtonPopup from "../../../shared/button-popup";
@@ -31,7 +30,11 @@ const VPSBottomPromotion = ({ className }) => {
     >
       <div className={cn("vps-bottom-promotion__wrapper")}>
         <div className="vps-bottom-promotion__img-block">
-          <img src={bottomPromo} alt="" className="vps-bottom-promotion__img" />
+          <img
+            src="/images/vps/bottom-promo.svg"
+            alt=""
+            className="vps-bottom-promotion__img"
+          />
         </div>
         <div className="vps-bottom-promotion__text-block">
           <p className="vps-bottom-promotion__title">
