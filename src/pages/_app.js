@@ -84,6 +84,26 @@ class ContextErrorBoundary extends React.Component {
 }
 
 console.log("=== NEXT.JS APP MOUNTED (CLIENT) ===");
+console.error("=== ERROR LOG TEST ===");
+console.warn("=== WARN LOG TEST ===");
+
+function TestButton() {
+  const [clicked, setClicked] = useState(false);
+  return (
+    <button
+      style={{ position: "fixed", top: 10, right: 10, zIndex: 9999 }}
+      onClick={() => {
+        setClicked(true);
+        console.log("Button clicked!");
+        console.error("Button error log!");
+        console.warn("Button warn log!");
+        window.alert("Button clicked!");
+      }}
+    >
+      Test Log Button {clicked ? "(Clicked)" : ""}
+    </button>
+  );
+}
 
 function MyApp({ Component, pageProps }) {
   const [isClient, setIsClient] = useState(false);
@@ -354,75 +374,78 @@ function MyApp({ Component, pageProps }) {
   };
 
   return (
-    <ClientResolverProvider>
-      <MemoizedLanguageProvider>
-        <MemoizedCommonProvider>
-          <MemoizedCookieProvider>
-            <MemoizedReCaptchaProvider language="en">
-              {disableHeavyContexts ? (
-                // Skip heavy contexts if disabled
-                <ContextErrorBoundary>
-                  {contextValues.isLoaded && contextsReady && (
-                    <>
-                      <Header />
-                      <CookiesPopup />
-                      <section className="scroll-container">
-                        <MainContainer>
-                          <contextValues.Component
-                            {...contextValues.pageProps}
-                          />
-                        </MainContainer>
-                        <Footer />
-                      </section>
-                    </>
-                  )}
-                  {/* Lazy load Bookmark component to reduce initial load */}
-                  {contextValues.isLoaded && contextsReady && (
-                    <React.Suspense fallback={null}>
-                      <Bookmark />
-                    </React.Suspense>
-                  )}
-                </ContextErrorBoundary>
-              ) : (
-                // Only render LazySearchProvider and its children after search context is loaded
-                <React.Suspense fallback={null}>
-                  {contextsReady &&
-                  contextsLoaded.trading &&
-                  contextsLoaded.search ? (
-                    <LazyTradingProvider>
-                      <LazySearchProvider>
-                        <ContextErrorBoundary>
-                          {contextValues.isLoaded && (
-                            <>
-                              <Header />
-                              <CookiesPopup />
-                              <section className="scroll-container">
-                                <MainContainer>
-                                  <contextValues.Component
-                                    {...contextValues.pageProps}
-                                  />
-                                </MainContainer>
-                                <Footer />
-                              </section>
-                            </>
-                          )}
-                          {/* Lazy load Bookmark component to reduce initial load */}
-                          {contextValues.isLoaded && (
-                            <React.Suspense fallback={null}>
-                              <Bookmark />
-                            </React.Suspense>
-                          )}
-                        </ContextErrorBoundary>
-                      </LazySearchProvider>
-                    </LazyTradingProvider>
-                  ) : null}
-                </React.Suspense>
-              )}
-            </MemoizedReCaptchaProvider>
-          </MemoizedCookieProvider>
-        </MemoizedCommonProvider>
-      </MemoizedLanguageProvider>
-    </ClientResolverProvider>
+    <>
+      <TestButton />
+      <ClientResolverProvider>
+        <MemoizedLanguageProvider>
+          <MemoizedCommonProvider>
+            <MemoizedCookieProvider>
+              <MemoizedReCaptchaProvider language="en">
+                {disableHeavyContexts ? (
+                  // Skip heavy contexts if disabled
+                  <ContextErrorBoundary>
+                    {contextValues.isLoaded && contextsReady && (
+                      <>
+                        <Header />
+                        <CookiesPopup />
+                        <section className="scroll-container">
+                          <MainContainer>
+                            <contextValues.Component
+                              {...contextValues.pageProps}
+                            />
+                          </MainContainer>
+                          <Footer />
+                        </section>
+                      </>
+                    )}
+                    {/* Lazy load Bookmark component to reduce initial load */}
+                    {contextValues.isLoaded && contextsReady && (
+                      <React.Suspense fallback={null}>
+                        <Bookmark />
+                      </React.Suspense>
+                    )}
+                  </ContextErrorBoundary>
+                ) : (
+                  // Only render LazySearchProvider and its children after search context is loaded
+                  <React.Suspense fallback={null}>
+                    {contextsReady &&
+                    contextsLoaded.trading &&
+                    contextsLoaded.search ? (
+                      <LazyTradingProvider>
+                        <LazySearchProvider>
+                          <ContextErrorBoundary>
+                            {contextValues.isLoaded && (
+                              <>
+                                <Header />
+                                <CookiesPopup />
+                                <section className="scroll-container">
+                                  <MainContainer>
+                                    <contextValues.Component
+                                      {...contextValues.pageProps}
+                                    />
+                                  </MainContainer>
+                                  <Footer />
+                                </section>
+                              </>
+                            )}
+                            {/* Lazy load Bookmark component to reduce initial load */}
+                            {contextValues.isLoaded && (
+                              <React.Suspense fallback={null}>
+                                <Bookmark />
+                              </React.Suspense>
+                            )}
+                          </ContextErrorBoundary>
+                        </LazySearchProvider>
+                      </LazyTradingProvider>
+                    ) : null}
+                  </React.Suspense>
+                )}
+              </MemoizedReCaptchaProvider>
+            </MemoizedCookieProvider>
+          </MemoizedCommonProvider>
+        </MemoizedLanguageProvider>
+      </ClientResolverProvider>
+    </>
   );
 }
 
