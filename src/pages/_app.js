@@ -83,6 +83,8 @@ class ContextErrorBoundary extends React.Component {
   }
 }
 
+console.log("=== NEXT.JS APP MOUNTED (CLIENT) ===");
+
 function MyApp({ Component, pageProps }) {
   const [isClient, setIsClient] = useState(false);
   const [hydrated, setHydrated] = useState(false);
