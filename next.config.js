@@ -133,7 +133,7 @@ const nextConfig = {
 
   // Compiler options
   compiler: {
-    removeConsole: process.env.NODE_ENV === "production",
+    // Removed compiler.removeConsole to allow console logs in production
   },
 
   // Development-specific optimizations
