@@ -1432,10 +1432,10 @@ const PopupRegistrationForm = ({ params }) => {
     const policyType = url.toLowerCase().includes("privacy")
       ? "Privacy"
       : url.toLowerCase().includes("cookie")
-      ? "Cookie"
-      : url.toLowerCase().includes("terms")
-      ? "Terms"
-      : "Policy";
+        ? "Cookie"
+        : url.toLowerCase().includes("terms")
+          ? "Terms"
+          : "Policy";
 
     // Try to open the window directly
     let policyWindow = null;
@@ -2765,35 +2765,40 @@ const PopupRegistrationForm = ({ params }) => {
                       }
                     />
                     <span>
-                      <Trans i18nKey="popup-registration-consent" ns="index">
-                        I agree to allow the company to process my personal data
-                        to meet its regulatory obligations and I have read and
-                        understood the
-                        <a
-                          href={policyLinks.privacyPolicy}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="link"
-                          onClick={(e) =>
-                            handlePolicyLinkClick(e, policyLinks.privacyPolicy)
-                          }
-                        >
-                          Privacy Policy
-                        </a>
-                        and
-                        <a
-                          href={policyLinks.cookiePolicy}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="link"
-                          onClick={(e) =>
-                            handlePolicyLinkClick(e, policyLinks.cookiePolicy)
-                          }
-                        >
-                          Cookie Policy
-                        </a>
-                        of the Company.
-                      </Trans>
+                      <Trans
+                        i18nKey="popup-registration-consent"
+                        ns="common"
+                        components={{
+                          1: (
+                            <a
+                              href={policyLinks.privacyPolicy}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="link"
+                              onClick={(e) =>
+                                handlePolicyLinkClick(
+                                  e,
+                                  policyLinks.privacyPolicy
+                                )
+                              }
+                            />
+                          ),
+                          3: (
+                            <a
+                              href={policyLinks.cookiePolicy}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="link"
+                              onClick={(e) =>
+                                handlePolicyLinkClick(
+                                  e,
+                                  policyLinks.cookiePolicy
+                                )
+                              }
+                            />
+                          ),
+                        }}
+                      />
                     </span>
                   </span>
                   {errors.agreement && touched.agreement && (
