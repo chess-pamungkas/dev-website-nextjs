@@ -1,8 +1,7 @@
-import icon1 from "../assets/images/professional-qualification/adv-icon1.svg";
-import icon2 from "../assets/images/professional-qualification/adv-icon2.svg";
-import icon3 from "../assets/images/professional-qualification/adv-icon3.svg";
-import icon4 from "../assets/images/professional-qualification/adv-icon4.svg";
-
+const icon1 = "/images/professional-qualification/adv-icon1.svg";
+const icon2 = "/images/professional-qualification/adv-icon2.svg";
+const icon3 = "/images/professional-qualification/adv-icon3.svg";
+const icon4 = "/images/professional-qualification/adv-icon4.svg";
 export const ADVANTAGES_LIST = [
   {
     icon: icon1,

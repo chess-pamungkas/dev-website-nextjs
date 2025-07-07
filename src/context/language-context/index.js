@@ -122,15 +122,8 @@ export const LanguageProvider = ({ children }) => {
     const isRTL = rtlLanguages.includes(selectedLanguage.id);
 
     // Set RTL direction
-    if (typeof document !== "undefined") {
-      document.documentElement.dir = isRTL ? "rtl" : "ltr";
-
-      if (isRTL) {
-        document.documentElement.classList.add("rtl");
-      } else {
-        document.documentElement.classList.remove("rtl");
-      }
-    }
+    // document.documentElement.classList.add("rtl");
+    // document.documentElement.classList.remove("rtl");
   }, [selectedLanguage]);
 
   // Handle cookie updates
@@ -152,9 +145,9 @@ export const LanguageProvider = ({ children }) => {
       typeof window !== "undefined"
     ) {
       if (selectedLanguage.id === "jp") {
-        document.body.classList.add("jp-font");
+        // document.body.classList.add("jp-font");
       } else {
-        document.body.classList.remove("jp-font");
+        // document.body.classList.remove("jp-font");
       }
     }
   }, [selectedLanguage]);

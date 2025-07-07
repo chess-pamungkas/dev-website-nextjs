@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState } from "react";
 import { useTranslationWithVariables } from "../../../helpers/hooks/use-translation-with-vars";
 import cn from "classnames";
 import TopMarket from "../../top-market";
-import promotion from "../../../assets/images/spreads-and-fees/promotion.svg";
+const promotion = "/images/spreads-and-fees/promotion.svg";
 import HighlightedLocalizationText from "../../shared/highlighted-localization-text";
 import TopMarketLayout from "../../top-market-layout";
 import Tabs from "../../shared/tabs";
@@ -16,7 +16,7 @@ import {
   DATA_SPREADS_TABLE_INDICES,
 } from "../../../helpers/spreads-and-fees.config";
 import TopMarketPromotion from "../../top-market-promotion";
-import icon from "../../../assets/images/icon--white.svg";
+const icon = "/images/icon--white.svg";
 import { ShowRegistrationPopup } from "../../../helpers/constants";
 import { useRtlDirection } from "../../../helpers/hooks/use-rtl-direction";
 import { updateTableDataWithLiveColumn } from "../../../helpers/services/update-table-data-with-live-column";
@@ -29,6 +29,7 @@ import {
 import TradingContext from "../../../context/trading-context";
 import { GeneralTableColumns } from "../../../helpers/top-market-tables";
 import { setLangParam } from "../../../helpers/services/language-service";
+import Seo from "../../shared/seo";
 
 const SpreadsAndFeesPageContent = () => {
   const { t } = useTranslationWithVariables();
@@ -38,6 +39,10 @@ const SpreadsAndFeesPageContent = () => {
 
   const langParam = setLangParam(); // Get the language parameter
   const [isPopupOpen, setIsPopupOpen] = useState(false); // State to manage popup visibility
+  const [tableDataForex, setTableDataForex] = useState([]);
+  const [tableDataIndices, setTableDataIndices] = useState([]);
+  const [tableDataCommodities, setTableDataCommodities] = useState([]);
+  const [tableDataCrypto, setTableDataCrypto] = useState([]);
 
   const handleShowRegistrationPopup = () => {
     setIsPopupOpen(true); // Open the popup
@@ -47,10 +52,31 @@ const SpreadsAndFeesPageContent = () => {
     setIsPopupOpen(false); // Close the popup
   };
 
-  updateTableDataWithLiveColumn(DATA_SPREADS_TABLE_INDICES, tradingSymbols);
-  updateTableDataWithLiveColumn(DATA_SPREADS_TABLE_FOREX, tradingSymbols);
-  updateTableDataWithLiveColumn(DATA_SPREADS_TABLE_COMMODITIES, tradingSymbols);
-  updateTableDataWithLiveColumn(DATA_SPREADS_TABLE_CRYPTO, tradingSymbols);
+  useEffect(() => {
+    const updatedForex = DATA_SPREADS_TABLE_FOREX.map((row) => ({ ...row }));
+    const updatedIndices = DATA_SPREADS_TABLE_INDICES.map((row) => ({
+      ...row,
+    }));
+    const updatedCommodities = DATA_SPREADS_TABLE_COMMODITIES.map((row) => ({
+      ...row,
+    }));
+    const updatedCrypto = DATA_SPREADS_TABLE_CRYPTO.map((row) => ({ ...row }));
+    updateTableDataWithLiveColumn(updatedForex, tradingSymbols);
+    updateTableDataWithLiveColumn(updatedIndices, tradingSymbols);
+    updateTableDataWithLiveColumn(updatedCommodities, tradingSymbols);
+    updateTableDataWithLiveColumn(updatedCrypto, tradingSymbols);
+    setTableDataForex(updatedForex);
+    setTableDataIndices(updatedIndices);
+    setTableDataCommodities(updatedCommodities);
+    setTableDataCrypto(updatedCrypto);
+  }, [tradingSymbols]);
+
+  useEffect(() => {
+    setSelectedSection(FOREX_TRADING_SECTION);
+    setNeedToLoadSymbols(true);
+
+    return () => setNeedToLoadSymbols(false);
+  }, []);
 
   const tabs = [
     {
@@ -60,7 +86,7 @@ const SpreadsAndFeesPageContent = () => {
       content: (
         <TableComponent
           isWrapperPadding
-          data={DATA_SPREADS_TABLE_FOREX}
+          data={tableDataForex}
           columns={GeneralTableColumns()}
           tableClassName={isRTL ? "spreads-table--rtl" : ""}
           tip={
@@ -82,7 +108,7 @@ const SpreadsAndFeesPageContent = () => {
       content: (
         <TableComponent
           isWrapperPadding
-          data={DATA_SPREADS_TABLE_INDICES}
+          data={tableDataIndices}
           columns={GeneralTableColumns()}
           tableClassName={isRTL ? "spreads-table--rtl" : ""}
           tip={
@@ -104,7 +130,7 @@ const SpreadsAndFeesPageContent = () => {
       content: (
         <TableComponent
           isWrapperPadding
-          data={DATA_SPREADS_TABLE_COMMODITIES}
+          data={tableDataCommodities}
           columns={GeneralTableColumns()}
           tableClassName={isRTL ? "spreads-table--rtl" : ""}
           tip={
@@ -126,7 +152,7 @@ const SpreadsAndFeesPageContent = () => {
       content: (
         <TableComponent
           isWrapperPadding
-          data={DATA_SPREADS_TABLE_CRYPTO}
+          data={tableDataCrypto}
           columns={GeneralTableColumns()}
           tableClassName={isRTL ? "spreads-table--rtl" : ""}
           tip={
@@ -143,15 +169,12 @@ const SpreadsAndFeesPageContent = () => {
     },
   ];
 
-  useEffect(() => {
-    setSelectedSection(FOREX_TRADING_SECTION);
-    setNeedToLoadSymbols(true);
-
-    return () => setNeedToLoadSymbols(false);
-  }, []);
-
   return (
     <>
+      <Seo
+        title={t("page-spreads-title")}
+        description={t("page-spreads-description")}
+      />
       <TopMarket
         className={cn("top-market--spreads-page")}
         image={promotion}

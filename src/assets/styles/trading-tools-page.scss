@@ -1,5 +1,6 @@
-@import "vars";
-@import "mixins";
+@use "vars" as *;
+@use "mixins" as *;
+@use "sass:map";
 
 @mixin custom-breakpoint {
   @media screen and (min-width: 1400px) {
@@ -27,7 +28,6 @@
       line-height: 45px;
     }
   }
-
   .top-market__btn-wrapper {
     @include tablet {
       justify-content: center;
@@ -45,11 +45,10 @@
       max-width: 810px;
     }
   }
-
   .top-market__btn {
-    background: map-get($colors, "red");
-    border-color: map-get($colors, "white");
-    color: map-get($colors, "white");
+    background: map.get($colors, "red");
+    border-color: map.get($colors, "white");
+    color: map.get($colors, "white");
     line-height: 40px;
     width: 269px;
     font-size: 15px;
@@ -77,17 +76,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #1e1e1e url("../../assets/images/trading-tools/alpha-bg.svg")
-    no-repeat center center;
+  background: #1e1e1e url("/images/trading-tools/alpha-bg.svg") no-repeat center
+    center;
   background-size: cover;
   padding-top: 37px;
   padding-bottom: 46px;
-
   @include mobile {
     padding-left: $padding-sm;
     padding-right: $padding-sm;
   }
-
   &__wrapper {
     position: relative;
     width: 100%;
@@ -99,20 +96,16 @@
     align-items: center;
     text-align: center;
     z-index: 2;
-
     @include tablet {
       max-width: 720px;
     }
-
     @include desktop-lg {
       max-width: 940px;
     }
-
     @include desktop-xl {
       max-width: 1218px;
     }
   }
-
   &__title-wrapper {
     display: flex;
     align-items: center;
@@ -122,15 +115,13 @@
     max-width: 1200px;
     margin: 0 auto;
   }
-
   &__title {
-    color: map-get($colors, "red");
+    color: map.get($colors, "red");
     margin: 0 0 20px;
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     font-size: 22px;
     line-height: 27px;
     text-align: center;
-
     @include tablet {
       font-size: 35px;
       line-height: 44px;
@@ -146,16 +137,14 @@
       line-height: 75px;
     }
   }
-
   &__subtitle {
-    color: map-get($colors, "white");
+    color: map.get($colors, "white");
     margin: 0 0 20px;
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     font-size: 18px;
     line-height: 22px;
     text-align: center;
     max-width: 1200px;
-
     @include tablet {
       font-size: 28px;
       line-height: 35px;
@@ -171,16 +160,14 @@
       line-height: 60px;
     }
   }
-
   &__description {
-    color: map-get($colors, "white");
+    color: map.get($colors, "white");
     margin: 0 0 79px;
-    font-weight: map-get($font-weight, "regular");
+    font-weight: map.get($font-weight, "regular");
     font-size: 18px;
     line-height: 22px;
     text-align: center;
     max-width: 1200px;
-
     @include tablet {
       margin: 0 0 130px;
       font-size: 28px;
@@ -197,13 +184,24 @@
       line-height: 40px;
     }
   }
-
   &__btn {
     text-transform: unset;
   }
 }
 
 .trading-tools-tabs {
+  &__icon {
+    max-height: 15px;
+    width: auto;
+    margin-right: 10px;
+    @include tablet {
+      max-height: 100%;
+      margin-right: 20px;
+    }
+    @include desktop-xl {
+      margin-right: 37px;
+    }
+  }
   .tabs__panels {
     padding: 22px 0;
 
@@ -219,11 +217,9 @@
       padding: 50px 0;
     }
   }
-
   .tabs__tablist-wrapper {
     box-shadow: none;
   }
-
   .tabs__tablist {
     padding: 0;
     flex-wrap: wrap;
@@ -232,16 +228,15 @@
       flex-wrap: nowrap;
     }
   }
-
   .tabs__tab {
-    background-color: map-get($colors, "red");
-    color: map-get($colors, "white");
-    border: 2px solid map-get($colors, "red");
+    background-color: map.get($colors, "red");
+    color: map.get($colors, "white");
+    border: 2px solid map.get($colors, "red");
     border-radius: 31px;
     display: flex;
     align-items: center;
     text-transform: uppercase;
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     width: 152px;
     height: 25px;
     font-size: 8px;
@@ -271,30 +266,15 @@
     }
 
     &--active {
-      color: map-get($colors, "red");
+      color: map.get($colors, "red");
       background-color: transparent;
       border-radius: 31px;
 
       .trading-tools-tabs__icon {
         path {
-          fill: map-get($colors, "red") !important;
+          fill: map.get($colors, "red") !important;
         }
       }
-    }
-  }
-
-  &__icon {
-    max-height: 15px;
-    width: auto;
-    margin-right: 10px;
-
-    @include tablet {
-      max-height: 100%;
-      margin-right: 20px;
-    }
-
-    @include desktop-xl {
-      margin-right: 37px;
     }
   }
 }
@@ -303,31 +283,25 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-
   @include desktop-lg {
     align-items: flex-start;
     flex-direction: row;
   }
-
   &__text-wrapper {
     text-align: center;
-
     @include desktop-lg {
       text-align: unset;
     }
   }
-
   &__title {
-    color: map-get($colors, "black-secondary");
+    color: map.get($colors, "black-secondary");
     margin: 0 0 20px;
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     font-size: 18px;
     line-height: 22px;
-
     &--red {
-      color: map-get($colors, "red");
+      color: map.get($colors, "red");
     }
-
     @include tablet {
       margin: 0 0 30px;
       font-size: 40px;
@@ -337,54 +311,43 @@
       margin: 0 0 50px;
     }
   }
-
   &__text,
   &__text p {
-    color: map-get($colors, "black-secondary");
+    color: map.get($colors, "black-secondary");
     margin: 0 0 40px;
-    font-weight: map-get($font-weight, "regular");
+    font-weight: map.get($font-weight, "regular");
     font-size: 18px;
     line-height: 22px;
-
     &--white,
     &--white p {
-      color: map-get($colors, "white");
+      color: map.get($colors, "white");
     }
-
     &:last-child {
       margin: 0;
     }
-
     @include tablet {
       font-size: 27px;
       line-height: 40px;
     }
-
     @include desktop-lg {
       font-size: 22px;
     }
-
     @include desktop-xl {
       font-size: 27px;
     }
   }
-
   &__image-wrapper {
     text-align: center;
-
     @include desktop-lg {
       padding-right: 37px;
     }
   }
-
   &__image {
     max-width: 100%;
     margin: 0 0 20px;
-
     @include tablet {
       max-width: 479px;
     }
-
     @include desktop-lg {
       &:last-child {
         margin: 0;
@@ -405,26 +368,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #1e1e1e
-    url("../../assets/images/bg/trading-tools-page/ideas-sm.svg") no-repeat
-    center center;
+  background: #1e1e1e url("/images/bg/trading-tools-page/ideas-sm.svg")
+    no-repeat center center;
   background-size: cover;
   padding-top: 37px;
   padding-bottom: 141px;
-
   @include mobile {
     padding-left: $padding-sm;
     padding-right: $padding-sm;
   }
-
   @include tablet {
     padding-top: 61px;
     padding-bottom: 200px;
-    background: #1e1e1e
-      url("../../assets/images/bg/trading-tools-page/ideas-md.svg") no-repeat
-      center center;
+    background: #1e1e1e url("/images/bg/trading-tools-page/ideas-md.svg")
+      no-repeat center center;
     background-size: cover;
-
     &:after {
       content: "";
       position: absolute;
@@ -435,55 +393,45 @@
       margin-right: -50vw;
       width: 100vw;
       height: 100%;
-      background: url("../../assets/images/about-pages/career-line-bottom.svg")
-        no-repeat right bottom;
+      background: url("/images/about-pages/career-line-bottom.svg") no-repeat
+        right bottom;
       background-size: 159px 163px;
       z-index: 1;
       pointer-events: none;
     }
   }
-
   @include desktop-lg {
     padding-top: 53px;
     padding-bottom: 143px;
-    background: #1e1e1e
-      url("../../assets/images/bg/trading-tools-page/ideas-lg.svg") no-repeat
-      center center;
+    background: #1e1e1e url("/images/bg/trading-tools-page/ideas-lg.svg")
+      no-repeat center center;
     background-size: cover;
-
     &:after {
       background-size: 239px 245px;
     }
   }
-
   @include desktop-xl {
-    background: #1e1e1e
-      url("../../assets/images/bg/trading-tools-page/ideas-xl.svg") no-repeat
-      center center;
+    background: #1e1e1e url("/images/bg/trading-tools-page/ideas-xl.svg")
+      no-repeat center center;
     padding-top: 91px;
     padding-bottom: 199px;
     background-size: cover;
-
     &:after {
       display: none;
     }
   }
-
   &__wrapper {
     @include desktop-lg {
       max-width: 940px;
       margin: 0 auto;
     }
-
     @include custom-breakpoint {
       max-width: 80%;
     }
-
     @include desktop-xl {
       max-width: 1218px;
     }
   }
-
   &__title-wrapper {
     display: flex;
     align-items: center;
@@ -491,14 +439,12 @@
     flex-direction: column;
     text-align: center;
   }
-
   &__title {
-    color: map-get($colors, "red");
+    color: map.get($colors, "red");
     margin: 0 0 20px;
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     font-size: 22px;
     line-height: 27px;
-
     @include tablet {
       font-size: 35px;
       line-height: 44px;
@@ -514,14 +460,12 @@
       line-height: 50px;
     }
   }
-
   &__subtitle {
-    color: map-get($colors, "white");
+    color: map.get($colors, "white");
     margin: 0 0 20px;
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     font-size: 18px;
     line-height: 22px;
-
     @include tablet {
       font-size: 28px;
       line-height: 35px;
@@ -537,14 +481,12 @@
       line-height: 50px;
     }
   }
-
   &__description {
-    color: map-get($colors, "white");
+    color: map.get($colors, "white");
     margin: 0 0 79px;
-    font-weight: map-get($font-weight, "regular");
+    font-weight: map.get($font-weight, "regular");
     font-size: 18px;
     line-height: 22px;
-
     @include tablet {
       margin: 0 0 130px;
       font-size: 28px;
@@ -561,26 +503,24 @@
       line-height: 40px;
     }
   }
-
   &__btn {
     text-transform: unset;
   }
 }
 
 .trading-tools-tab-content--black {
-  .trading-tools-tab-content__title {
-    color: map-get($colors, "red");
-  }
-
   .trading-tools-tab-content__text,
   .trading-tools-tab-content__text p {
-    color: map-get($colors, "white");
+    color: map.get($colors, "white");
+  }
+  .trading-tools-tab-content__title {
+    color: map.get($colors, "red");
   }
 }
 
 .market-buzz {
   position: relative;
-  background: map-get($colors, "white");
+  background: map.get($colors, "white");
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -588,7 +528,6 @@
   padding-top: 37px;
   padding-bottom: 89px;
   @include content-alignment(0);
-
   &:before {
     content: "";
     position: absolute;
@@ -599,30 +538,26 @@
     margin-right: -50vw;
     width: 100vw;
     height: 100%;
-    background: url("../../assets/images/bg/trading-tools/triangle-bg.svg")
-      no-repeat right top;
+    background: url("/images/bg/trading-tools/triangle-bg.svg") no-repeat right
+      top;
     background-size: 95px 114px;
     z-index: 1;
     pointer-events: none;
-
     @include tablet {
-      background: url("../../assets/images/about-pages/ornament-top-md.svg")
-        no-repeat right top;
+      background: url("/images/about-pages/ornament-top-md.svg") no-repeat right
+        top;
       background-size: 219px 263px;
     }
-
     @include desktop-lg {
       display: none;
     }
-
     @include desktop-xl {
       display: block;
-      background: url("../../assets/images/about-pages/ornament-top-xl.svg")
-        no-repeat left top;
+      background: url("/images/about-pages/ornament-top-xl.svg") no-repeat left
+        top;
       background-size: 261px 299px;
     }
   }
-
   &:after {
     content: "";
     position: absolute;
@@ -633,59 +568,49 @@
     margin-right: -50vw;
     width: 100vw;
     height: 100%;
-    background: url("../../assets/images/about-pages/career-line-bottom.svg")
-      no-repeat right bottom;
+    background: url("/images/about-pages/career-line-bottom.svg") no-repeat
+      right bottom;
     background-size: 95px 114px;
     z-index: 1;
     pointer-events: none;
-
     @include tablet {
       background-size: 159px 163px;
     }
-
     @include desktop-lg {
       display: none;
     }
-
     @include desktop-xl {
       display: block;
-      background: url("../../assets/images/about-pages/ornament-bottom-xl.svg")
-        no-repeat right bottom;
+      background: url("/images/about-pages/ornament-bottom-xl.svg") no-repeat
+        right bottom;
       background-size: 261px 299px;
     }
   }
-
   @include tablet {
     padding-top: 62px;
     padding-bottom: 147px;
     background-size: cover;
   }
-
   @include desktop-lg {
     padding-top: 125px;
     padding-bottom: 60px;
   }
-
   @include desktop-xl {
     padding-top: 80px;
     padding-bottom: 170px;
   }
-
   &__wrapper {
     @include desktop-lg {
       max-width: 940px;
       margin: 0 auto;
     }
-
     @include custom-breakpoint {
       max-width: 80%;
     }
-
     @include desktop-xl {
       max-width: 1218px;
     }
   }
-
   &__title-wrapper {
     display: flex;
     align-items: center;
@@ -693,14 +618,12 @@
     flex-direction: column;
     text-align: center;
   }
-
   &__title {
-    color: map-get($colors, "red");
+    color: map.get($colors, "red");
     margin: 0 0 20px;
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     font-size: 22px;
     line-height: 27px;
-
     @include tablet {
       font-size: 35px;
       line-height: 44px;
@@ -716,14 +639,12 @@
       line-height: 50px;
     }
   }
-
   &__subtitle {
-    color: map-get($colors, "black-secondary");
+    color: map.get($colors, "black-secondary");
     margin: 0 0 20px;
-    font-weight: map-get($font-weight, "regular");
+    font-weight: map.get($font-weight, "regular");
     font-size: 18px;
     line-height: 22px;
-
     @include tablet {
       font-size: 28px;
       line-height: 35px;
@@ -739,14 +660,12 @@
       line-height: 50px;
     }
   }
-
   &__description {
-    color: map-get($colors, "black-secondary");
+    color: map.get($colors, "black-secondary");
     margin: 0;
-    font-weight: map-get($font-weight, "regular");
+    font-weight: map.get($font-weight, "regular");
     font-size: 18px;
     line-height: 22px;
-
     @include tablet {
       font-size: 28px;
       line-height: 35px;
@@ -766,57 +685,46 @@
   display: flex;
   flex-direction: column;
   padding: 60px 0 40px;
-
   @include tablet {
     padding: 60px 0 70px;
   }
-
   @include desktop-lg {
     padding: 50px 0 100px;
   }
-
   &__wrapper {
     display: flex;
     align-items: flex-start;
     justify-content: center;
     text-align: center;
   }
-
   &__img {
     max-width: 281px;
     width: auto;
     margin: 0 auto 20px;
-
     @include tablet {
       max-width: 100%;
     }
-
     @include desktop-lg {
       max-width: 655px;
       margin: 0 auto 30px;
     }
   }
-
   &__block {
     padding: 0;
-    border-right: 1px solid map-get($colors, "table-grey");
-
+    border-right: 1px solid map.get($colors, "table-grey");
     &:last-child {
       border-right: none;
     }
-
     @include tablet {
       padding: 0 30px;
     }
   }
-
   &__title {
-    color: map-get($colors, "red");
+    color: map.get($colors, "red");
     margin: 0 0 5px;
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     font-size: 31px;
     line-height: 39px;
-
     @include tablet {
       font-size: 48px;
       line-height: 60px;
@@ -830,14 +738,12 @@
       line-height: 116px;
     }
   }
-
   &__description {
-    color: map-get($colors, "black");
+    color: map.get($colors, "black");
     margin: 0;
-    font-weight: map-get($font-weight, "regular");
+    font-weight: map.get($font-weight, "regular");
     font-size: 14px;
     line-height: 18px;
-
     @include tablet {
       font-size: 16px;
       line-height: 20px;
@@ -853,112 +759,94 @@
   padding: 15px 0;
   display: flex;
   flex-direction: column-reverse;
-
   @include tablet {
     padding: 40px 0;
   }
-
   @include desktop-lg {
     flex-direction: row;
-
     &:nth-child(odd) {
       flex-direction: row-reverse;
-
-      .mb-block__title-wrapper {
-        padding-right: 30px;
-        padding-left: 0;
-
-        @include desktop-lg {
-          text-align: left;
-        }
-      }
     }
   }
-
   @include desktop-xl {
     padding: 60px 0;
   }
-
   &__img-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
   }
-
   &__img {
     margin: 0 auto;
     max-width: 100%;
     height: auto;
-
     @include desktop-lg {
       max-width: 479px;
     }
   }
-
   &__title-wrapper {
     text-align: center;
     padding-right: 0;
     padding-left: 30px;
-
     @include desktop-lg {
       text-align: right;
     }
   }
-
   &__title {
-    color: map-get($colors, "red");
+    color: map.get($colors, "red");
     margin: 0 0 10px;
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     font-size: 20px;
     line-height: 25px;
-
     @include tablet {
       font-size: 56px;
       line-height: 60px;
       margin: 0 0 20px;
     }
-
     @include desktop-lg {
       font-size: 36px;
       line-height: 60px;
       margin: 0 0 10px;
     }
-
     @include desktop-xl {
       font-size: 63px;
       line-height: 60px;
       margin: 0 0 20px;
     }
   }
-
   &__description {
-    color: map-get($colors, "black-secondary");
+    color: map.get($colors, "black-secondary");
     margin: 0 0 10px;
-    font-weight: map-get($font-weight, "light");
+    font-weight: map.get($font-weight, "light");
     font-size: 14px;
     line-height: 18px;
-
     @include tablet {
       margin: 0 0 20px;
       font-size: 28px;
       line-height: 40px;
     }
-
     @include desktop-lg {
       margin: 0;
       font-size: 25px;
       line-height: 40px;
     }
-
     @include desktop-xl {
       font-size: 34px;
+    }
+  }
+  .mb-block__title-wrapper {
+    padding-right: 30px;
+    padding-left: 0;
+
+    @include desktop-lg {
+      text-align: left;
     }
   }
 }
 
 .trading-calendar {
   position: relative;
-  background: map-get($colors, "white");
+  background: map.get($colors, "white");
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -966,23 +854,19 @@
   padding-top: 90px;
   padding-bottom: 64px;
   // @include content-alignment(0);
-
   @include mobile {
     padding-left: $padding-sm;
     padding-right: $padding-sm;
   }
-
   @include tablet {
     padding-top: 100px;
     padding-bottom: 147px;
     background-size: cover;
-    background: url("../../assets/images/bg/trading-tools/triangle-bg.svg")
-      no-repeat center right;
+    background: url("/images/bg/trading-tools/triangle-bg.svg") no-repeat center
+      right;
   }
-
   &:before {
-    background: url("../../assets/images/trading-tools/top-corner-sm.svg")
-      no-repeat;
+    background: url("/images/trading-tools/top-corner-sm.svg") no-repeat;
     content: "";
     position: absolute;
     top: 0;
@@ -992,51 +876,42 @@
     margin-right: -50vw;
     width: 100vw;
     height: 100%;
-
     background-size: 51px 89px;
     z-index: 1;
     pointer-events: none;
-
     @include tablet {
-      background: url("../../assets/images/trading-tools/top-corner-md.svg")
-        no-repeat right top;
+      background: url("/images/trading-tools/top-corner-md.svg") no-repeat right
+        top;
       background-size: 124px 173px;
     }
-
     @include desktop-lg {
       display: none;
     }
-
     @include desktop-xl {
       display: block;
-      background: url("../../assets/images/about-pages/ornament-top-xl.svg")
-        no-repeat left top;
+      background: url("/images/about-pages/ornament-top-xl.svg") no-repeat left
+        top;
       background-size: 261px 299px;
     }
   }
-
   &__features-block {
     display: flex;
     justify-content: center;
     gap: 26px;
     flex-wrap: wrap;
   }
-
   &__wrapper {
     @include desktop-lg {
       max-width: 940px;
       margin: 0 auto;
     }
-
     @include custom-breakpoint {
       max-width: 80%;
     }
-
     @include desktop-xl {
       max-width: 1358px;
     }
   }
-
   &__title-wrapper {
     display: flex;
     align-items: center;
@@ -1044,14 +919,12 @@
     flex-direction: column;
     text-align: center;
   }
-
   &__title {
-    color: map-get($colors, "red");
+    color: map.get($colors, "red");
     margin: 0 0 10px;
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     font-size: 25px;
     line-height: 31px;
-
     @include tablet {
       font-size: 36px;
       line-height: 45px;
@@ -1067,14 +940,12 @@
       line-height: 50px;
     }
   }
-
   &__subtitle {
-    color: map-get($colors, "black-secondary");
+    color: map.get($colors, "black-secondary");
     margin: 0 0 10px;
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     font-size: 13px;
     line-height: 17px;
-
     @include tablet {
       font-size: 24px;
       line-height: 30px;
@@ -1090,14 +961,12 @@
       line-height: 50px;
     }
   }
-
   &__description {
-    color: map-get($colors, "black-secondary");
+    color: map.get($colors, "black-secondary");
     margin: 0;
-    font-weight: map-get($font-weight, "light");
+    font-weight: map.get($font-weight, "light");
     font-size: 13px;
     line-height: 17px;
-
     @include tablet {
       font-size: 24px;
       line-height: 30px;
@@ -1118,42 +987,34 @@
   display: flex;
   flex-direction: column-reverse;
   justify-content: center;
-
   @include tablet {
     padding: 60px 0 121px 0;
   }
-
   @include desktop-lg {
     padding-top: 48px;
     padding-bottom: 50px;
   }
-
   @include desktop-xl {
     flex-direction: row-reverse;
     padding-top: 245px;
     padding-bottom: 60px;
   }
-
   &__img-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
   }
-
   &__img {
     margin: 0 auto;
     max-width: 100%;
     height: auto;
-
     @include desktop-lg {
       max-width: 536px;
     }
-
     @include desktop-xl {
       max-width: 636px;
     }
   }
-
   &__title-wrapper {
     display: flex;
     text-align: left;
@@ -1161,62 +1022,52 @@
     padding-left: 0;
     flex-direction: column;
     align-items: center;
-
     @include desktop-xl {
       align-items: unset;
       text-align: left;
     }
   }
-
   &__line {
     width: 149px;
     height: 0px;
-    border: 1px solid map-get($colors, "red");
+    border: 1px solid map.get($colors, "red");
     margin: 0;
-
     margin-top: 23px;
     margin-bottom: 20px;
-
     @include tablet {
       width: 342px;
       margin-top: 40px;
       margin-bottom: 30px;
-      border: 2px solid map-get($colors, "red");
+      border: 2px solid map.get($colors, "red");
     }
-
     @include desktop-lg {
       margin-top: 49px;
       margin-bottom: 39px;
     }
-
     @include desktop-xl {
       width: 199px;
       margin-top: 43px;
       margin-bottom: 85px;
     }
   }
-
   &__title {
-    color: map-get($colors, "red");
+    color: map.get($colors, "red");
     margin: 0 0 10px;
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     font-size: 20px;
     line-height: 25px;
     text-align: center;
-
     @include tablet {
       font-size: 36px;
       line-height: 45px;
       margin: 0 0 20px;
     }
-
     @include desktop-lg {
       font-size: 49px;
       line-height: 62px;
       margin: 0 0 10px;
       max-width: 510px;
     }
-
     @include desktop-xl {
       text-align: left;
       font-size: 60px;
@@ -1225,26 +1076,22 @@
       max-width: unset;
     }
   }
-
   &__description {
-    color: map-get($colors, "black-secondary");
+    color: map.get($colors, "black-secondary");
     margin: 0 0 10px;
-    font-weight: map-get($font-weight, "light");
+    font-weight: map.get($font-weight, "light");
     font-size: 13px;
     line-height: 17px;
-
     @include tablet {
       margin: 0 0 20px;
       font-size: 24px;
       line-height: 30px;
     }
-
     @include desktop-lg {
       margin: 0 0 30px;
       font-size: 30px;
       line-height: 37px;
     }
-
     @include desktop-xl {
       font-size: 32px;
       line-height: 60px;
@@ -1253,7 +1100,7 @@
 }
 
 .feature-item {
-  background-color: map-get($colors, "white");
+  background-color: map.get($colors, "white");
   padding: 60px 10px 20px 10px;
   display: flex;
   flex-direction: column;
@@ -1261,45 +1108,38 @@
   border-radius: 28px;
   text-align: center;
   max-width: 300px;
-
   @include tablet {
     padding: 60px 10px 20px 10px;
   }
-
   @include desktop-lg {
     max-width: 320px;
     padding: 60px 10px 20px 10px;
   }
-
   @include desktop-xl {
     padding: 60px 10px 20px 10px;
     max-width: 320px;
     min-height: 531px;
   }
-
   &__img {
     margin: 0 auto;
     max-width: 100%;
     height: 57px;
-
     @include desktop-lg {
       height: 75px;
     }
   }
-
   &__title {
     display: flex;
     align-content: center;
     justify-content: center;
     flex-wrap: wrap;
-    color: map-get($colors, "black-secondary");
-    font-weight: map-get($font-weight, "black");
+    color: map.get($colors, "black-secondary");
+    font-weight: map.get($font-weight, "black");
     font-size: 20px;
     line-height: 30px;
     margin: 0;
     padding-top: 29px;
     padding-bottom: 22px;
-
     @include tablet {
       font-size: 20px;
       line-height: 30px;
@@ -1307,37 +1147,30 @@
       padding-bottom: unset;
       min-height: 80px;
     }
-
     @include desktop-lg {
       font-size: 24px;
       line-height: 30px;
       min-height: 100px;
     }
-
     @include desktop-xl {
       font-size: 24px;
       line-height: 30px;
-
       min-height: 60px;
     }
   }
-
   &__description {
-    color: map-get($colors, "black-secondary");
-    font-weight: map-get($font-weight, "light");
+    color: map.get($colors, "black-secondary");
+    font-weight: map.get($font-weight, "light");
     font-size: 14px;
     line-height: 20px;
-
     @include tablet {
       font-size: 14px;
       line-height: 20px;
     }
-
     @include desktop-lg {
       font-size: 18px;
       line-height: 30px;
     }
-
     @include desktop-xl {
       font-size: 18px;
       line-height: 30px;
@@ -1347,9 +1180,8 @@
 
 .trading-tools-btn {
   margin: 60px auto 0 auto;
-
   @include tablet {
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     font-size: 24px;
     line-height: 62px;
     width: 380px;

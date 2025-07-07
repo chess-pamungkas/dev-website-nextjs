@@ -1,5 +1,6 @@
-@import "vars";
-@import "mixins";
+@use "vars" as *;
+@use "mixins" as *;
+@use "sass:map";
 
 .popup-registration {
   display: none;
@@ -80,7 +81,7 @@
 
   &__sidebar {
     background-color: #ff4400;
-    background-image: url("../images/bg/register-img.png");
+    background-image: url("/images/bg/register-img.png");
     background-size: 85% auto;
     background-repeat: no-repeat;
     background-position: center calc(55%);
@@ -93,7 +94,7 @@
     &__title {
       font-family: $font-sidebar;
       font-size: 1.5rem;
-      font-weight: map-get($font-weight, "black");
+      font-weight: map.get($font-weight, "black");
       color: #1a1a1a;
       line-height: 1.2;
       white-space: pre-line;
@@ -101,12 +102,12 @@
 
       .normal-text {
         display: inline;
-        font-weight: map-get($font-weight, "bold");
+        font-weight: map.get($font-weight, "bold");
       }
 
       .highlighted {
         display: inline;
-        font-weight: map-get($font-weight, "black");
+        font-weight: map.get($font-weight, "black");
 
         .white-text {
           color: #ffffff;
@@ -216,7 +217,7 @@
       margin-bottom: 2.1875rem;
       color: #1a1a1a;
       font-size: 1.5rem;
-      font-weight: map-get($font-weight, "bold");
+      font-weight: map.get($font-weight, "bold");
 
       @include mobile {
         font-size: 1.125rem;
@@ -257,7 +258,7 @@
       width: 100%;
       max-width: 22.875rem;
       font-size: 0.75rem;
-      font-weight: map-get($font-weight, "regular");
+      font-weight: map.get($font-weight, "regular");
       color: #ffffff;
       line-height: 1.5;
 
@@ -355,7 +356,7 @@
     font-size: 0.75rem;
     margin-bottom: 0.5rem;
     color: #1a1a1a;
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
   }
 
   &__input {
@@ -363,7 +364,7 @@
     padding: 0.625rem 0.75rem;
     border: none;
     border-bottom: 1px solid #ff4400;
-    font-size: 0.8125rem important;
+    font-size: 0.8125rem !important;
     // -webkit-text-size-adjust: 100%;
 
     @supports (-webkit-touch-callout: none) {
@@ -415,7 +416,7 @@
 
   &__input-title {
     margin-bottom: 0.3125rem;
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     color: #1a1a1a;
 
     @include mobile {
@@ -485,7 +486,7 @@
     background-color: #ff4400;
     color: white;
     font-size: 0.75rem;
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     border: 1px solid #ff4400;
     border-radius: 31px;
     cursor: pointer;
@@ -688,7 +689,7 @@
     display: block;
     font-size: 0.8125rem;
     margin-bottom: 0.5rem;
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
   }
 
   .three-fields-container {
@@ -1443,7 +1444,7 @@
   font-size: 0.8125rem;
   margin-bottom: 0;
   color: #1a1a1a;
-  font-weight: map-get($font-weight, "black");
+  font-weight: map.get($font-weight, "black");
   margin-top: 1.25rem;
 
   &:first-child {

@@ -1,6 +1,5 @@
 import React from "react";
-import loader from "../../assets/images/bg/loader.svg";
-
+const loader = "/images/bg/loader.svg";
 const Loader = () => {
   return (
     <div className="global-loader">

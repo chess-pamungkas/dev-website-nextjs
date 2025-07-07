@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState } from "react";
 import cn from "classnames";
 import TopMarketPromotion from "../../top-market-promotion";
-import animation from "../../../assets/images/animations/aggregator_MT5.json";
+const animation = "/images/animations/aggregator_MT5.json";
 import HighlightedLocalizationText from "../../shared/highlighted-localization-text";
 import MtPromotion from "../../mt-promotion";
 import {
@@ -16,6 +16,7 @@ import { useTranslationWithVariables } from "../../../helpers/hooks/use-translat
 import { useRtlDirection } from "../../../helpers/hooks/use-rtl-direction";
 import { isIOS, isAndroid, isWindows, isMacOs } from "react-device-detect";
 import { setLangParam } from "../../../helpers/services/language-service";
+import Seo from "../../shared/seo";
 
 const Mt5PageContent = () => {
   const { t } = useTranslationWithVariables();
@@ -55,6 +56,10 @@ const Mt5PageContent = () => {
 
   return (
     <>
+      <Seo
+        title={t("page-mt5-title")}
+        description={t("page-mt5-description")}
+      />
       <TopMarketPromotion
         className={cn("mt5-page-promotion", {
           "split-bg--rtl": isRTL,

@@ -1,7 +1,7 @@
 import React from "react";
 import TopMarketPromotion from "../../top-market-promotion";
 import cn from "classnames";
-import image from "../../../assets/images/about-pages/legal-banner.svg";
+const image = "/images/about-pages/legal-banner.svg";
 import HighlightedLocalizationText from "../../shared/highlighted-localization-text";
 import Documents from "../../documents";
 import { getLegalDocs } from "../../../helpers/documents";

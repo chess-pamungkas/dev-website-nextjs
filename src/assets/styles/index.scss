@@ -1,77 +1,78 @@
-@import "vars";
-@import "mixins";
-@import "container";
-@import "typography";
+@use "vars" as *;
+@use "mixins" as *;
+@use "container" as *;
+@use "typography" as *;
+@use "button-link" as *;
+@use "main-promotion" as *;
+@use "promotion" as *;
+@use "trading-tools" as *;
+@use "trade-with-promotion" as *;
+@use "performance" as *;
+@use "faq" as *;
+@use "top-market" as *;
+@use "top-market-layout" as *;
+@use "header" as *;
+@use "footer" as *;
+@use "navbar-item" as *;
+@use "lang-select" as *;
+@use "burger-menu" as *;
+@use "accordion" as *;
+@use "search-bar" as *;
+@use "dropdown-item" as *;
+@use "dropdown" as *;
+@use "trading-ticker" as *;
+@use "tabs" as *;
+@use "table" as *;
+@use "popup" as *;
+@use "lang-options" as *;
+@use "search-page" as *;
+@use "cookies-popup" as *;
+@use "gdpr-popup" as *;
+@use "notification-stripe" as *;
+@use "promotion-markets" as *;
+@use "top-market-promotion" as *;
+@use "video-banner" as *;
+@use "split-text-promotion" as *;
+@use "company-advantages" as *;
+@use "energies" as *;
+@use "all-markets" as *;
+@use "market-item" as *;
+@use "market-item-advantages" as *;
+@use "legal" as *;
+@use "documents" as *;
+@use "system-info" as *;
+@use "meta-trader" as *;
+@use "mt4" as *;
+@use "mt5" as *;
+@use "ctrader-and-trading-view" as *;
+@use "copy-trading" as *;
+@use "mt-promotion" as *;
+@use "withdrawal" as *;
+@use "professional-qualification" as *;
+@use "text-banner" as *;
+@use "spreads-and-fees" as *;
+@use "help-center" as *;
+@use "partners" as *;
+@use "accounts-type" as *;
+@use "contact-us" as *;
+@use "form" as *;
+@use "education" as *;
+@use "playlist" as *;
+@use "career" as *;
+@use "job-openings" as *;
+@use "trading-tools-page" as *;
+@use "marketing-static-images" as *;
+@use "privacy-policy" as *;
+@use "marketing-circle" as *;
+@use "loader" as *;
+@use "vps" as *;
+@use "swap-free" as *;
+@use "popup-registration" as *;
+@use "rtl" as *;
+@use "sass:map";
 
-@import "button-link";
-@import "main-promotion";
-@import "promotion";
-@import "trading-tools";
-@import "trade-with-promotion";
-@import "performance";
-@import "faq";
-@import "top-market";
-@import "top-market-layout";
-@import "header";
-@import "footer";
-@import "navbar-item";
-@import "lang-select";
-@import "burger-menu";
-@import "accordion";
-@import "search-bar";
-@import "dropdown-item";
-@import "dropdown";
-@import "trading-ticker";
-@import "tabs";
-@import "table";
-@import "popup";
-@import "lang-options";
-@import "search-page";
-@import "cookies-popup";
-@import "gdpr-popup";
-@import "notification-stripe";
-@import "promotion-markets";
-@import "top-market-promotion";
-@import "video-banner";
-@import "split-text-promotion";
-@import "company-advantages";
-@import "energies";
-@import "all-markets";
-@import "market-item";
-@import "market-item-advantages";
-@import "legal";
-@import "documents";
-@import "system-info";
-@import "meta-trader";
-@import "mt4";
-@import "mt5";
-@import "ctrader-and-trading-view";
-@import "copy-trading";
-@import "mt-promotion";
-@import "withdrawal";
-@import "professional-qualification";
-@import "text-banner";
-@import "spreads-and-fees";
-@import "help-center";
-@import "partners";
-@import "accounts-type";
-@import "contact-us";
-@import "form";
-@import "education";
-@import "playlist";
-@import "career";
-@import "job-openings";
-@import "trading-tools-page";
-@import "marketing-static-images";
-@import "privacy-policy";
-@import "marketing-circle";
-@import "loader";
-@import "vps";
-@import "swap-free";
-@import "popup-registration";
 
 // rtl should import last
-@import "rtl";
 
 *,
 *::before,
@@ -84,20 +85,17 @@ body {
   font-family: $font;
   overflow-y: scroll;
   overflow-x: hidden;
-
-  &.overflow-hidden {
-    overflow: hidden;
-  }
-
   & #gatsby-focus-wrapper {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-
     & main {
       flex-grow: 1;
       // overflow-x: hidden; checking if solved the problem
     }
+  }
+  &.overflow-hidden {
+    overflow: hidden;
   }
 }
 
@@ -107,20 +105,18 @@ body {
 
 .highlighted {
   &-in-red {
-    color: map-get($colors, "red");
+    color: map.get($colors, "red");
   }
-
   &-in-black {
-    color: map-get($colors, "black");
+    color: map.get($colors, "black");
   }
-
   &-in-white {
-    color: map-get($colors, "white");
+    color: map.get($colors, "white");
   }
 }
 
 .bold {
-  font-weight: map-get($font-weight, "bold");
+  font-weight: map.get($font-weight, "bold");
 }
 
 ul {
@@ -153,11 +149,9 @@ a {
 
 .jp-font {
   font-family: $fontJP;
-
   button {
     font-family: $fontJP;
   }
-
   input {
     font-family: $fontJP;
   }

@@ -134,11 +134,6 @@ export const useLanguageSwitch = () => {
     // Update cookie
     cookies.set(LAST_LANGUAGE_KEY, newLanguage.id, { path: "/" });
 
-    // Update document language attribute
-    if (typeof document !== "undefined") {
-      document.documentElement.setAttribute("lang", newLanguage.id);
-    }
-
     // IMPORTANT: Change i18n language immediately
     if (i18n && i18n.language !== newLanguage.id) {
       console.log(
@@ -161,11 +156,6 @@ export const useChangeLocale = () => {
 
     // Update cookie
     cookies.set(LAST_LANGUAGE_KEY, newLocale, { path: "/" });
-
-    // Update document language attribute
-    if (typeof document !== "undefined") {
-      document.documentElement.setAttribute("lang", newLocale);
-    }
 
     // IMPORTANT: Change i18n language immediately
     if (i18n && i18n.language !== newLocale) {
@@ -214,9 +204,6 @@ export const initializeLanguage = () => {
     } = require("../helpers/services/language-service");
     const currentLang = detectInitialLanguage();
     const currentPath = window.location.pathname;
-
-    // Set document language
-    document.documentElement.setAttribute("lang", currentLang.id);
 
     // Set i18n language
     i18n.changeLanguage(currentLang.id);

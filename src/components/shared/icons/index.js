@@ -2425,7 +2425,7 @@ export const AccordionActiveIcon = ({ className }) => (
 export const SearchNoResultsImg = ({ className }) => (
   <StaticImage
     className={className}
-    src="../../../assets/images/search/search_no_results.svg"
+    src="/images/search/search_no_results.svg"
     alt="no results"
   />
 );

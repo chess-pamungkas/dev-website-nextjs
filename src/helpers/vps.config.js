@@ -1,10 +1,9 @@
-import adv1 from "../assets/images/vps/adv1.svg";
-import adv2 from "../assets/images/vps/adv2.svg";
-import vpsAdv1 from "../assets/images/vps/vps-adv1.svg";
-import vpsAdv2 from "../assets/images/vps/vps-adv2.svg";
-import vpsAdv3 from "../assets/images/vps/vps-adv3.svg";
-import vpsAdv4 from "../assets/images/vps/vps-adv4.svg";
-
+const adv1 = "/images/vps/adv1.svg";
+const adv2 = "/images/vps/adv2.svg";
+const vpsAdv1 = "/images/vps/vps-adv1.svg";
+const vpsAdv2 = "/images/vps/vps-adv2.svg";
+const vpsAdv3 = "/images/vps/vps-adv3.svg";
+const vpsAdv4 = "/images/vps/vps-adv4.svg";
 export const VPS_PROMO_ADVANTAGES = [
   {
     title: "vps_center-promotion-adv1-title",

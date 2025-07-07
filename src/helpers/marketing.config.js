@@ -1,17 +1,16 @@
-// import heroImageFSA from "../assets/images/person.png";
+// const heroImageFSA = "/images/person.png";
 const heroImage = "/images/person.png";
-import dollarIcon from "../assets/images/icons/companies/marketing/dollar.svg";
-import euroIcon from "../assets/images/icons/companies/marketing/euro.svg";
-import rmbIcon from "../assets/images/icons/companies/marketing/rmb.svg";
-import shibIcon from "../assets/images/icons/companies/marketing/shib.svg";
-import ethIcon from "../assets/images/icons/companies/marketing/eth.svg";
-import goldIcon from "../assets/images/icons/companies/marketing/gold.svg";
-import oilBarrelIcon from "../assets/images/icons/companies/marketing/oilBarrel.svg";
-import coffeeIcon from "../assets/images/icons/companies/marketing/coffee.svg";
-import sp500Icon from "../assets/images/icons/companies/marketing/sp500.svg";
-import dowJonesIcon from "../assets/images/icons/companies/marketing/dowJones.svg";
-import nikkeiIcon from "../assets/images/icons/companies/marketing/nikkei.svg";
-
+const dollarIcon = "/images/icons/companies/marketing/dollar.svg";
+const euroIcon = "/images/icons/companies/marketing/euro.svg";
+const rmbIcon = "/images/icons/companies/marketing/rmb.svg";
+const shibIcon = "/images/icons/companies/marketing/shib.svg";
+const ethIcon = "/images/icons/companies/marketing/eth.svg";
+const goldIcon = "/images/icons/companies/marketing/gold.svg";
+const oilBarrelIcon = "/images/icons/companies/marketing/oilBarrel.svg";
+const coffeeIcon = "/images/icons/companies/marketing/coffee.svg";
+const sp500Icon = "/images/icons/companies/marketing/sp500.svg";
+const dowJonesIcon = "/images/icons/companies/marketing/dowJones.svg";
+const nikkeiIcon = "/images/icons/companies/marketing/nikkei.svg";
 export const MARKETING_GET_PARAMS = {
   sect1: "_sect1",
   sect2: "_sect2",

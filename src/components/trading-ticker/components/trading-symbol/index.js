@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 import { useRtlDirection } from "../../../../helpers/hooks/use-rtl-direction";
 import { useTranslationWithVariables } from "../../../../helpers/hooks/use-translation-with-vars";
 import { useLanguageParam } from "../../../../helpers/hooks/use-language-param";
-import upArrow from "../../../../assets/images/trading-ticker/up-arrow.svg";
-import downArrow from "../../../../assets/images/trading-ticker/down-arrow.svg";
+const upArrow = "/images/trading-ticker/up-arrow.svg";
+const downArrow = "/images/trading-ticker/down-arrow.svg";
 import ButtonPopup from "../../../shared/button-popup";
 import { ShowRegistrationPopup } from "../../../../helpers/constants";
 

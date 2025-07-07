@@ -9,6 +9,7 @@ import VPSBottomPromotion from "../../vps/components/bottom-promotion";
 import VPSAdvantages from "../../vps/components/vps-advantages";
 import { VPS_ADVANTAGES } from "../../../helpers/vps.config";
 import { setLangParam } from "../../../helpers/services/language-service";
+import Seo from "../../shared/seo";
 
 const VPSContent = () => {
   const { t } = useTranslationWithVariables();
@@ -25,6 +26,10 @@ const VPSContent = () => {
 
   return (
     <>
+      <Seo
+        title={t("page-vps-title")}
+        description={t("page-vps-description")}
+      />
       <TopMarket
         title={
           <HighlightedLocalizationText

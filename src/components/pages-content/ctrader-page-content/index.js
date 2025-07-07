@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState } from "react";
 import { useTranslationWithVariables } from "../../../helpers/hooks/use-translation-with-vars";
 import TopMarketPromotion from "../../top-market-promotion";
-import animation from "../../../assets/images/animations/aggregator_cTrader.json";
+const animation = "/images/animations/aggregator_cTrader.json";
 import HighlightedLocalizationText from "../../shared/highlighted-localization-text";
 import MtPromotion from "../../mt-promotion";
 import {

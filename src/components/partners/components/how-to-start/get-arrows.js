@@ -1,10 +1,9 @@
-import arrowLg from "../../../../assets/images/partners/arrow-lg.svg";
-import arrowXl from "../../../../assets/images/partners/arrow-xl.svg";
-import arrowSm1 from "../../../../assets/images/partners/arrow1-sm.svg";
-import arrowSm2 from "../../../../assets/images/partners/arrow2-sm.svg";
-import arrowMd1 from "../../../../assets/images/partners/arrow1-md.svg";
-import arrowMd2 from "../../../../assets/images/partners/arrow2-md.svg";
-
+const arrowLg = "/images/partners/arrow-lg.svg";
+const arrowXl = "/images/partners/arrow-xl.svg";
+const arrowSm1 = "/images/partners/arrow1-sm.svg";
+const arrowSm2 = "/images/partners/arrow2-sm.svg";
+const arrowMd1 = "/images/partners/arrow1-md.svg";
+const arrowMd2 = "/images/partners/arrow2-md.svg";
 export const getArrows = (isMobile, isTablet, isLG, isXL) => {
   let arrow1, arrow2;
   switch (true) {

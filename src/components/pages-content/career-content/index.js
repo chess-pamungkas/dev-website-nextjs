@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import TopMarketPromotion from "../../top-market-promotion";
 import cn from "classnames";
-import image from "../../../assets/images/about-pages/career.svg";
+const image = "/images/about-pages/career.svg";
 import HighlightedLocalizationText from "../../shared/highlighted-localization-text";
 import { useTranslationWithVariables } from "../../../helpers/hooks/use-translation-with-vars";
 import { useRtlDirection } from "../../../helpers/hooks/use-rtl-direction";
 import { LogoTextMain } from "../../shared/icons";
 import CareerPros from "../../career-pros";
-import icon from "../../../assets/images/icon--white.svg";
+const icon = "/images/icon--white.svg";
 import { ShowRegistrationPopup } from "../../../helpers/constants";
 import CareerBenefits from "../../career-benefits";
 import JobOpenings from "../../job-openings";

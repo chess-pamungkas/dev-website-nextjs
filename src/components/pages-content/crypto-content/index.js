@@ -1,14 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useTranslationWithVariables } from "../../../helpers/hooks/use-translation-with-vars";
 import TopMarket from "../../top-market";
-import image from "../../../assets/images/top-markets/cripto.svg";
+const image = "/images/top-markets/cripto.svg";
 import { ShowRegistrationPopup } from "../../../helpers/constants";
 import HighlightedLocalizationText from "../../shared/highlighted-localization-text";
 import TradingTicker from "../../trading-ticker";
 import TopMarketPromotion from "../../top-market-promotion";
-import animation from "../../../assets/images/bg/promotions/crypto/crypto.json";
+const animation = "/images/bg/promotions/crypto/crypto.json";
 import TopMarketLayout from "../../top-market-layout";
-import crypto from "../../../assets/images/top-markets/images/crypto.svg";
+const crypto = "/images/top-markets/images/crypto.svg";
 import {
   DATA_CRYPTO,
   GeneralTableColumns,
@@ -28,6 +28,7 @@ const CryptoContent = () => {
   const { tradingSymbols } = useContext(TradingContext);
   const langParam = setLangParam(); // Get the language parameter
   const [isPopupOpen, setIsPopupOpen] = useState(false); // State to manage popup visibility
+  const [tableData, setTableData] = useState([]);
 
   const handleShowRegistrationPopup = () => {
     setIsPopupOpen(true); // Open the popup
@@ -37,7 +38,12 @@ const CryptoContent = () => {
     setIsPopupOpen(false); // Close the popup
   };
 
-  updateTableDataWithLiveColumn(DATA_CRYPTO, tradingSymbols);
+  useEffect(() => {
+    // Make a copy to avoid mutating the original data
+    const updatedData = DATA_CRYPTO.map((row) => ({ ...row }));
+    updateTableDataWithLiveColumn(updatedData, tradingSymbols);
+    setTableData(updatedData);
+  }, [tradingSymbols]);
 
   return (
     <>
@@ -80,7 +86,7 @@ const CryptoContent = () => {
         />
       </TopMarketPromotion>
       <MarketingCircle
-        animation={animation}
+        animationPath={animation}
         btnOnClick={handleShowRegistrationPopup}
         isCrypto={true}
         upper={
@@ -138,7 +144,7 @@ const CryptoContent = () => {
         btnOnClick={handleShowRegistrationPopup}
       >
         <TableComponent
-          data={DATA_CRYPTO}
+          data={tableData}
           columns={GeneralTableColumns()}
           isWrapperPadding
           tip={

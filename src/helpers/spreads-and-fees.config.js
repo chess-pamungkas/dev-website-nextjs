@@ -261,12 +261,14 @@ export const ColumnsSpreadTable2 = () => {
   const { t } = useTranslationWithVariables();
   const COLUMNS_SPREADS_TABLE_2 = [
     {
-      accessor: "col1",
-      Header: t("spreads_account-columns-table2-col1-header1"),
+      accessorKey: "col1",
+      id: "col1",
+      header: t("spreads_account-columns-table2-col1-header1"),
     },
     {
-      accessor: "col2",
-      Header: t("spreads_account-columns-table2-col2-header2"),
+      accessorKey: "col2",
+      id: "col2",
+      header: t("spreads_account-columns-table2-col2-header2"),
     },
   ];
   return COLUMNS_SPREADS_TABLE_2;

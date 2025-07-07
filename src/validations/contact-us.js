@@ -1,23 +1,17 @@
-import * as yup from "yup";
+import { object, string } from "yup";
 import { emailRegex, textRegex } from "./regex";
 
-export const ContactUsSchema = yup.object().shape({
-  first_name: yup
-    .string()
-    .matches(textRegex, "contact-us-name-invalid")
-    .required("contact-us-firstName-required")
+export const ContactUsSchema = object().shape({
+  fullName: string()
+    .required("contact-us_form_error_message_required")
+    .matches(textRegex, { message: "contact-us_form_error_message_invalid" })
     .trim(),
-  last_name: yup
-    .string()
-    .matches(textRegex, "contact-us-name-invalid")
-    .required("contact-us-lastName-required")
+  email: string()
+    .required("contact-us_form_error_message_required")
+    .matches(emailRegex, {
+      message: "contact-us_form_error_message_invalid",
+    })
     .trim(),
-  email: yup
-    .string()
-    .matches(emailRegex, "contact-us-email-invalid")
-    .required("contact-us-email-required"),
-  message: yup
-    .string()
-    .min(10, "contact-us-message-too-short")
-    .required("contact-us-message-required"),
+  subject: string().required("contact-us_form_error_message_required").trim(),
+  message: string().required("contact-us_form_error_message_required").trim(),
 });

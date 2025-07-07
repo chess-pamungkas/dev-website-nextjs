@@ -1,13 +1,12 @@
-@import "vars";
-@import "mixins";
+@use "vars" as *;
+@use "mixins" as *;
+@use "sass:map";
 
 .popup {
   display: none;
-
   &--active {
     display: block;
   }
-
   &__wrapper {
     width: 100vw;
     height: 100vh;
@@ -20,7 +19,6 @@
     align-items: center;
     background: rgba(0, 0, 0, 0.5);
   }
-
   &__content {
     max-width: 750px;
     height: max-content;
@@ -28,100 +26,83 @@
     border-radius: 10px 10px 0 0;
     overflow: hidden;
     box-shadow: 0 0 10px #0000001a;
-    background-color: map-get($colors, "white");
+    background-color: map.get($colors, "white");
   }
-
   &__header {
     height: 10px;
-    background-color: map-get($colors, "red");
+    background-color: map.get($colors, "red");
   }
-
   &__body {
     max-height: calc(100vh - 25px);
     overflow-y: auto;
   }
-
   &__paragraph {
     margin-top: 0;
     margin-bottom: 20px;
-
     font-size: 14px;
     line-height: 18px;
-
     @include desktop-lg {
       font-size: 16px;
       line-height: 20px;
     }
-
     @include desktop-xl {
       font-size: 18px;
       line-height: 22px;
     }
   }
-
   &__paragraph:last-child {
     margin-bottom: 0;
   }
-
   &__buttons {
     display: flex;
     justify-content: center;
     margin-top: 30px;
-
     @include desktop-lg {
       margin-top: 50px;
     }
   }
-
   &__button {
     @include button-supress;
     text-decoration: none;
-    color: map-get($colors, "red");
-    background: map-get($colors, "white");
+    color: map.get($colors, "red");
+    background: map.get($colors, "white");
     display: inline-block;
     text-align: center;
     text-transform: uppercase;
     font-family: $font;
-    font-weight: map-get($font-weight, "black");
-    border: 2px solid map-get($colors, "red");
+    font-weight: map.get($font-weight, "black");
+    border: 2px solid map.get($colors, "red");
     border-radius: $border-radius-default;
     font-size: 14px;
     line-height: 18px;
     min-width: auto;
     padding: 8px 10px;
-
     @include desktop-lg {
       min-width: 234px;
       padding: 8px 30px;
     }
-
     &:hover,
     &:focus {
-      background: map-get($colors, "red");
-      color: map-get($colors, "white");
+      background: map.get($colors, "red");
+      color: map.get($colors, "white");
     }
   }
-
   &__button-subtitle {
     margin: 10px auto 0;
     font-size: 11px;
     line-height: 14px;
-    font-weight: map-get($font-weight, "black");
-    color: map-get($colors, "black");
+    font-weight: map.get($font-weight, "black");
+    color: map.get($colors, "black");
     width: 145px;
-
     @include desktop-lg {
       width: 100%;
     }
   }
-
   &__button-wrapper {
     flex-basis: auto;
   }
-
   &__button-wrapper + &__button-wrapper {
     margin-left: 10px;
-
     @include desktop-lg {
       margin-left: 20px;
     }
@@ -131,26 +112,21 @@
 .popup--redirect {
   .popup__body {
     text-align: center;
-
     padding: 20px 20px 30px;
-
     @include desktop-lg {
       padding: 60px 70px;
     }
-
     @include desktop-xl {
       padding: 60px 40px 75px;
     }
   }
-
   .popup__title {
     font-size: 24px;
     line-height: 30px;
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     letter-spacing: 0;
     color: #1a1a1a;
     margin-bottom: 20px;
-
     @include desktop-lg {
       font-size: 36px;
       line-height: 45px;
@@ -164,15 +140,12 @@
     background: transparent linear-gradient(117deg, #ff4400 0%, #80220090 100%)
       0% 0% no-repeat padding-box;
   }
-
   .popup__body {
     text-align: center;
-
     @include desktop-lg {
       padding: 60px 40px 50px;
     }
   }
-
   .popup__button {
     @include mobile {
       width: 145px;

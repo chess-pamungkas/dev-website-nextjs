@@ -6,9 +6,9 @@ import {
   FeaturedIdeas3,
 } from "../../../shared/icons";
 import Tabs from "../../../shared/tabs";
-import idea1 from "../../../../assets/images/trading-tools/idea1.png";
-import idea2 from "../../../../assets/images/trading-tools/idea2.png";
-import idea3 from "../../../../assets/images/trading-tools/idea3.png";
+const idea1 = "/images/trading-tools/idea1.png";
+const idea2 = "/images/trading-tools/idea2.png";
+const idea3 = "/images/trading-tools/idea3.png";
 import TradingToolsTabContent from "../trading-tools-tab-content";
 
 const FeaturedIdeasTabs = () => {

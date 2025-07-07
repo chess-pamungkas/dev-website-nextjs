@@ -1,14 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import TopMarket from "../../top-market";
-import image from "../../../assets/images/top-markets/energies.svg";
+const image = "/images/top-markets/energies.svg";
 import { ShowRegistrationPopup } from "../../../helpers/constants";
 import HighlightedLocalizationText from "../../shared/highlighted-localization-text";
 import TradingTicker from "../../trading-ticker";
 import TopMarketPromotion from "../../top-market-promotion";
-import energies from "../../../assets/images/top-markets/images/energies.svg";
+const energies = "/images/top-markets/images/energies.svg";
 import { useTranslationWithVariables } from "../../../helpers/hooks/use-translation-with-vars";
 import { ENERGIES_TRADING_SECTION } from "../../../helpers/config";
-import animation from "../../../assets/images/bg/promotions/indices/indices.json";
+const animation = "/images/bg/promotions/energies/energies.json";
 import MarketingCircle from "../../marketing-circle";
 import TopMarketLayout from "../../top-market-layout";
 import Faq from "../../faq";
@@ -21,12 +21,14 @@ import {
 import { updateTableDataWithLiveColumn } from "../../../helpers/services/update-table-data-with-live-column";
 import TradingContext from "../../../context/trading-context";
 import { setLangParam } from "../../../helpers/services/language-service";
+import Seo from "../../shared/seo";
 
 const EnergiesContent = () => {
   const { t } = useTranslationWithVariables();
   const { tradingSymbols } = useContext(TradingContext);
   const langParam = setLangParam(); // Get the language parameter
   const [isPopupOpen, setIsPopupOpen] = useState(false); // State to manage popup visibility
+  const [tableData, setTableData] = useState([]);
 
   const handleShowRegistrationPopup = () => {
     setIsPopupOpen(true); // Open the popup
@@ -36,10 +38,19 @@ const EnergiesContent = () => {
     setIsPopupOpen(false); // Close the popup
   };
 
-  updateTableDataWithLiveColumn(DATA_ENERGIES, tradingSymbols);
+  useEffect(() => {
+    // Make a copy to avoid mutating the original data
+    const updatedData = DATA_ENERGIES.map((row) => ({ ...row }));
+    updateTableDataWithLiveColumn(updatedData, tradingSymbols);
+    setTableData(updatedData);
+  }, [tradingSymbols]);
 
   return (
     <>
+      <Seo
+        title={t("page-energies-title")}
+        description={t("page-energies-description")}
+      />
       <TopMarket
         title={t("energies_top-market-title")}
         image={image}
@@ -74,7 +85,7 @@ const EnergiesContent = () => {
         />
       </TopMarketPromotion>
       <MarketingCircle
-        animation={animation}
+        animationPath={animation}
         btnOnClick={handleShowRegistrationPopup}
         isEnergies={true}
         upper={
@@ -132,7 +143,7 @@ const EnergiesContent = () => {
         btnOnClick={handleShowRegistrationPopup}
       >
         <TableComponent
-          data={DATA_ENERGIES}
+          data={tableData}
           columns={GeneralTableColumns()}
           isWrapperPadding
           tip={

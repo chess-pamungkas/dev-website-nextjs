@@ -1,14 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import TopMarket from "../../top-market";
-import indicesSvg from "../../../assets/images/top-markets/indices.svg";
+const indicesSvg = "/images/top-markets/indices.svg";
 import { ShowRegistrationPopup } from "../../../helpers/constants";
 import HighlightedLocalizationText from "../../shared/highlighted-localization-text";
 import TradingTicker from "../../trading-ticker";
 import TopMarketPromotion from "../../top-market-promotion";
-import indices from "../../../assets/images/top-markets/images/indices.svg";
+const indices = "/images/top-markets/images/indices.svg";
 import { useTranslationWithVariables } from "../../../helpers/hooks/use-translation-with-vars";
 import { INDICES_TRADING_SECTION } from "../../../helpers/config";
-import animation from "../../../assets/images/bg/promotions/indices/indices.json";
+const animation = "/images/bg/promotions/indices/indices.json";
 import MarketingCircle from "../../marketing-circle";
 import TopMarketLayout from "../../top-market-layout";
 import Faq from "../../faq";
@@ -28,6 +28,7 @@ const IndicesContent = () => {
   const { tradingSymbols } = useContext(TradingContext);
   const langParam = setLangParam(); // Get the language parameter
   const [isPopupOpen, setIsPopupOpen] = useState(false); // State to manage popup visibility
+  const [tableData, setTableData] = useState([]);
 
   const handleShowRegistrationPopup = () => {
     setIsPopupOpen(true); // Open the popup
@@ -37,7 +38,12 @@ const IndicesContent = () => {
     setIsPopupOpen(false); // Close the popup
   };
 
-  updateTableDataWithLiveColumn(DATA_INDICES, tradingSymbols);
+  useEffect(() => {
+    // Make a copy to avoid mutating the original data
+    const updatedData = DATA_INDICES.map((row) => ({ ...row }));
+    updateTableDataWithLiveColumn(updatedData, tradingSymbols);
+    setTableData(updatedData);
+  }, [tradingSymbols]);
 
   return (
     <>
@@ -87,7 +93,7 @@ const IndicesContent = () => {
         />
       </TopMarketPromotion>
       <MarketingCircle
-        animation={animation}
+        animationPath={animation}
         btnOnClick={handleShowRegistrationPopup}
         isIndices={true}
         upper={
@@ -145,7 +151,7 @@ const IndicesContent = () => {
         btnOnClick={handleShowRegistrationPopup}
       >
         <TableComponent
-          data={DATA_INDICES}
+          data={tableData}
           columns={GeneralTableColumns()}
           isWrapperPadding
           tip={

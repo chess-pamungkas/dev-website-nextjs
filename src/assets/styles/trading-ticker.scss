@@ -1,6 +1,7 @@
-@import "vars";
-@import "mixins";
-@import "dropdown";
+@use "vars" as *;
+@use "mixins" as *;
+@use "dropdown" as *;
+@use "sass:map";
 
 .trading-ticker-wrapper {
   scroll-snap-align: start;
@@ -14,7 +15,7 @@
   margin-right: -50vw;
   overflow: hidden;
   z-index: 99;
-  background-color: map-get($colors, "white");
+  background-color: map.get($colors, "white");
   position: relative;
   isolation: isolate;
 }
@@ -29,47 +30,40 @@
   justify-content: space-around;
   box-shadow: 0 5px 10px #0000001a;
   border-radius: 10px 10px 0 0;
-  border-bottom: 1px solid map-get($colors, "red");
+  border-bottom: 1px solid map.get($colors, "red");
   position: relative;
   z-index: 5;
-  background-color: map-get($colors, "white");
+  background-color: map.get($colors, "white");
   isolation: isolate;
-
   @include tablet {
     flex-wrap: nowrap;
     padding: 7px 31px;
     overflow-x: scroll;
-
     &::-webkit-scrollbar {
       display: none;
     }
   }
-
   @include desktop-xl {
     padding: 14px;
     flex-wrap: nowrap;
     overflow: hidden;
     justify-content: center;
   }
-
   &__header {
-    color: map-get($colors, "black");
+    color: map.get($colors, "black");
     margin: 0;
     text-align: center;
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     font-size: 16px;
     line-height: 20px;
-
     @include tablet {
       font-size: 24px;
       line-height: 30px;
     }
-
     @include desktop-lg {
       font-size: 28px;
       line-height: 35px;
     }
-
     @include desktop-xl {
       font-size: 32px;
       line-height: 40px;
@@ -87,14 +81,12 @@
   font-family: $font;
   line-height: 22px;
   letter-spacing: 0;
-  color: map-get($colors, "black");
-
+  color: map.get($colors, "black");
   &__active {
-    background: map-get($colors, "red");
+    background: map.get($colors, "red");
     box-shadow: 0 3px 24px #00000029;
-    color: map-get($colors, "white");
+    color: map.get($colors, "white");
   }
-
   @include tablet {
     padding: 4px 30px 7px;
     flex-shrink: 0;
@@ -108,13 +100,11 @@
   position: relative;
   height: 177px;
   z-index: 4;
-  background-color: map-get($colors, "white");
+  background-color: map.get($colors, "white");
   isolation: isolate;
-
   @include tablet {
     height: 99px;
   }
-
   &--infinite-auto-scroll {
     justify-content: unset;
   }
@@ -151,12 +141,10 @@
   scrollbar-width: none;
   position: relative;
   z-index: 5;
-  background-color: map-get($colors, "white");
-
+  background-color: map.get($colors, "white");
   &::-webkit-scrollbar {
     display: none;
   }
-
   &__arrow-left {
     position: absolute;
     width: 57px;
@@ -164,16 +152,13 @@
     top: 58px;
     left: -14px;
     cursor: pointer;
-
     &--disabled {
       display: none;
     }
-
     @include tablet {
       top: 19px;
     }
   }
-
   &__arrow-right {
     position: absolute;
     width: 57px;
@@ -182,21 +167,17 @@
     right: -14px;
     transform: matrix(-1, 0, 0, -1, 0, 0);
     cursor: pointer;
-
     &--disabled {
       display: none;
     }
-
     @include tablet {
       top: 19px;
     }
   }
-
   @include tablet {
     &:first-child {
       border-radius: 0 0 0 10px;
     }
-
     &:last-child {
       border-radius: 0 0 10px 0;
     }
@@ -212,7 +193,6 @@
   margin-right: 10px;
   flex-direction: column;
   min-width: 138px;
-
   @include tablet {
     min-width: unset;
     padding: 12px 21px;
@@ -220,128 +200,102 @@
     margin-right: 0;
     flex-direction: row;
   }
-
   &__block {
     @include tablet {
       padding-right: 20px;
     }
-
     @include desktop-xl {
       padding-right: 38px;
     }
   }
-
   &__data {
     display: flex;
   }
-
   &__title-wrapper {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     margin: 0 0 7px;
-
     @include tablet {
       margin: 0 0 3px;
     }
   }
-
   &__title {
     position: relative;
     margin: 0 10px 0 0;
     font-size: 16px;
     line-height: 20px;
-    font-weight: map-get($font-weight, "black");
-    color: map-get($colors, "red");
-
+    font-weight: map.get($font-weight, "black");
+    color: map.get($colors, "red");
     @include tablet {
       font-size: 21px;
       line-height: 26px;
     }
   }
-
   &__data {
     display: flex;
     flex-wrap: wrap;
-
     @include tablet {
       flex-wrap: nowrap;
       align-items: flex-start;
     }
   }
-
   &__option {
     font-family: $font-secondary;
     width: 50%;
     margin-bottom: 10px;
-
     @include tablet {
       width: unset;
       margin-bottom: unset;
       margin-right: 24px;
-
       &:last-child {
         margin-right: 0;
       }
     }
-
-    .trading-symbol__option-value {
-      width: 50px;
-      font-weight: map-get($font-weight, "bold");
-    }
   }
-
   &__option-title {
     font-size: 11px;
     line-height: 13px;
-    color: map-get($colors, "black");
-
+    color: map.get($colors, "black");
     @include tablet {
       font-size: 13px;
       line-height: 16px;
     }
   }
-
   &__option-value {
     font-size: 10px;
     line-height: 12px;
     margin-top: 4px;
-    color: map-get($colors, "black");
-    font-weight: map-get($font-weight, "bold");
+    color: map.get($colors, "black");
+    font-weight: map.get($font-weight, "bold");
     transition: 0.1s;
-
     &--up {
       color: #00ff66;
     }
-
     &--down {
       color: #ff0000;
     }
-
     @include tablet {
       margin-top: 0;
       font-size: 13px;
       line-height: 16px;
     }
   }
-
   &__actions {
-    border-top: 1px solid map-get($colors, "red");
+    border-top: 1px solid map.get($colors, "red");
     display: flex;
     justify-content: center;
     flex-direction: row;
-
     @include tablet {
       flex-direction: column;
       border-top: none;
-      border-left: 1px solid map-get($colors, "red");
+      border-left: 1px solid map.get($colors, "red");
     }
   }
-
   &__sell,
   &__buy {
     font-family: $font-secondary;
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     font-size: 11px;
     line-height: 13px;
     padding: 12px 10px;
@@ -350,7 +304,6 @@
     text-transform: uppercase;
     cursor: pointer;
     max-width: fit-content;
-
     @include tablet {
       display: block;
       padding: 8px 10px 10px;
@@ -358,37 +311,34 @@
       line-height: 16px;
     }
   }
-
   &__buy {
     color: #00ff66;
-
     &:hover,
     &:active,
     &:focus {
       color: #00ff66;
-
       @include tablet {
-        border-bottom: 1px solid map-get($colors, "red");
+        border-bottom: 1px solid map.get($colors, "red");
       }
     }
-
     @include tablet {
-      border-bottom: 1px solid map-get($colors, "red");
+      border-bottom: 1px solid map.get($colors, "red");
     }
   }
-
   &__sell {
     color: #ff0000;
-
     &:hover,
     &:active,
     &:focus {
       color: #ff0000;
     }
   }
-
   &__arrow {
     width: 25px;
     height: 25px;
   }
+    .trading-symbol__option-value {
+      width: 50px;
+      font-weight: map.get($font-weight, "bold");
+    }
 }

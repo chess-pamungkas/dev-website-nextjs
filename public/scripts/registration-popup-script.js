@@ -1255,8 +1255,8 @@ const RTL_LANGUAGES = ["ar"];
     if (isPageInRTLMode()) {
       saveOriginalRTLState();
 
-      // CRITICAL: Add protection for RTL attributes to prevent any modifications
-      protectRTLAttributes();
+      // DISABLED: protectRTLAttributes() - was causing "dancing" bug by fighting with _app.js
+      // protectRTLAttributes();
     }
 
     // ENHANCED: Create standardized params object with all possible variations of parameters
@@ -1751,7 +1751,7 @@ const RTL_LANGUAGES = ["ar"];
       console.error("[OQtima] Error creating popup:", err);
       // Restore original body state in case of error
       document.body.className = originalBodyClasses;
-      document.documentElement.className = originalHtmlClasses;
+      // document.documentElement.className = originalHtmlClasses;
       document.body.style.overflow = originalBodyOverflow;
       document.documentElement.style.overflow = originalHtmlOverflow;
       if (originalBodyStyle) {
@@ -2100,112 +2100,16 @@ const RTL_LANGUAGES = ["ar"];
         // This is safe because we're only posting data, not reading any data from cross-origin frames
         iframe.contentWindow.postMessage(messageData, "*");
 
-        // Schedule multiple retries with increasing delays to ensure message is received
-        // but still using safe postMessage approach
+        // Single retry with shorter delay to reduce performance impact
         setTimeout(() => {
           try {
             iframe.contentWindow.postMessage(messageData, "*");
           } catch (err) {
-            console.error("[OQtima] Error in retry 1:", err);
+            console.error("[OQtima] Error in retry:", err);
           }
-        }, 100);
+        }, 100); // Reduced from multiple retries
 
-        setTimeout(() => {
-          try {
-            iframe.contentWindow.postMessage(messageData, "*");
-          } catch (err) {
-            console.error("[OQtima] Error in retry 2:", err);
-          }
-        }, 500);
-
-        setTimeout(() => {
-          try {
-            iframe.contentWindow.postMessage(messageData, "*");
-            // console.log("[OQtima] Final retry sending message to iframe");
-          } catch (err) {
-            console.error("[OQtima] Error in final retry:", err);
-          }
-        }, 1500);
-
-        // Safely add direct iframe data transfer for session storage access
-        // Only attempt this for same-origin iframes to avoid security errors
-        try {
-          // Using setTimeout to ensure iframe is fully loaded
-          setTimeout(() => {
-            // SAFETY CHECK: Only try to access iframe document directly if it's same-origin
-            // This prevents security errors when loading cross-origin content
-            try {
-              const iframeOrigin = new URL(iframe.src).origin;
-              const currentOrigin = window.location.origin;
-
-              const isSameOrigin = iframeOrigin === currentOrigin;
-
-              if (isSameOrigin) {
-                const iframeDoc =
-                  iframe.contentDocument || iframe.contentWindow.document;
-                if (iframeDoc) {
-                  const script = iframeDoc.createElement("script");
-                  script.textContent = `
-                    // Set up data receiver
-                    window.addEventListener("message", function(event) {
-                      if (event.data && event.data.type === "REGISTRATION_PARAMS") {
-                        // console.log("[OQtima][Iframe] Received parameters from parent");
-                        
-                        // Store data safely without accessing parent
-                        const params = event.data.data;
-                        
-                        // Store data in sessionStorage
-                        if (params.storeInSessionStorage && params.storageKeys) {
-                          params.storageKeys.forEach(item => {
-                            if (item.key && item.value !== undefined) {
-                              try {
-                                sessionStorage.setItem(item.key, item.value);
-                              } catch (e) {
-                                console.warn("[OQtima][Iframe] Failed to set storage item:", item.key);
-                              }
-                            }
-                          });
-                        }
-                        
-                        // Set global variables for language and referral
-                        if (params.language) window.__OQTIMA_LANGUAGE__ = params.language;
-                        if (params.referral_type) window.__OQTIMA_REFERRAL_TYPE__ = params.referral_type;
-                        if (params.referral_value) window.__OQTIMA_REFERRAL_VALUE__ = params.referral_value;
-                        
-                        // Send confirmation back to parent
-                        window.parent.postMessage({
-                          type: "REGISTRATION_PARAMS_RECEIVED",
-                          timestamp: Date.now()
-                        }, "*");
-                      }
-                    });
-                    
-                    // Send ready message to parent
-                    window.parent.postMessage({
-                      type: "IFRAME_READY",
-                      timestamp: Date.now()
-                    }, "*");
-              `;
-                  iframeDoc.head.appendChild(script);
-                }
-              } else {
-                // console.log(
-                //   "[OQtima] Iframe is cross-origin, using only postMessage communication"
-                // );
-              }
-            } catch (originError) {
-              // If we can't check origins, iframe is most likely cross-origin
-              // console.log(
-              //   "[OQtima] Iframe appears to be cross-origin, using only postMessage"
-              // );
-            }
-          }, 200);
-        } catch (scriptError) {
-          console.warn(
-            "[OQtima] Could not inject script to iframe:",
-            scriptError
-          );
-        }
+        // Remove the third retry to reduce performance impact
       } catch (err) {
         console.error("Error sending message to iframe:", err);
       }
@@ -2537,14 +2441,14 @@ const RTL_LANGUAGES = ["ar"];
         // First attempt to send message
         iframe.contentWindow.postMessage(messageData, "*");
 
-        // Schedule multiple retries with increasing delays to ensure message is received
+        // Single retry with shorter delay to reduce performance impact
         setTimeout(() => {
           try {
             iframe.contentWindow.postMessage(messageData, "*");
           } catch (err) {
-            console.error("Error in RTL retry 1:", err);
+            console.error("Error in RTL retry:", err);
           }
-        }, 100);
+        }, 100); // Reduced from multiple retries
 
         setTimeout(() => {
           try {
@@ -2552,16 +2456,7 @@ const RTL_LANGUAGES = ["ar"];
           } catch (err) {
             console.error("Error in RTL retry 2:", err);
           }
-        }, 500);
-
-        setTimeout(() => {
-          try {
-            iframe.contentWindow.postMessage(messageData, "*");
-            // console.log("[OQtima] Final retry sending message to RTL iframe");
-          } catch (err) {
-            console.error("Error in RTL final retry:", err);
-          }
-        }, 1500);
+        }, 200); // Reduced from 500ms
       } catch (err) {
         console.error("Error sending message to RTL iframe:", err);
       }
@@ -2747,10 +2642,10 @@ const RTL_LANGUAGES = ["ar"];
         } else {
           // Use the state saved in this function
           // IMPORTANT: Restore original document RTL state
-          if (originalDocDir) {
-            document.documentElement.setAttribute("dir", originalDocDir);
+          if (originalBodyDir) {
+            document.body.setAttribute("dir", originalBodyDir);
           } else {
-            document.documentElement.removeAttribute("dir");
+            document.body.removeAttribute("dir");
           }
 
           if (originalDocLang) {
@@ -2760,14 +2655,8 @@ const RTL_LANGUAGES = ["ar"];
             );
           }
 
-          if (originalBodyDir) {
-            document.body.setAttribute("dir", originalBodyDir);
-          } else {
-            document.body.removeAttribute("dir");
-          }
-
           // Restore original HTML class list for RTL
-          document.documentElement.className = originalHtmlClasses;
+          // document.documentElement.className = originalHtmlClasses || "";
           if (originalHtmlRtlState.dataRtl) {
             document.documentElement.setAttribute(
               "data-rtl",
@@ -2778,7 +2667,7 @@ const RTL_LANGUAGES = ["ar"];
           }
 
           // Restore original body class list for RTL
-          document.body.className = originalBodyClasses;
+          document.body.className = originalBodyClasses || "";
           if (originalBodyRtlState.dataRtl) {
             document.body.setAttribute(
               "data-rtl",
@@ -4307,7 +4196,7 @@ const RTL_LANGUAGES = ["ar"];
         // MOBILE SPECIFIC FIX: Enhanced restoration for mobile scroll behavior
         // Restore original styles
         document.body.className = originalBodyClasses || "";
-        document.documentElement.className = originalHtmlClasses || "";
+        // document.documentElement.className = originalHtmlClasses || "";
 
         // Clear all potential CSS properties that might prevent scrolling on mobile
         const bodyStyle = document.body.style;
@@ -4512,14 +4401,8 @@ const RTL_LANGUAGES = ["ar"];
         // Send immediately
         sendMessage();
 
-        // Retry after short delay
+        // Single retry after short delay to reduce performance impact
         setTimeout(sendMessage, 100);
-
-        // Additional retry after longer delay for mobile devices
-        setTimeout(sendMessage, 500);
-
-        // Final retry after 1 second
-        setTimeout(sendMessage, 1000);
       } catch (err) {
         console.error("[Mobile] Error in sendParamsToIframe:", err);
       }
@@ -4587,7 +4470,7 @@ const RTL_LANGUAGES = ["ar"];
     // Add message listener
     window.addEventListener("message", messageHandler);
 
-    // Auto-cleanup after 30 minutes for safety
+    // Auto-cleanup after 15 minutes for safety (reduced from 30 minutes)
     setTimeout(() => {
       // Use the global close function for consistency
       if (window.__OQTIMA_CLOSE_POPUP) {
@@ -4597,7 +4480,7 @@ const RTL_LANGUAGES = ["ar"];
         window.removeEventListener("message", messageHandler);
         document.removeEventListener("keydown", keyDownHandler);
       }
-    }, 30 * 60 * 1000);
+    }, 15 * 60 * 1000); // Reduced from 30 minutes
 
     // CRITICAL: Override ALL parent window language references
     try {
@@ -4880,21 +4763,22 @@ const RTL_LANGUAGES = ["ar"];
     try {
       if (typeof document === "undefined") return;
 
+      // REMOVED: Do not restore document.documentElement dir or lang here - let _app.js handle it
       // Restore HTML attributes
-      if (documentRTLState.originalHtmlDir) {
-        document.documentElement.setAttribute(
-          "dir",
-          documentRTLState.originalHtmlDir
-        );
-      }
-      if (documentRTLState.originalHtmlLang) {
-        document.documentElement.setAttribute(
-          "lang",
-          documentRTLState.originalHtmlLang
-        );
-      }
-      document.documentElement.className =
-        documentRTLState.originalHtmlClasses || "";
+      // if (documentRTLState.originalHtmlDir) {
+      //   document.documentElement.setAttribute(
+      //     "dir",
+      //     documentRTLState.originalHtmlDir
+      //   );
+      // }
+      // if (documentRTLState.originalHtmlLang) {
+      //   document.documentElement.setAttribute(
+      //     "lang",
+      //     documentRTLState.originalHtmlLang
+      //   );
+      // }
+      // document.documentElement.className =
+      //   documentRTLState.originalHtmlClasses || "";
       if (documentRTLState.originalHtmlRtl) {
         document.documentElement.setAttribute(
           "data-rtl",
@@ -4938,7 +4822,15 @@ const RTL_LANGUAGES = ["ar"];
   }
 
   // Function to protect RTL attributes from modification
+  // DISABLED: This was causing "dancing" bug by fighting with _app.js
   function protectRTLAttributes() {
+    // DISABLED: Do not override Element.prototype.setAttribute anymore
+    // This was causing conflicts with _app.js which manages <html dir> and <html lang>
+    // Let _app.js handle all document.documentElement.dir and lang changes
+    return;
+
+    // Original code commented out to prevent conflicts:
+    /*
     if (typeof window === "undefined" || typeof document === "undefined")
       return;
 
@@ -5036,6 +4928,7 @@ const RTL_LANGUAGES = ["ar"];
       Element.prototype.removeAttribute = originalHtmlRemoveAttribute;
       DOMTokenList.prototype.remove = originalRemoveClass;
     };
+    */
   }
 
   // Apply RTL protection in openRegistrationPopup function

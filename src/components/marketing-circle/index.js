@@ -11,6 +11,8 @@ import { useRtlDirection } from "../../helpers/hooks/use-rtl-direction";
 
 export const MarketingCircle = ({
   animation,
+  animationData,
+  animationPath,
   upper,
   bottom,
   leftUpper,
@@ -47,12 +49,27 @@ export const MarketingCircle = ({
     "marketing-circle__item--rtl": isRTL,
   });
 
+  // Determine which animation prop to use
+  const lottieProps = {};
+  if (animationData) {
+    lottieProps.animationData = animationData;
+  } else if (animationPath) {
+    lottieProps.path = animationPath;
+  } else if (animation) {
+    // Handle legacy animation prop - check if it's a string path or JSON object
+    if (typeof animation === "string") {
+      lottieProps.path = animation;
+    } else {
+      lottieProps.animationData = animation;
+    }
+  }
+
   return (
     <div className="marketing-circle">
       <div className="container">
         <Lottie
           className="promotion-markets__svg"
-          animationData={animation}
+          {...lottieProps}
           style={{ height: animationHeight }}
         />
         <div
@@ -102,7 +119,9 @@ export const MarketingCircle = ({
 };
 
 MarketingCircle.propTypes = {
-  animation: PropTypes.object.isRequired,
+  animation: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  animationData: PropTypes.object,
+  animationPath: PropTypes.string,
   upper: PropTypes.element.isRequired,
   leftUpper: PropTypes.element.isRequired,
   rightUpper: PropTypes.element.isRequired,

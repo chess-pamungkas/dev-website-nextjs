@@ -1,17 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslationWithVariables } from "../../../helpers/hooks/use-translation-with-vars";
 import Seo from "../../shared/seo";
 import TopMarket from "../../top-market";
 import HighlightedLocalizationText from "../../shared/highlighted-localization-text";
-import image from "../../../assets/images/about-pages/contact-us.svg";
+const image = "/images/about-pages/contact-us.svg";
 import ContactUs from "../../contact-us";
-import ReCaptchaProvider from "../../shared/recaptcha-provider";
+import { GoogleReCaptcha } from "react-google-recaptcha-v3";
 
 const ContactUsContent = () => {
   const { t } = useTranslationWithVariables();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   return (
-    <ReCaptchaProvider showBadge={true}>
+    <>
       <Seo title={t("page-contact-title")} />
       <TopMarket
         title={
@@ -31,8 +36,9 @@ const ContactUsContent = () => {
           accentClassName="highlighted-in-white"
         />
       </TopMarket>
+      {isClient && <GoogleReCaptcha onVerify={() => {}} />}
       <ContactUs />
-    </ReCaptchaProvider>
+    </>
   );
 };
 

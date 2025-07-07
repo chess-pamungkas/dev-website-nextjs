@@ -1,14 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import TopMarket from "../../top-market";
-import image from "../../../assets/images/top-markets/forex.svg";
+const image = "/images/top-markets/forex.svg";
 import { ShowRegistrationPopup } from "../../../helpers/constants";
 import HighlightedLocalizationText from "../../shared/highlighted-localization-text";
 import TradingTicker from "../../trading-ticker";
 import TopMarketPromotion from "../../top-market-promotion";
-import forex from "../../../assets/images/top-markets/images/forex.svg";
+const forex = "/images/top-markets/images/forex.svg";
 import { useTranslationWithVariables } from "../../../helpers/hooks/use-translation-with-vars";
 import { FOREX_TRADING_SECTION } from "../../../helpers/config";
-import animation from "../../../assets/images/bg/promotions/forex/forex.json";
+const animation = "/images/bg/promotions/forex/forex.json";
 import MarketingCircle from "../../marketing-circle";
 import TopMarketLayout from "../../top-market-layout";
 import Faq from "../../faq";
@@ -30,6 +30,8 @@ const ForexContent = () => {
   const { tradingSymbols } = useContext(TradingContext);
   const langParam = setLangParam(); // Get the language parameter
   const [isPopupOpen, setIsPopupOpen] = useState(false); // State to manage popup visibility
+  const [tableDataMajor, setTableDataMajor] = useState([]);
+  const [tableDataMinor, setTableDataMinor] = useState([]);
 
   const handleShowRegistrationPopup = () => {
     setIsPopupOpen(true); // Open the popup
@@ -39,9 +41,14 @@ const ForexContent = () => {
     setIsPopupOpen(false); // Close the popup
   };
 
-  updateTableDataWithLiveColumn(DATA_FOREX_MINOR, tradingSymbols);
-  updateTableDataWithLiveColumn(DATA_FOREX_MAJOR, tradingSymbols);
-  // updateTableDataWithLiveColumn(DATA_FOREX_EXOTIC, tradingSymbols);
+  useEffect(() => {
+    const updatedMajor = DATA_FOREX_MAJOR.map((row) => ({ ...row }));
+    const updatedMinor = DATA_FOREX_MINOR.map((row) => ({ ...row }));
+    updateTableDataWithLiveColumn(updatedMajor, tradingSymbols);
+    updateTableDataWithLiveColumn(updatedMinor, tradingSymbols);
+    setTableDataMajor(updatedMajor);
+    setTableDataMinor(updatedMinor);
+  }, [tradingSymbols]);
 
   const tabs = [
     {
@@ -49,7 +56,7 @@ const ForexContent = () => {
       title: "Major",
       content: (
         <TableComponent
-          data={DATA_FOREX_MAJOR}
+          data={tableDataMajor}
           columns={GeneralTableColumns()}
           tip={
             <span>
@@ -68,7 +75,7 @@ const ForexContent = () => {
       title: "Minor",
       content: (
         <TableComponent
-          data={DATA_FOREX_MINOR}
+          data={tableDataMinor}
           columns={GeneralTableColumns()}
           tip={
             <span>
@@ -142,7 +149,7 @@ const ForexContent = () => {
         />
       </TopMarketPromotion>
       <MarketingCircle
-        animation={animation}
+        animationPath={animation}
         btnOnClick={handleShowRegistrationPopup}
         isForex={true}
         upper={

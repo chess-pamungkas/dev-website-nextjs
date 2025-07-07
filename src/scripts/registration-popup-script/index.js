@@ -1255,8 +1255,8 @@ const RTL_LANGUAGES = ["ar"];
     if (isPageInRTLMode()) {
       saveOriginalRTLState();
 
-      // CRITICAL: Add protection for RTL attributes to prevent any modifications
-      protectRTLAttributes();
+      // DISABLED: protectRTLAttributes() - was causing "dancing" bug by fighting with _app.js
+      // protectRTLAttributes();
     }
 
     // ENHANCED: Create standardized params object with all possible variations of parameters
@@ -1751,7 +1751,7 @@ const RTL_LANGUAGES = ["ar"];
       console.error("[OQtima] Error creating popup:", err);
       // Restore original body state in case of error
       document.body.className = originalBodyClasses;
-      document.documentElement.className = originalHtmlClasses;
+      // document.documentElement.className = originalHtmlClasses;
       document.body.style.overflow = originalBodyOverflow;
       document.documentElement.style.overflow = originalHtmlOverflow;
       if (originalBodyStyle) {
@@ -2642,10 +2642,10 @@ const RTL_LANGUAGES = ["ar"];
         } else {
           // Use the state saved in this function
           // IMPORTANT: Restore original document RTL state
-          if (originalDocDir) {
-            document.documentElement.setAttribute("dir", originalDocDir);
+          if (originalBodyDir) {
+            document.body.setAttribute("dir", originalBodyDir);
           } else {
-            document.documentElement.removeAttribute("dir");
+            document.body.removeAttribute("dir");
           }
 
           if (originalDocLang) {
@@ -2655,14 +2655,8 @@ const RTL_LANGUAGES = ["ar"];
             );
           }
 
-          if (originalBodyDir) {
-            document.body.setAttribute("dir", originalBodyDir);
-          } else {
-            document.body.removeAttribute("dir");
-          }
-
           // Restore original HTML class list for RTL
-          document.documentElement.className = originalHtmlClasses;
+          // document.documentElement.className = originalHtmlClasses || "";
           if (originalHtmlRtlState.dataRtl) {
             document.documentElement.setAttribute(
               "data-rtl",
@@ -2673,7 +2667,7 @@ const RTL_LANGUAGES = ["ar"];
           }
 
           // Restore original body class list for RTL
-          document.body.className = originalBodyClasses;
+          document.body.className = originalBodyClasses || "";
           if (originalBodyRtlState.dataRtl) {
             document.body.setAttribute(
               "data-rtl",
@@ -4202,7 +4196,7 @@ const RTL_LANGUAGES = ["ar"];
         // MOBILE SPECIFIC FIX: Enhanced restoration for mobile scroll behavior
         // Restore original styles
         document.body.className = originalBodyClasses || "";
-        document.documentElement.className = originalHtmlClasses || "";
+        // document.documentElement.className = originalHtmlClasses || "";
 
         // Clear all potential CSS properties that might prevent scrolling on mobile
         const bodyStyle = document.body.style;
@@ -4769,21 +4763,22 @@ const RTL_LANGUAGES = ["ar"];
     try {
       if (typeof document === "undefined") return;
 
+      // REMOVED: Do not restore document.documentElement dir or lang here - let _app.js handle it
       // Restore HTML attributes
-      if (documentRTLState.originalHtmlDir) {
-        document.documentElement.setAttribute(
-          "dir",
-          documentRTLState.originalHtmlDir
-        );
-      }
-      if (documentRTLState.originalHtmlLang) {
-        document.documentElement.setAttribute(
-          "lang",
-          documentRTLState.originalHtmlLang
-        );
-      }
-      document.documentElement.className =
-        documentRTLState.originalHtmlClasses || "";
+      // if (documentRTLState.originalHtmlDir) {
+      //   document.documentElement.setAttribute(
+      //     "dir",
+      //     documentRTLState.originalHtmlDir
+      //   );
+      // }
+      // if (documentRTLState.originalHtmlLang) {
+      //   document.documentElement.setAttribute(
+      //     "lang",
+      //     documentRTLState.originalHtmlLang
+      //   );
+      // }
+      // document.documentElement.className =
+      //   documentRTLState.originalHtmlClasses || "";
       if (documentRTLState.originalHtmlRtl) {
         document.documentElement.setAttribute(
           "data-rtl",
@@ -4827,7 +4822,15 @@ const RTL_LANGUAGES = ["ar"];
   }
 
   // Function to protect RTL attributes from modification
+  // DISABLED: This was causing "dancing" bug by fighting with _app.js
   function protectRTLAttributes() {
+    // DISABLED: Do not override Element.prototype.setAttribute anymore
+    // This was causing conflicts with _app.js which manages <html dir> and <html lang>
+    // Let _app.js handle all document.documentElement.dir and lang changes
+    return;
+
+    // Original code commented out to prevent conflicts:
+    /*
     if (typeof window === "undefined" || typeof document === "undefined")
       return;
 
@@ -4925,6 +4928,7 @@ const RTL_LANGUAGES = ["ar"];
       Element.prototype.removeAttribute = originalHtmlRemoveAttribute;
       DOMTokenList.prototype.remove = originalRemoveClass;
     };
+    */
   }
 
   // Apply RTL protection in openRegistrationPopup function

@@ -5,7 +5,7 @@ import { useTranslationWithVariables } from "../../../../helpers/hooks/use-trans
 import {
   BURGER_MENU_LINES_COUNT,
   GetLoginLink,
-  // ShowRegistrationPopup,
+  ShowRegistrationPopup,
 } from "../../../../helpers/constants";
 import { useWindowSize } from "../../../../helpers/hooks/use-window-size";
 import { stringTransformToKebabCase } from "../../../../helpers/services/string-service";
@@ -17,6 +17,7 @@ import { getMenuItems } from "../../../../helpers/menu.config";
 import InternalLink from "../../../shared/internal-link";
 import ButtonPopup from "../../../shared/button-popup";
 import LanguageContext from "../../../../context/language-context";
+import { setLangParam } from "../../../../helpers/services/language-service";
 
 const BurgerMenu = ({ className }) => {
   const { t } = useTranslationWithVariables();
@@ -26,9 +27,15 @@ const BurgerMenu = ({ className }) => {
   const menu = getMenuItems();
   const [selectedNavItem, setSelectedNavItem] = useState(menu[0].title);
   const [isLangPopupOpened, setIsLangPopupOpened] = useState(false);
+  const langParam = setLangParam();
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const handleShowRegistrationPopup = () => {
-    // Open the popup
+    setIsPopupOpen(true);
+  };
+
+  const handleClosePopup = () => {
+    setIsPopupOpen(false);
   };
 
   const onTriggerChange = () => {
@@ -171,14 +178,13 @@ const BurgerMenu = ({ className }) => {
           </li>
         </ul>
       </div>
-      {/* Render the popup */}
-      {/* {isPopupOpen && (
+      {isPopupOpen && (
         <ShowRegistrationPopup
           isOpen={isPopupOpen}
           onClose={handleClosePopup}
-          langParam={langParam} // Pass langParam if needed
+          langParam={langParam}
         />
-      )} */}
+      )}
     </div>
   );
 };

@@ -1,4 +1,5 @@
-@import "vars";
+@use "vars" as *;
+@use "mixins" as *;
 
 .accordion {
   &__title {
@@ -7,17 +8,14 @@
     cursor: pointer;
     background: transparent;
     border: none;
-
     &:focus {
       outline: none;
       transition: all ease-in-out 0.4s;
     }
   }
-
   &__icon {
     transition: transform 0.3s;
   }
-
   &--open {
     & .accordion__icon {
       transform: scale(1, -1);

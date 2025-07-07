@@ -11,17 +11,18 @@ import {
   DepositDisclaimer,
 } from "../../../helpers/withdrawal.config";
 import TopMarketPromotion from "../../top-market-promotion";
-import promotion from "../../../assets/images/withdrawal/promotion.svg";
+const promotion = "/images/withdrawal/promotion.svg";
 import HighlightedLocalizationText from "../../shared/highlighted-localization-text";
 import TopMarketLayout from "../../top-market-layout";
 import Tabs from "../../shared/tabs";
-import icon from "../../../assets/images/icon--white.svg";
+const icon = "/images/icon--white.svg";
 import {
   ShowRegistrationPopup,
   PAYMENT_SYSTEMS_FSA,
 } from "../../../helpers/constants";
 import { useRtlDirection } from "../../../helpers/hooks/use-rtl-direction";
 import { setLangParam } from "../../../helpers/services/language-service";
+import Seo from "../../shared/seo";
 
 const FundingPageContent = () => {
   const { t } = useTranslationWithVariables();
@@ -67,6 +68,10 @@ const FundingPageContent = () => {
 
   return (
     <>
+      <Seo
+        title={t("page-withdrawal-title")}
+        description={t("page-withdrawal-description")}
+      />
       <TopMarketPromotion
         className={cn("withdrawal-page-promotion", {
           "split-bg--rtl": isRTL,

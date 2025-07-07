@@ -1,5 +1,5 @@
-@import "vars";
-@import "mixins";
+@use "vars" as *;
+@use "mixins" as *;
 
 // Flag icon responsive styles
 .flag-icon {
@@ -13,7 +13,26 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  img,
+  // Small Mobile devices
+  @include small-mobile {
+    width: 20px;
+  }
+  // Mobile devices
+  @include mobile {
+    width: 22px;
+  }
+  // Tablet devices
+  @include tablet {
+    width: 24px;
+  }
+  // Desktop devices
+  @include desktop-lg {
+    width: 24px;
+  }
+  // Large desktop screens (1920x1080 and above)
+  @include desktop-xl {
+    width: 24px;
+  }
   svg {
     width: 100%;
     height: 100%;
@@ -23,39 +42,22 @@
     transform: translateZ(0);
     backface-visibility: hidden;
   }
-
   // High-DPI screens (Retina displays)
   @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     width: 28px;
-
     img,
     svg {
       transform: scale(1) translateZ(0);
     }
   }
+}
 
-  // Small Mobile devices
-  @include small-mobile {
-    width: 20px;
-  }
-
-  // Mobile devices
-  @include mobile {
-    width: 22px;
-  }
-
-  // Tablet devices
-  @include tablet {
-    width: 24px;
-  }
-
-  // Desktop devices
-  @include desktop-lg {
-    width: 24px;
-  }
-
-  // Large desktop screens (1920x1080 and above)
-  @include desktop-xl {
-    width: 24px;
-  }
+// Force all flag images to scale to their parent (fixes large SVGs like ar.svg)
+.lang-select__flag img,
+.flag-icon img {
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  display: block;
 }

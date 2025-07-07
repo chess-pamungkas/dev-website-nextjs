@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import TopMarket from "../../top-market";
-import promotion from "../../../assets/images/professional-qualification/promotion.svg";
+const promotion = "/images/professional-qualification/promotion.svg";
 import HighlightedLocalizationText from "../../shared/highlighted-localization-text";
 import SplitTextPromotion from "../../split-text-promotion";
 import { ShowRegistrationPopup } from "../../../helpers/constants";
 import TopMarketPromotion from "../../top-market-promotion";
 import cn from "classnames";
-import icon from "../../../assets/images/icon--white.svg";
+const icon = "/images/icon--white.svg";
 import { useTranslationWithVariables } from "../../../helpers/hooks/use-translation-with-vars";
 import { useRtlDirection } from "../../../helpers/hooks/use-rtl-direction";
 import AdvantageList from "../../professional-qualification/advantage-list";

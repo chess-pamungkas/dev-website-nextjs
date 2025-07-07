@@ -7,14 +7,13 @@ import {
   SHARES_PAGE_LINK,
   ETF_PAGE_LINK,
 } from "./constants";
-import forexIcon from "../assets/images/all-markets/forex.svg";
-import IndicesIcon from "../assets/images/all-markets/indices.svg";
-import sharesIcon from "../assets/images/all-markets/shares.svg";
-import CommoditiesIcon from "../assets/images/all-markets/commodities.svg";
-import EnergiesIcon from "../assets/images/all-markets/energies.svg";
-import CryptoIcon from "../assets/images/all-markets/crypto.svg";
-import EtfIcon from "../assets/images/all-markets/etf.svg";
-
+const forexIcon = "/images/all-markets/forex.svg";
+const IndicesIcon = "/images/all-markets/indices.svg";
+const sharesIcon = "/images/all-markets/shares.svg";
+const CommoditiesIcon = "/images/all-markets/commodities.svg";
+const EnergiesIcon = "/images/all-markets/energies.svg";
+const CryptoIcon = "/images/all-markets/crypto.svg";
+const EtfIcon = "/images/all-markets/etf.svg";
 const FOREX = {
   key: "forex",
   icon: forexIcon,

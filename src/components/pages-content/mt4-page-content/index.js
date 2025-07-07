@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState } from "react";
 import cn from "classnames";
 import TopMarketPromotion from "../../top-market-promotion";
-import animation from "../../../assets/images/animations/aggregator_MT4.json";
+const animation = "/images/animations/aggregator_MT4.json";
 import HighlightedLocalizationText from "../../shared/highlighted-localization-text";
 import MtPromotion from "../../mt-promotion";
 import {
@@ -16,6 +16,7 @@ import { useTranslationWithVariables } from "../../../helpers/hooks/use-translat
 import { useRtlDirection } from "../../../helpers/hooks/use-rtl-direction";
 import { isIOS, isAndroid, isWindows, isMacOs } from "react-device-detect";
 import { setLangParam } from "../../../helpers/services/language-service";
+import Seo from "../../shared/seo";
 
 const Mt4PageContent = () => {
   const { t } = useTranslationWithVariables();
@@ -54,6 +55,10 @@ const Mt4PageContent = () => {
 
   return (
     <>
+      <Seo
+        title={t("page-mt4-title")}
+        description={t("page-mt4-description")}
+      />
       <TopMarketPromotion
         className={cn("mt4-page-promotion", {
           "split-bg--rtl": isRTL,

@@ -1,13 +1,12 @@
-import forexIcon from "../assets/images/all-markets/forex.svg";
-import indicesIcon from "../assets/images/all-markets/indices.svg";
-import sharesIcon from "../assets/images/all-markets/shares.svg";
-import commoditiesIcon from "../assets/images/all-markets/commodities.svg";
-import energiesIcon from "../assets/images/all-markets/energies.svg";
-import cryptoIcon from "../assets/images/all-markets/crypto.svg";
-import accountIcon from "../assets/images/icons/account.svg";
-import fundingIcon from "../assets/images/icons/funding.svg";
-import tradingIcon from "../assets/images/icons/trading.svg";
-
+const forexIcon = "/images/all-markets/forex.svg";
+const indicesIcon = "/images/all-markets/indices.svg";
+const sharesIcon = "/images/all-markets/shares.svg";
+const commoditiesIcon = "/images/all-markets/commodities.svg";
+const energiesIcon = "/images/all-markets/energies.svg";
+const cryptoIcon = "/images/all-markets/crypto.svg";
+const accountIcon = "/images/icons/account.svg";
+const fundingIcon = "/images/icons/funding.svg";
+const tradingIcon = "/images/icons/trading.svg";
 export const FAQ_FOREX = [
   {
     question: "forex_faq-title1",

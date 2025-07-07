@@ -1,16 +1,16 @@
-@import "vars";
+@use "vars" as *;
+@use "mixins" as *;
+@use "sass:map";
 
 .dropdown-item {
   &--grow {
     height: 100%;
   }
-
   &__link {
     display: flex;
     align-items: flex-start;
     text-decoration: none;
   }
-
   &__icon {
     // width: 27px;
     width: 35px;
@@ -18,37 +18,31 @@
     margin-right: 10px;
     flex-shrink: 0;
   }
-
   &__title {
-    color: map-get($colors, "black-secondary");
-    font-weight: map-get($font-weight, "black");
+    color: map.get($colors, "black-secondary");
+    font-weight: map.get($font-weight, "black");
     font-size: 14px;
     line-height: 18px;
     transition: color 0.2s;
-
     @include desktop-xl {
       font-size: 16px;
       line-height: 20px;
     }
-
     &:hover {
-      color: map-get($colors, "red");
+      color: map.get($colors, "red");
     }
   }
-
   &__description {
     margin: 6px 0 0;
-    color: map-get($colors, "black-secondary");
-    font-weight: map-get($font-weight, "light");
+    color: map.get($colors, "black-secondary");
+    font-weight: map.get($font-weight, "light");
     font-size: 12px;
     line-height: 15px;
-
     @include desktop-xl {
       font-size: 14px;
       line-height: 18px;
     }
   }
-
   &__subtitles {
     margin-top: 10px;
     margin-left: 47px;

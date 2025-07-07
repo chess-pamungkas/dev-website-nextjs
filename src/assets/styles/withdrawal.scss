@@ -1,36 +1,31 @@
-@import "vars";
-@import "mixins";
+@use "vars" as *;
+@use "mixins" as *;
+@use "sass:map";
 
 .withdrawal-page-promotion {
   position: relative;
-  background: url("../../assets/images/bg/split-bg/bg-sm.svg") no-repeat bottom;
+  background: url("/images/bg/split-bg/bg-sm.svg") no-repeat bottom;
   background-size: cover;
   padding-top: 90px;
   padding-bottom: 67px;
-
   @include tablet {
     padding-top: 107px;
     padding-bottom: 102px;
-    background: url("../../assets/images/bg/split-bg/bg-md.svg") no-repeat
-      bottom;
+    background: url("/images/bg/split-bg/bg-md.svg") no-repeat bottom;
     background-size: cover;
   }
-
   @include desktop-lg {
     padding-top: 170px;
     padding-bottom: 108px;
-    background: url("../../assets/images/bg/split-bg/bg-lg.svg") no-repeat right;
+    background: url("/images/bg/split-bg/bg-lg.svg") no-repeat right;
     background-size: cover;
   }
-
   @include desktop-xl {
     padding-top: 188px;
     padding-bottom: 94px;
-    background: url("../../assets/images/bg/split-bg/bg-xl.svg") no-repeat
-      center;
+    background: url("/images/bg/split-bg/bg-xl.svg") no-repeat center;
     background-size: cover;
   }
-
   .top-market-promotion__wrapper {
     flex-direction: column-reverse;
 
@@ -38,7 +33,6 @@
       flex-direction: row;
     }
   }
-
   .top-market-promotion__text {
     font-size: 20px;
     line-height: 25px;
@@ -60,9 +54,8 @@
       line-height: 60px;
     }
   }
-
   .top-market-promotion__note {
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     font-size: 16px;
     line-height: 20px;
     text-align: center;
@@ -81,20 +74,19 @@
       line-height: 45px;
     }
   }
-
   .top-market-promotion__btn {
     text-transform: unset;
     transition: all ease-in 0.4s;
 
     @include desktop-lg {
-      color: map-get($colors, "white");
+      color: map.get($colors, "white");
     }
 
     &:hover,
     &:focus,
     &:active {
-      color: map-get($colors, "red");
-      background-color: map-get($colors, "white");
+      color: map.get($colors, "red");
+      background-color: map.get($colors, "white");
     }
   }
 }
@@ -102,26 +94,22 @@
 .top-market-layout--withdrawal {
   padding-top: 42px;
   padding-bottom: 85px;
-
   @include tablet {
     padding-top: 133px;
     padding-bottom: 50px;
     padding-left: 20px;
     padding-right: 20px;
   }
-
   @include desktop-lg {
     padding-top: 177px;
     padding-bottom: 50px;
     padding-left: 20px;
     padding-right: 20px;
   }
-
   @include desktop-xl {
     padding-top: 157px;
     padding-bottom: 50px;
   }
-
   .top-market-layout__wrapper {
     max-width: 100%;
     width: 100%;
@@ -145,22 +133,45 @@
   @include mobile {
     padding: 0;
   }
-
   @include tablet {
     padding: 0;
   }
-
   @include desktop-xl {
     padding: 25px;
   }
-
+  &__btn {
+    color: map.get($colors, "white");
+    background: map.get($colors, "red");
+    font-size: 8px;
+    line-height: 16px;
+    width: 49px;
+    text-transform: capitalize;
+    margin: 0 auto;
+    padding-left: 0;
+    padding-right: 0;
+    @include tablet {
+      padding-left: 20px;
+      padding-right: 20px;
+      font-size: 11px;
+      line-height: 31px;
+      width: 112px;
+    }
+    &:hover,
+    &:active,
+    &:focus {
+      color: map.get($colors, "red");
+      background: map.get($colors, "white");
+      border-color: map.get($colors, "red");
+    }
+  }
+  &--wide {
+  }
   .table {
     padding: unset;
   }
-
   .table__head-column {
-    border-top: 1px solid map-get($colors, "black");
-    border-right: 1px solid map-get($colors, "black");
+    border-top: 1px solid map.get($colors, "black");
+    border-right: 1px solid map.get($colors, "black");
     min-width: unset;
     width: 49px;
     font-size: 10px;
@@ -193,21 +204,20 @@
     }
 
     &:first-child {
-      color: map-get($colors, "black");
+      color: map.get($colors, "black");
       border-left: none;
     }
   }
-
   .table__body-column {
     font-size: 9px;
     line-height: 12px;
 
     &:first-child {
-      font-weight: map-get($font-weight, "regular");
+      font-weight: map.get($font-weight, "regular");
     }
 
     &:nth-child(2) {
-      border-left-color: map-get($colors, "table-grey");
+      border-left-color: map.get($colors, "table-grey");
     }
 
     @include tablet {
@@ -220,73 +230,41 @@
       line-height: 20px;
     }
   }
+  .table__head-column {
+    min-width: unset;
+    width: 83px;
 
-  &__btn {
-    color: map-get($colors, "white");
-    background: map-get($colors, "red");
-    font-size: 8px;
-    line-height: 16px;
-    width: 49px;
-    text-transform: capitalize;
-    margin: 0 auto;
-    padding-left: 0;
-    padding-right: 0;
+    &:first-child {
+      width: 71px;
+    }
 
     @include tablet {
-      padding-left: 20px;
-      padding-right: 20px;
-      font-size: 11px;
-      line-height: 31px;
-      width: 112px;
-    }
-
-    &:hover,
-    &:active,
-    &:focus {
-      color: map-get($colors, "red");
-      background: map-get($colors, "white");
-      border-color: map-get($colors, "red");
-    }
-  }
-
-  &--wide {
-    .table__head-column {
-      min-width: unset;
-      width: 83px;
+      width: 177px;
 
       &:first-child {
-        width: 71px;
+        width: 139px;
       }
+    }
 
-      @include tablet {
-        width: 177px;
+    @include desktop-lg {
+      width: 229px;
 
-        &:first-child {
-          width: 139px;
-        }
+      &:first-child {
+        width: 138px;
       }
+    }
 
-      @include desktop-lg {
-        width: 229px;
+    @include desktop-xl {
+      width: 270px;
 
-        &:first-child {
-          width: 138px;
-        }
-      }
-
-      @include desktop-xl {
-        width: 270px;
-
-        &:first-child {
-          width: 162px;
-        }
+      &:first-child {
+        width: 162px;
       }
     }
   }
 }
 .notes-block {
   margin: auto;
-
   @include mobile {
     width: 100%;
     padding-left: 10px;
@@ -308,20 +286,17 @@
     padding-right: 10px;
   }
   &__text {
-    color: map-get($colors, "grey");
-    font-weight: map-get($font-weight, "light");
+    color: map.get($colors, "grey");
+    font-weight: map.get($font-weight, "light");
     font-size: 10px;
     line-height: 15px;
     text-align: justify;
-
     &--cysec {
       font-size: 15px;
     }
-
     @include desktop-xl {
       line-height: 20px;
     }
-
     &--pl {
       padding-left: 8px;
     }

@@ -1,3 +1,6 @@
+@use "vars" as *;
+@use "mixins" as *;
+@use "vars" as *;
 @font-face {
   font-family: "Sofia Pro";
   src: url("/fonts/SofiaProLight.woff2");

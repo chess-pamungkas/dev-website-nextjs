@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react";
 import { useTranslationWithVariables } from "../../../helpers/hooks/use-translation-with-vars";
 import TopMarketPromotion from "../../top-market-promotion";
 import cn from "classnames";
-import animation from "../../../assets/images/animations/aggregator_Trading.json";
+const animation = "/images/animations/aggregator_Trading.json";
 import { TRADING_VIEW_DOC } from "../../../helpers/documents";
 import HighlightedLocalizationText from "../../shared/highlighted-localization-text";
 import MtPromotion from "../../mt-promotion";

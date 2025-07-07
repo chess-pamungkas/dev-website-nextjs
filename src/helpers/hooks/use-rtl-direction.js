@@ -9,7 +9,11 @@ export const useRtlDirection = () => {
   const [isRTL, setIsRTL] = useState(false);
 
   useEffect(() => {
-    setIsRTL(selectedLanguage.id === ARABIC_LANG_ID);
+    if (selectedLanguage && selectedLanguage.id) {
+      setIsRTL(selectedLanguage.id === ARABIC_LANG_ID);
+    } else {
+      setIsRTL(false);
+    }
   }, [selectedLanguage]);
 
   return isRTL;

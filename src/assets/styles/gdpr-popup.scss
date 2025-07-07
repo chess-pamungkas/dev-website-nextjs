@@ -1,13 +1,12 @@
-@import "vars";
-@import "mixins";
+@use "vars" as *;
+@use "mixins" as *;
+@use "sass:map";
 
 .gdpr-popup {
   display: none;
-
   &--active {
     display: block;
   }
-
   &__wrapper {
     width: 100vw;
     height: 100vh;
@@ -20,113 +19,96 @@
     align-items: center;
     background: rgba(0, 0, 0, 0.5);
   }
-
   &__content {
     max-width: 748px;
     width: 95%;
     border-radius: 10px;
     overflow: auto;
     box-shadow: 0 0 10px #0000001a;
-    background: map-get($colors, "white") 0 0% no-repeat padding-box;
+    background: map.get($colors, "white") 0 0% no-repeat padding-box;
     padding-left: 20px;
     padding-right: 20px;
     height: fit-content;
     max-height: 90%;
-
     @include tablet {
       padding-left: 37px;
       padding-right: 37px;
     }
   }
-
   &__header {
     height: 10px;
-    background-color: map-get($colors, "red");
+    background-color: map.get($colors, "red");
     margin-left: -20px;
     margin-right: -20px;
-
     @include tablet {
       margin-left: -37px;
       margin-right: -37px;
     }
   }
-
   &__title {
     padding-top: 19px;
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     font-size: 24px;
     line-height: 30px;
-
     @include tablet {
       padding-top: 55px;
       font-size: 36px;
       line-height: 45px;
     }
   }
-
   &__description {
     padding-top: 20px;
     padding-bottom: 20px;
-    font-weight: map-get($font-weight, "regular");
+    font-weight: map.get($font-weight, "regular");
     font-size: 14px;
     line-height: 18px;
-    color: map-get($colors, "black-secondary");
-
+    color: map.get($colors, "black-secondary");
     @include tablet {
       padding-top: 55px;
       padding-bottom: 25px;
       font-size: 16px;
       line-height: 20px;
     }
-
     @include desktop-xl {
       font-size: 18px;
       line-height: 22px;
     }
   }
-
   &__consent {
     display: grid;
     grid-template-areas: "a b";
     align-items: center;
     justify-content: space-between;
     padding-top: 20px;
-
     @include tablet {
       padding-top: 25px;
     }
   }
-
   &__consent-title {
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     font-size: 16px;
     line-height: 20px;
-    color: map-get($colors, "black-secondary");
-
+    color: map.get($colors, "black-secondary");
     @include tablet {
       font-size: 18px;
       line-height: 22px;
     }
-
     @include desktop-xl {
       font-size: 20px;
       line-height: 25px;
     }
   }
-
   &__switch {
     position: relative;
     display: inline-block;
     width: 44px;
     height: 22px;
   }
-
   &__checkbox {
     opacity: 0;
     width: 0;
     height: 0;
   }
-
   &__slider {
     position: absolute;
     cursor: pointer;
@@ -134,12 +116,11 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: map-get($colors, "white");
+    background-color: map.get($colors, "white");
     -webkit-transition: 0.4s;
     transition: 0.4s;
-    outline: 1px solid map-get($colors, "red");
+    outline: 1px solid map.get($colors, "red");
     border-radius: 11px;
-
     &:before {
       position: absolute;
       content: "";
@@ -147,54 +128,46 @@
       width: 18px;
       left: 2px;
       bottom: 2px;
-      background-color: map-get($colors, "red");
+      background-color: map.get($colors, "red");
       -webkit-transition: 0.4s;
       transition: 0.4s;
       border-radius: 50%;
     }
-
     &--checked {
-      background-color: map-get($colors, "red");
-
+      background-color: map.get($colors, "red");
       &:before {
         -webkit-transform: translateX(22px);
         -ms-transform: translateX(22px);
         transform: translateX(22px);
-        background-color: map-get($colors, "white");
+        background-color: map.get($colors, "white");
       }
     }
-
     &--disabled {
       pointer-events: none;
       cursor: default;
     }
   }
-
   &__category-title {
     text-align: left;
-    font-weight: map-get($font-weight, "regular");
+    font-weight: map.get($font-weight, "regular");
     font-size: 14px;
     line-height: 18px;
     color: #1a1a1a;
-
     @include tablet {
       font-size: 16px;
       line-height: 20px;
     }
-
     @include desktop-xl {
       font-size: 18px;
       line-height: 22px;
     }
-
     &--disabled {
-      color: map-get($colors, "grey");
+      color: map.get($colors, "grey");
     }
   }
-
   &__category {
     height: 40px;
-    background: map-get($colors, "white") 0 0% no-repeat padding-box;
+    background: map.get($colors, "white") 0 0% no-repeat padding-box;
     box-shadow: 0 0 10px #0000001a;
     border-radius: 10px;
     display: grid;
@@ -205,7 +178,6 @@
     padding-right: 20px;
     margin-top: 15px;
   }
-
   &__buttons {
     display: flex;
     justify-content: space-between;
@@ -213,41 +185,36 @@
     align-items: center;
     padding-top: 30px;
     padding-bottom: 19px;
-
     @include tablet {
       padding: 49px 90px;
     }
   }
-
   &__btn {
     cursor: pointer;
-    background: map-get($colors, "white") 0 0% no-repeat padding-box;
-    border: 2px solid map-get($colors, "red");
+    background: map.get($colors, "white") 0 0% no-repeat padding-box;
+    border: 2px solid map.get($colors, "red");
     border-radius: 31px;
     width: fit-content;
     height: 38px;
     text-align: center;
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     font-size: 14px;
     line-height: 18px;
     letter-spacing: 0;
-    color: map-get($colors, "red");
+    color: map.get($colors, "red");
     min-width: 123px;
     text-transform: uppercase;
     transition: all ease-in 0.4s;
-
     &:hover {
-      background: map-get($colors, "red") 0 0% no-repeat padding-box;
-      color: map-get($colors, "white");
-      border: 2px solid map-get($colors, "white");
+      background: map.get($colors, "red") 0 0% no-repeat padding-box;
+      color: map.get($colors, "white");
+      border: 2px solid map.get($colors, "white");
     }
-
     @include tablet {
       min-width: 234px;
     }
   }
-
   &__hr-line {
-    border-top: 1px solid map-get($colors, "grey");
+    border-top: 1px solid map.get($colors, "grey");
   }
 }

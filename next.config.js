@@ -19,7 +19,7 @@ const nextConfig = {
   // SASS support (replaces gatsby-plugin-sass)
   sassOptions: {
     includePaths: [path.join(__dirname, "src/assets/styles")],
-    prependData: `@import "vars.scss"; @import "mixins.scss";`,
+    // Removed prependData to avoid conflicts with @use statements
   },
 
   // Environment variables
@@ -179,8 +179,7 @@ const nextConfig = {
 
     // Optimize development server
     devIndicators: {
-      buildActivity: false, // Disable build activity indicator
-      buildActivityPosition: "bottom-right",
+      position: "bottom-right",
     },
   }),
 

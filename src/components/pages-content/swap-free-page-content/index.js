@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useTranslationWithVariables } from "../../../helpers/hooks/use-translation-with-vars";
 import TopMarket from "../../top-market";
-import topPromo from "../../../assets/images/swap-free/top-promo.png";
+const topPromo = "/images/swap-free/top-promo.png";
 import { ShowRegistrationPopup } from "../../../helpers/constants";
 import HighlightedLocalizationText from "../../shared/highlighted-localization-text";
 import SwapFreeTopPromotion from "../../swap-free/components/swap-free-top-promotion";
@@ -10,6 +10,7 @@ import SwapFreeAdvantages from "../../swap-free/components/swap-free-advantages"
 import { SWAP_FREE_ADVANTAGES } from "../../../helpers/swap-free.config";
 import SwapFreeBottomPromotion from "../../swap-free/components/bottom-promotion";
 import { setLangParam } from "../../../helpers/services/language-service";
+import Seo from "../../shared/seo";
 
 const SwapFreeContent = () => {
   const { t } = useTranslationWithVariables();
@@ -26,6 +27,10 @@ const SwapFreeContent = () => {
 
   return (
     <>
+      <Seo
+        title={t("page-swap-free-title")}
+        description={t("page-swap-free-description")}
+      />
       <TopMarket
         title={
           <HighlightedLocalizationText

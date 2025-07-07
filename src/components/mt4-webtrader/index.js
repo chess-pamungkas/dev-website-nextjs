@@ -15,18 +15,32 @@ const Mt4WebTraderLink = () => {
   useEffect(() => {
     if (isIFrameAdded.current) return;
 
-    // Note: MT Script is loaded in gatsby-ssr.js file
-    window.MetaTraderWebTerminal("webterminal", {
-      version: 4,
-      servers: ["OqtimaGlobal-Demo", "OqtimaGlobal-Server"],
-      server: "OqtimaGlobal-Server",
-      startMode: "login",
-      language: MT_LANGUAGES_MAP[selectedLanguage.id],
-      colorScheme: "green_on_black",
-    });
+    function callWebTerminal() {
+      if (typeof window.MetaTraderWebTerminal === "function") {
+        window.MetaTraderWebTerminal("webterminal", {
+          version: 4,
+          servers: ["OqtimaGlobal-Demo", "OqtimaGlobal-Server"],
+          server: "OqtimaGlobal-Server",
+          startMode: "login",
+          language: MT_LANGUAGES_MAP[selectedLanguage.id],
+          colorScheme: "green_on_black",
+        });
+        isIFrameAdded.current = true;
+      } else {
+        console.error("MetaTraderWebTerminal is not loaded or not a function");
+      }
+    }
 
-    isIFrameAdded.current = true;
-  }, []);
+    if (typeof window.MetaTraderWebTerminal !== "function") {
+      const script = document.createElement("script");
+      script.src = "https://trade.mql5.com/trade/widget.js";
+      script.async = true;
+      script.onload = callWebTerminal;
+      document.body.appendChild(script);
+    } else {
+      callWebTerminal();
+    }
+  }, [selectedLanguage.id]);
 
   return (
     <div

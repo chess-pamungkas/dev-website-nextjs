@@ -1,48 +1,40 @@
-@import "vars";
-@import "mixins";
+@use "vars" as *;
+@use "mixins" as *;
+@use "sass:map";
 
 .market-item-advantages-list {
   width: 100%;
-
   @include desktop-lg {
     width: 460px;
   }
-
   @include desktop-xl {
     width: 620px;
   }
-
   &__title-wrapper {
-    background-color: map-get($colors, "red");
+    background-color: map.get($colors, "red");
     border-radius: 10px 10px 0 0;
     padding: 6px 20px;
-
     @include tablet {
       padding: 7px 43px;
     }
-
     @include desktop-lg {
       padding: 7px 19px 7px 43px;
     }
-
     @include desktop-xl {
       padding: 9px 19px 9px 43px;
     }
   }
-
   &__title {
     text-align: left;
-    color: map-get($colors, "white");
+    color: map.get($colors, "white");
     margin: 0;
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     font-size: 16px;
     line-height: 20px;
-
     @include tablet {
       font-size: 22px;
       line-height: 27px;
     }
-
     @include desktop-xl {
       font-size: 23px;
       line-height: 28px;
@@ -51,7 +43,7 @@
 }
 
 .market-item-advantages {
-  background: map-get($colors, "white") 0 0% no-repeat padding-box;
+  background: map.get($colors, "white") 0 0% no-repeat padding-box;
   box-shadow: 0 0 10px #0000001a;
   border-radius: 10px;
   width: 100%;
@@ -59,36 +51,29 @@
   padding: 20px;
   z-index: 2;
   position: relative;
-
   @include tablet {
     padding: 35px 43px 17px 43px;
   }
-
   @include desktop-lg {
     padding: 35px 19px 22px 43px;
   }
-
   &__item {
     display: flex;
     align-items: center;
-
     @include tablet {
       padding-bottom: 18px;
     }
-
     @include desktop-lg {
       padding-bottom: 13px;
     }
   }
-
   &__text {
     padding-left: 10px;
     text-align: left;
     font-size: 14px;
     line-height: 35px;
-    color: map-get($colors, "red");
-    font-weight: map-get($font-weight, "black");
-
+    color: map.get($colors, "red");
+    font-weight: map.get($font-weight, "black");
     @include tablet {
       font-size: 24px;
       line-height: 35px;
@@ -100,11 +85,9 @@
 .market-item-btn-wrapper {
   width: 100%;
   padding: 20px;
-
   @include tablet {
     padding: 35px 43px 17px 43px;
   }
-
   @include desktop-lg {
     padding: 35px 19px 22px 43px;
   }
@@ -119,7 +102,6 @@
 
 .market-item-btn {
   font-size: 12px;
-
   @include desktop-xl {
     font-size: 20px;
   }

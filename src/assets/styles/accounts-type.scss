@@ -1,27 +1,23 @@
-@import "vars";
-@import "mixins";
+@use "vars" as *;
+@use "mixins" as *;
+@use "sass:map";
 
 .accounts-type-page-promotion {
-  background: url("../../assets/images/accounts-type/promotion-bg.svg")
-    no-repeat center;
+  background: url("/images/accounts-type/promotion-bg.svg") no-repeat center;
   background-size: cover;
   padding-top: 90px;
   padding-bottom: 100px;
-
   @include tablet {
     padding: 92px 21px 140px 15px;
   }
-
   @include desktop-lg {
     padding-top: 150px;
     padding-bottom: 82px;
   }
-
   @include desktop-xl {
     padding-top: 150px;
     padding-bottom: 150px;
   }
-
   .top-market-promotion__description {
     @include tablet {
       max-width: 732px;
@@ -36,10 +32,9 @@
       margin: 50px 0 50px;
     }
   }
-
   .top-market-promotion__text {
     @include tablet {
-      font-weight: map-get($font-weight, "black");
+      font-weight: map.get($font-weight, "black");
       font-size: 52px;
       line-height: 65px;
     }
@@ -56,7 +51,6 @@
       text-align: left;
     }
   }
-
   .top-market-promotion__wrapper {
     position: relative;
     width: 100%;
@@ -93,7 +87,6 @@
       }
     }
   }
-
   .top-market-promotion__block {
     display: flex;
     align-items: center;
@@ -112,89 +105,69 @@
 }
 
 .accounts-type-page-mid-promotion {
-  background: map-get($colors, "black-secondary") 0 0 no-repeat padding-box;
+  background: map.get($colors, "black-secondary") 0 0 no-repeat padding-box;
   padding-top: 158px;
   padding-bottom: 85px;
-
   @include tablet {
     padding-top: 302px;
     padding-bottom: 261px;
   }
-
   @include desktop-lg {
     padding-top: 75px;
     padding-bottom: 47px;
   }
-
   @include desktop-xl {
     padding-top: 130px;
     padding-bottom: 130px;
   }
-
   &:before {
     content: "";
     position: absolute;
-    background: url("../../assets/images/accounts-type/mid-promo-bg-top-sm.svg")
-      no-repeat;
+    background: url("/images/accounts-type/mid-promo-bg-top-sm.svg") no-repeat;
     width: 92px;
     height: 110px;
     top: 0;
     left: 0;
-
     @include tablet {
-      background: url("../../assets/images/accounts-type/mid-promo-bg-top-md.svg")
-        no-repeat;
+      background: url("/images/accounts-type/mid-promo-bg-top-md.svg") no-repeat;
       width: 187px;
       height: 226px;
     }
-
     @include desktop-lg {
-      background: url("../../assets/images/accounts-type/mid-promo-bg-top-lg.svg")
-        no-repeat;
+      background: url("/images/accounts-type/mid-promo-bg-top-lg.svg") no-repeat;
       width: 177px;
       height: 213px;
     }
-
     @include desktop-xl {
-      background: url("../../assets/images/accounts-type/mid-promo-bg-top-xl.svg")
-        no-repeat;
+      background: url("/images/accounts-type/mid-promo-bg-top-xl.svg") no-repeat;
       width: 261px;
       height: 299px;
     }
   }
-
   &:after {
     content: "";
     position: absolute;
-    background: url("../../assets/images/accounts-type/mid-promo-bg-bot-sm.svg")
-      no-repeat;
+    background: url("/images/accounts-type/mid-promo-bg-bot-sm.svg") no-repeat;
     width: 92px;
     height: 110px;
     bottom: 0;
     right: 0;
-
     @include tablet {
-      background: url("../../assets/images/accounts-type/mid-promo-bg-bot-md.svg")
-        no-repeat;
+      background: url("/images/accounts-type/mid-promo-bg-bot-md.svg") no-repeat;
       width: 188px;
       height: 225px;
     }
-
     @include desktop-lg {
-      background: url("../../assets/images/accounts-type/mid-promo-bg-bot-lg.svg")
-        no-repeat;
+      background: url("/images/accounts-type/mid-promo-bg-bot-lg.svg") no-repeat;
       width: 177px;
       height: 213px;
     }
-
     @include desktop-xl {
-      background: url("../../assets/images/accounts-type/mid-promo-bg-bot-xl.svg")
-        no-repeat;
+      background: url("/images/accounts-type/mid-promo-bg-bot-xl.svg") no-repeat;
       width: 261px;
       height: 299px;
     }
   }
-
   .top-market-promotion__img {
     width: 244px;
     margin-bottom: unset;
@@ -211,18 +184,15 @@
       width: 1116px;
     }
   }
-
   .top-market-promotion__wrapper {
     flex-direction: column-reverse;
   }
-
   .top-market-promotion__block {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
   }
-
   .top-market-promotion__description {
     margin: 0;
     margin-top: 48px;
@@ -239,20 +209,19 @@
       margin-top: 65px;
     }
   }
-
   .top-market-promotion__btn {
     // width: 152px;
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     // font-size: 12px;
     // line-height: 33px;
-    color: map-get($colors, "red");
-    background: map-get($colors, "black-secondary");
-    border: 2px solid map-get($colors, "red");
+    color: map.get($colors, "red");
+    background: map.get($colors, "black-secondary");
+    border: 2px solid map.get($colors, "red");
     transition: all ease-in 0.4s;
 
     &:hover {
-      color: map-get($colors, "white");
-      background: map-get($colors, "red");
+      color: map.get($colors, "white");
+      background: map.get($colors, "red");
     }
 
     // @include desktop-lg {
@@ -270,23 +239,20 @@
 }
 
 .accounts-type {
-  background: url("../../assets/images/accounts-type/accounts-type-bg-xl.svg");
+  background: url("/images/accounts-type/accounts-type-bg-xl.svg");
   padding: 24px 0 0 0;
   display: grid;
   grid-template-areas: "desc" "acc1" "acc2";
   justify-items: center;
   align-items: center;
-
   @include tablet {
     grid-template-areas: "desc desc" "acc1 acc2";
     padding: 15px 0 61px 0;
     display: grid;
   }
-
   @include desktop-lg {
     padding: 38px 0 116px 0;
   }
-
   @include desktop-xl {
     display: flex;
     justify-content: space-between;
@@ -294,27 +260,23 @@
     flex-direction: row;
     padding: 85px 0 85px 0;
   }
-
   &__title {
     margin: 0;
     padding-bottom: 24px;
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     font-size: 25px;
     line-height: 31px;
     text-align: center;
-
     @include tablet {
       padding-bottom: 50px;
       font-size: 35px;
       line-height: 44px;
     }
-
     @include desktop-lg {
       padding-bottom: 41px;
       font-size: 39px;
       line-height: 49px;
     }
-
     @include desktop-xl {
       padding-bottom: 24px;
       font-size: 60px;
@@ -322,51 +284,42 @@
       text-align: left;
     }
   }
-
   &__description {
     margin: 0;
     padding-bottom: 24px;
-    font-weight: map-get($font-weight, "bold");
+    font-weight: map.get($font-weight, "bold");
     font-size: 24px;
     line-height: 30px;
     text-align: center;
-
     @include tablet {
       padding-bottom: 50px;
       font-size: 28px;
       line-height: 35px;
     }
-
     @include desktop-lg {
       padding-bottom: 40px;
       font-size: 27px;
       line-height: 34px;
     }
-
     @include desktop-xl {
       font-size: 36px;
       line-height: 60px;
       text-align: left;
     }
   }
-
   &__desc-block {
     grid-area: desc;
     max-width: 595px;
-
     @include desktop-lg {
       max-width: 737px;
     }
-
     @include desktop-xl {
       max-width: 572px;
     }
   }
-
   .acc1 {
     grid-area: acc1;
   }
-
   .acc2 {
     grid-area: acc2;
   }
@@ -382,82 +335,69 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 40px;
-
   @include tablet {
     margin-bottom: 0;
   }
-
   @include desktop-lg {
     width: 395px;
     padding: 0 30px 42px 30px;
   }
-
   @include desktop-xl {
     width: 475px;
   }
-
   &__header {
     height: 7px;
-    background-color: map-get($colors, "red");
+    background-color: map.get($colors, "red");
     margin-left: -24px;
     margin-right: -23px;
-
     @include desktop-lg {
       margin-left: -30px;
       margin-right: -30px;
     }
-
     @include desktop-xl {
       height: 10px;
     }
   }
-
   &__title {
     padding-top: 32px;
     margin: 0;
     text-align: center;
-    font-weight: map-get($font-weight, "bold");
+    font-weight: map.get($font-weight, "bold");
     font-size: 16px;
     line-height: 35px;
-
     @include desktop-lg {
       padding-top: 35px;
       font-size: 18px;
       line-height: 35px;
     }
   }
-
   &__name {
     margin: 0;
     text-align: center;
-    color: map-get($colors, "red");
-    font-weight: map-get($font-weight, "black");
+    color: map.get($colors, "red");
+    font-weight: map.get($font-weight, "black");
     font-size: 35px;
     line-height: 35px;
     padding-bottom: 36px;
-
     @include desktop-lg {
       font-size: 40px;
       line-height: 35px;
     }
   }
-
   &__btn {
     width: 152px;
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     font-size: 8px;
     line-height: 25px;
-    color: map-get($colors, "red");
-    background: map-get($colors, "white");
-    border: 2px solid map-get($colors, "red");
+    color: map.get($colors, "red");
+    background: map.get($colors, "white");
+    border: 2px solid map.get($colors, "red");
     align-self: center;
     margin-top: 40px;
-
     &:hover {
-      color: map-get($colors, "white");
-      background: map-get($colors, "red");
+      color: map.get($colors, "white");
+      background: map.get($colors, "red");
     }
-
     @include desktop-lg {
       font-size: 24px;
       line-height: 62px;
@@ -469,89 +409,75 @@
 .account-type-advantage {
   display: grid;
   grid-template-areas: "title value" "hr hr";
-
   &__title {
     margin: 0;
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     font-size: 12px;
     line-height: 25px;
     justify-self: start;
     grid-area: title;
-
     @include desktop-lg {
       font-size: 15px;
       line-height: 25px;
     }
-
     @include desktop-xl {
       font-size: 18px;
       line-height: 25px;
     }
   }
-
   &__value {
     margin: 0;
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     font-size: 12px;
     line-height: 25px;
-    color: map-get($colors, "red");
+    color: map.get($colors, "red");
     justify-self: end;
     max-width: 90px;
     grid-area: value;
     text-align: right;
-
     @include desktop-lg {
       font-size: 15px;
       line-height: 25px;
       max-width: 130px;
     }
-
     @include desktop-xl {
       font-size: 18px;
       line-height: 25px;
       max-width: 170px;
     }
-
     &--small {
-      font-weight: map-get($font-weight, "black");
+      font-weight: map.get($font-weight, "black");
       font-size: 12px;
       line-height: 25px;
-
       @include desktop-lg {
         font-size: 15px;
         line-height: 25px;
       }
-
       @include desktop-xl {
         font-size: 14px;
         line-height: 25px;
       }
     }
-
     &--higher {
       height: 50px;
     }
   }
-
   &__icon {
     width: 26px;
     height: 26px;
     grid-area: value;
     justify-self: end;
   }
-
   &__hr {
     width: 250px;
     height: 0;
-    border: 1px solid map-get($colors, "table-grey");
+    border: 1px solid map.get($colors, "table-grey");
     grid-area: hr;
     margin-bottom: 20px;
     margin-top: 20px;
-
     @include desktop-lg {
       width: 275px;
     }
-
     @include desktop-xl {
       width: 363px;
     }

@@ -1,6 +1,6 @@
 import React from "react";
 
-export const MobileCell = (min, avg) => {
+export const MobileCell = ({ min, avg }) => {
   return (
     <div className="mobile-cell">
       <p className="mobile-cell__title">Min</p>

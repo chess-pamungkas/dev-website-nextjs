@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import cn from "classnames";
 import PropTypes from "prop-types";
-import ReactPlayer from "react-player/youtube";
+import ReactPlayer from "react-player";
 import { useWindowSize } from "../../../../helpers/hooks/use-window-size";
 import { getYoutubeLink } from "../helpers";
 import { useRtlDirection } from "../../../../helpers/hooks/use-rtl-direction";

@@ -3,7 +3,13 @@ import PropTypes from "prop-types";
 import Lottie from "lottie-react";
 import { useWindowSize } from "../../helpers/hooks/use-window-size";
 
-export const StaticImages = ({ image, height, animation }) => {
+export const StaticImages = ({
+  image,
+  height,
+  animation,
+  animationData,
+  animationPath,
+}) => {
   const { isMobile, isMD } = useWindowSize();
 
   let animationHeight = 300;
@@ -14,6 +20,21 @@ export const StaticImages = ({ image, height, animation }) => {
     animationHeight = 200;
   }
 
+  // Determine which animation prop to use
+  const lottieProps = {};
+  if (animationData) {
+    lottieProps.animationData = animationData;
+  } else if (animationPath) {
+    lottieProps.path = animationPath;
+  } else if (animation) {
+    // Handle legacy animation prop - check if it's a string path or JSON object
+    if (typeof animation === "string") {
+      lottieProps.path = animation;
+    } else {
+      lottieProps.animationData = animation;
+    }
+  }
+
   return (
     <div
       className="marketing-static-images"
@@ -21,7 +42,7 @@ export const StaticImages = ({ image, height, animation }) => {
     >
       <Lottie
         className="promotion-markets__svg"
-        animationData={animation}
+        {...lottieProps}
         style={{ height: animationHeight }}
       />
     </div>
@@ -31,6 +52,8 @@ export const StaticImages = ({ image, height, animation }) => {
 StaticImages.propTypes = {
   image: PropTypes.string.isRequired,
   height: PropTypes.number.isRequired,
-  animation: PropTypes.object.isRequired,
+  animation: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  animationData: PropTypes.object,
+  animationPath: PropTypes.string,
 };
 export default StaticImages;

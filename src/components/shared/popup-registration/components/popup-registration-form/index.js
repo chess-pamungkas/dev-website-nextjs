@@ -391,10 +391,10 @@ const PopupRegistrationForm = ({ params }) => {
           window.__OQTIMA_DISABLE_AUTO_RTL__ = true;
 
           // Force visual refresh
-          document.body.style.display = "none";
-          setTimeout(() => {
-            document.body.style.display = "";
-          }, 10);
+          // document.body.style.display = "none";
+          // setTimeout(() => {
+          //   document.body.style.display = "";
+          // }, 10);
         }
         // If we have a specific language and it's not Arabic, ensure we're not in RTL mode
         else if (specificLanguage && specificLanguage.toLowerCase() !== "ar") {
@@ -429,10 +429,10 @@ const PopupRegistrationForm = ({ params }) => {
             }
 
             // Force visual refresh
-            document.body.style.display = "none";
-            setTimeout(() => {
-              document.body.style.display = "";
-            }, 10);
+            // document.body.style.display = "none";
+            // setTimeout(() => {
+            //   document.body.style.display = "";
+            // }, 10);
           }
         }
       } catch (e) {
@@ -675,7 +675,7 @@ const PopupRegistrationForm = ({ params }) => {
             window.__FORCE_LANGUAGE__ = true;
 
             // Set on document element
-            document.documentElement.setAttribute("lang", urlLanguage);
+            // Don't set lang here - let i18n library handle it
 
             // Update localStorage
             try {
@@ -696,17 +696,14 @@ const PopupRegistrationForm = ({ params }) => {
                   cleanRTLAttributes();
                 } else {
                   // Fallback inline implementation to clean RTL attributes
-                  document.documentElement.classList.remove(
-                    "rtl-active",
-                    "rtl",
-                    "is-rtl"
-                  );
-
-                  document.documentElement.removeAttribute("data-rtl");
-
+                  // document.documentElement.classList.remove(
+                  //   "rtl-active",
+                  //   "rtl",
+                  //   "is-rtl"
+                  // );
+                  // document.documentElement.removeAttribute("data-rtl");
                   // Force UI update by triggering a reflow
-                  const reflow = document.body.offsetHeight;
-
+                  // const reflow = document.body.offsetHeight;
                   // console.log("RTL attributes cleaned inline");
                 }
               } catch (e) {
@@ -761,7 +758,7 @@ const PopupRegistrationForm = ({ params }) => {
           ? sanitizeLanguageCode(detectedLanguage)
           : detectedLanguage;
 
-      document.documentElement.setAttribute("lang", cleanedLanguage);
+      // Don't set lang here - let i18n library handle it
       sessionStorage.setItem("oqtima_tab_language", cleanedLanguage);
       window.__OQTIMA_TAB_LANGUAGE__ = cleanedLanguage;
 
@@ -771,9 +768,8 @@ const PopupRegistrationForm = ({ params }) => {
 
       // Special handling for Arabic language
       if (cleanedLanguage.toLowerCase() === "ar") {
-        // Set RTL attributes
-        document.documentElement.setAttribute("dir", "rtl");
-        document.documentElement.classList.add("rtl-active");
+        // Set RTL attributes (but don't set document.documentElement.dir here)
+        // document.documentElement.classList.add("rtl-active");
         sessionStorage.setItem("oqtima_tab_rtl", "true");
         window.__FORCE_RTL__ = true;
         window.__ORIGINAL_RTL__ = true;
@@ -788,13 +784,12 @@ const PopupRegistrationForm = ({ params }) => {
             cleanRTLAttributes();
           } else {
             // Fallback inline implementation
-            document.documentElement.classList.remove(
-              "rtl-active",
-              "rtl",
-              "is-rtl"
-            );
-
-            document.documentElement.removeAttribute("data-rtl");
+            // document.documentElement.classList.remove(
+            //   "rtl-active",
+            //   "rtl",
+            //   "is-rtl"
+            // );
+            // document.documentElement.removeAttribute("data-rtl");
           }
         } catch (e) {
           console.error("Error cleaning RTL attributes:", e);
@@ -1244,21 +1239,21 @@ const PopupRegistrationForm = ({ params }) => {
       }
 
       // For RTL languages, update the language context
-      if (setSelectedLanguage && typeof setSelectedLanguage === "function") {
-        try {
-          // Create proper language object expected by the context
-          const isRtlLang = isRTLLanguage(sanitizedLang);
-          const langObject = {
-            id: sanitizedLang,
-            title: sanitizedLang.toUpperCase(),
-            URIPart: `/${sanitizedLang}/`,
-            isRTL: isRtlLang,
-          };
-          setSelectedLanguage(langObject);
-        } catch (e) {
-          // console.warn("Error updating language context:", e);
-        }
-      }
+      // if (setSelectedLanguage && typeof setSelectedLanguage === "function") {
+      //   try {
+      //     // Create proper language object expected by the context
+      //     const isRtlLang = isRTLLanguage(sanitizedLang);
+      //     const langObject = {
+      //       id: sanitizedLang,
+      //       title: sanitizedLang.toUpperCase(),
+      //       URIPart: `/${sanitizedLang}/`,
+      //       isRTL: isRtlLang,
+      //     };
+      //     setSelectedLanguage(langObject);
+      //   } catch (e) {
+      //     // console.warn("Error updating language context:", e);
+      //   }
+      // }
 
       // Make i18next aware of our language
       try {
@@ -1278,7 +1273,7 @@ const PopupRegistrationForm = ({ params }) => {
     }
   }, [params]);
 
-  // Simplified RTL handling
+  // Simplified RTL handling - only add mobile styles, don't set dir attributes
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -1341,16 +1336,6 @@ const PopupRegistrationForm = ({ params }) => {
           `;
           document.head.appendChild(mobileStyleEl);
         }
-
-        // Only set direction for the form elements we control
-        document
-          .querySelectorAll(
-            ".registration-form, .registration-form__field, .registration-form__button, .form-group, .form-field, input, select, textarea"
-          )
-          .forEach((el) => {
-            el.setAttribute("dir", "rtl");
-            el.classList.add("rtl-mode");
-          });
       } else {
         // Clean up RTL-specific styles if exists
         const rtlFormMobileStyles = document.getElementById(
@@ -2526,10 +2511,6 @@ const PopupRegistrationForm = ({ params }) => {
                   "popup-registration__form--error": isSentSuccessful === false,
                 })}
                 dir={isRTLMode ? "rtl" : "ltr"}
-                style={{
-                  textAlign: isRTLMode ? "right" : "left",
-                  direction: isRTLMode ? "rtl" : "ltr",
-                }}
                 noValidate
               >
                 {/* Name Fields */}

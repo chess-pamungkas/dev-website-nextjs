@@ -5,12 +5,12 @@ import { getTradersList } from "../../../helpers/platforms.config";
 import HighlightedLocalizationText from "../../shared/highlighted-localization-text";
 import MetaTrader from "../../meta-trader";
 import TopMarketPromotion from "../../top-market-promotion";
-import icon from "../../../assets/images/icon--white.svg";
+const icon = "/images/icon--white.svg";
 import { ShowRegistrationPopup } from "../../../helpers/constants";
 import { useTranslationWithVariables } from "../../../helpers/hooks/use-translation-with-vars";
 import { useWindowSize } from "../../../helpers/hooks/use-window-size";
 import { useRtlDirection } from "../../../helpers/hooks/use-rtl-direction";
-import platforms from "../../../assets/images/platforms/platforms.svg";
+const platforms = "/images/platforms/platforms.svg";
 import { setLangParam } from "../../../helpers/services/language-service";
 
 const PlatformsPageContent = () => {

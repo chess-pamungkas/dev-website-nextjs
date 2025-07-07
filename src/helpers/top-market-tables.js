@@ -5,65 +5,73 @@ import { MobileCell } from "../components/shared/table/components/mobile-cell";
 export const GeneralTableColumns = () => {
   const { t } = useTranslationWithVariables();
   const { isMobile } = useWindowSize();
-  const COLUMNS = [
+  return [
     {
-      id: "group1",
-      Header: "",
+      id: "symbol-group",
+      header: "",
+      columns: [{ id: "symbol", header: "", accessorKey: "col1" }],
+    },
+    {
+      id: "ecn-group",
+      header: t("oqtima-ecn-account"),
       columns: [
         {
-          Header: "",
-          accessor: "col1",
+          id: "ecn-min",
+          header: isMobile ? "" : "Min",
+          accessorKey: isMobile ? "col23_mobile" : "col2",
+          cell: (info) => {
+            if (!isMobile) return info.getValue();
+            const row = info.row.original;
+            return <MobileCell min={row.col2} avg={row.col3} />;
+          },
+          meta: { mobileColspan: isMobile ? 2 : undefined },
+        },
+        {
+          id: "ecn-avg",
+          header: isMobile ? "" : "Avg",
+          accessorKey: isMobile ? "col23_mobile" : "col3",
+          cell: (info) => (isMobile ? null : info.getValue()),
+          meta: { mobileHide: isMobile },
         },
       ],
     },
     {
-      id: "group2",
-      Header: t("oqtima-ecn-account"),
+      id: "one-group",
+      header: t("oqtima-one-account"),
       columns: [
         {
-          Header: isMobile ? "" : "Min",
-          accessor: isMobile ? "col23_mobile" : "col2",
+          id: "one-min",
+          header: isMobile ? "" : "Min",
+          accessorKey: isMobile ? "col45_mobile" : "col4",
+          cell: (info) => {
+            if (!isMobile) return info.getValue();
+            const row = info.row.original;
+            return <MobileCell min={row.col4} avg={row.col5} />;
+          },
+          meta: { mobileColspan: isMobile ? 2 : undefined },
         },
-        ...(isMobile
-          ? []
-          : [
-              {
-                Header: "Avg",
-                accessor: "col3",
-              },
-            ]),
+        {
+          id: "one-avg",
+          header: isMobile ? "" : "Avg",
+          accessorKey: isMobile ? "col45_mobile" : "col5",
+          cell: (info) => (isMobile ? null : info.getValue()),
+          meta: { mobileHide: isMobile },
+        },
       ],
     },
     {
-      id: "group3",
-      Header: t("oqtima-one-account"),
+      id: "live-group",
+      header: "",
       columns: [
         {
-          Header: isMobile ? "" : "Min",
-          accessor: isMobile ? "col45_mobile" : "col4",
-        },
-        ...(isMobile
-          ? []
-          : [
-              {
-                Header: "Avg",
-                accessor: "col5",
-              },
-            ]),
-      ],
-    },
-    {
-      id: "group4",
-      Header: "",
-      columns: [
-        {
-          Header: t("indices_table-market-header-group4"),
-          accessor: "col6",
+          id: "live",
+          header: t("indices_table-market-header-group4"),
+          accessorKey: "col6",
+          cell: (info) => info.getValue(),
         },
       ],
     },
   ];
-  return COLUMNS;
 };
 
 export const DATA_FOREX_MAJOR = [

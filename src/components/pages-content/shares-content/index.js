@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import TopMarket from "../../top-market";
-import image from "../../../assets/images/top-markets/shares.svg";
-import shares from "../../../assets/images/top-markets/images/shares.svg";
+const image = "/images/top-markets/shares.svg";
+const shares = "/images/top-markets/images/shares.svg";
 import { ShowRegistrationPopup } from "../../../helpers/constants";
 import HighlightedLocalizationText from "../../shared/highlighted-localization-text";
 import TradingTicker from "../../trading-ticker";
@@ -10,7 +10,7 @@ import { useTranslationWithVariables } from "../../../helpers/hooks/use-translat
 import { SHARES_TRADING_SECTION } from "../../../helpers/config";
 import Faq from "../../faq";
 import { FAQ_SHARES } from "../../../helpers/faq";
-import animation from "../../../assets/images/bg/promotions/shares/shares.json";
+const animation = "/images/bg/promotions/shares/shares.json";
 import MarketingCircle from "../../marketing-circle";
 import { setLangParam } from "../../../helpers/services/language-service";
 import Seo from "../../shared/seo";
@@ -75,7 +75,7 @@ const SharesContent = () => {
         />
       </TopMarketPromotion>
       <MarketingCircle
-        animation={animation}
+        animationPath={animation}
         btnOnClick={handleShowRegistrationPopup}
         upper={
           <HighlightedLocalizationText

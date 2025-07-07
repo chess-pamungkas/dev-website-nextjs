@@ -2,14 +2,15 @@ import React, { useEffect, useState, useMemo, useContext } from "react";
 import "../assets/styles/index.scss";
 import "../assets/styles/container.scss";
 import "../assets/styles/flag-icons.scss";
-import "../assets/styles/Bookmark.scss";
+import "../assets/styles/Bookmark2.scss";
 import { useRouter } from "next/router";
-import { i18n } from "../lib/i18n";
+import { i18n, useCurrentLanguage } from "../lib/i18n";
 import dynamic from "next/dynamic";
 import {
   initPerformanceOptimizations,
   deferOperation,
 } from "../helpers/performance-optimizations";
+import { useRtlDirection } from "../helpers/hooks/use-rtl-direction";
 
 // Import contexts
 import { LanguageProvider, LanguageContext } from "../context/language-context";
@@ -83,27 +84,7 @@ class ContextErrorBoundary extends React.Component {
   }
 }
 
-console.log("=== NEXT.JS APP MOUNTED (CLIENT) ===");
-console.error("=== ERROR LOG TEST ===");
-console.warn("=== WARN LOG TEST ===");
-
-function TestButton() {
-  const [clicked, setClicked] = useState(false);
-  return (
-    <button
-      style={{ position: "fixed", top: 10, right: 10, zIndex: 9999 }}
-      onClick={() => {
-        setClicked(true);
-        console.log("Button clicked!");
-        console.error("Button error log!");
-        console.warn("Button warn log!");
-        window.alert("Button clicked!");
-      }}
-    >
-      Test Log Button {clicked ? "(Clicked)" : ""}
-    </button>
-  );
-}
+// Debug logs removed for production
 
 function MyApp({ Component, pageProps }) {
   const [isClient, setIsClient] = useState(false);
@@ -129,6 +110,20 @@ function MyApp({ Component, pageProps }) {
     }),
     [isLoaded, pageProps, Component]
   );
+
+  const currentLanguage = useCurrentLanguage();
+  const isRTL = useRtlDirection();
+
+  // Note: <html lang> and <html dir> are now set by _document.js getInitialProps
+  // This ensures SSR has the correct attributes from the start
+  // Client-side updates are handled by the LanguageContext
+
+  // Pass lang and dir to _document.js via pageProps
+  const enhancedPageProps = {
+    ...pageProps,
+    lang: currentLanguage.id,
+    dir: isRTL ? "rtl" : "ltr",
+  };
 
   // Set client flag after hydration
   useEffect(() => {
@@ -329,7 +324,7 @@ function MyApp({ Component, pageProps }) {
   console.error = function (...args) {
     const message = args.join(" ");
 
-    // Suppress timeout-related console errors
+    // Suppress timeout-related console errors and reCAPTCHA errors
     if (
       message.includes("Timeout (b)") ||
       message.includes("Timeout") ||
@@ -343,7 +338,10 @@ function MyApp({ Component, pageProps }) {
       message.includes("script-src") ||
       message.includes("unsafe-inline") ||
       message.includes("setTimeout") ||
-      message.includes("handler took")
+      message.includes("handler took") ||
+      message.includes("Missing required parameters: sitekey") ||
+      message.includes("sitekey") ||
+      message.includes("reCAPTCHA")
     ) {
       return;
     }
@@ -375,7 +373,6 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
-      <TestButton />
       <ClientResolverProvider>
         <MemoizedLanguageProvider>
           <MemoizedCommonProvider>
@@ -390,9 +387,7 @@ function MyApp({ Component, pageProps }) {
                         <CookiesPopup />
                         <section className="scroll-container">
                           <MainContainer>
-                            <contextValues.Component
-                              {...contextValues.pageProps}
-                            />
+                            <contextValues.Component {...enhancedPageProps} />
                           </MainContainer>
                           <Footer />
                         </section>
@@ -421,7 +416,7 @@ function MyApp({ Component, pageProps }) {
                                 <section className="scroll-container">
                                   <MainContainer>
                                     <contextValues.Component
-                                      {...contextValues.pageProps}
+                                      {...enhancedPageProps}
                                     />
                                   </MainContainer>
                                   <Footer />

@@ -6,10 +6,10 @@ import {
   AlphaGeneration3,
 } from "../../../shared/icons";
 import Tabs from "../../../shared/tabs";
-import alpha1 from "../../../../assets/images/trading-tools/alpha1.png";
-import alpha21 from "../../../../assets/images/trading-tools/alpha2_1.png";
-import alpha22 from "../../../../assets/images/trading-tools/alpha2_2.png";
-import alpha3 from "../../../../assets/images/trading-tools/alpha3.png";
+const alpha1 = "/images/trading-tools/alpha1.png";
+const alpha21 = "/images/trading-tools/alpha2_1.png";
+const alpha22 = "/images/trading-tools/alpha2_2.png";
+const alpha3 = "/images/trading-tools/alpha3.png";
 import TradingToolsTabContent from "../trading-tools-tab-content";
 
 const AlphaGenerationTabs = () => {

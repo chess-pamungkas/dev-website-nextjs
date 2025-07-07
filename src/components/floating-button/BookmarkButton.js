@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import ButtonPopup from "../shared/button-popup";
 import { ShowRegistrationPopup } from "../../helpers/constants";
 import { useTranslationWithVariables } from "../../helpers/hooks/use-translation-with-vars";
-import ChevronIcon from "../../assets/images/icons/chevron.svg";
+const ChevronIcon = "/images/icons/chevron.svg";
 import { setLangParam } from "../../helpers/services/language-service";
 
 function Bookmark() {

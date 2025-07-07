@@ -1,5 +1,4 @@
-import advantageIcon from "../assets/images/accounts-type/advantage-icon.svg";
-
+const advantageIcon = "/images/accounts-type/advantage-icon.svg";
 export const ACCOUNT_TYPES = [
   {
     title: "accounts-type_account-type1-title",

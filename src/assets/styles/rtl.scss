@@ -1,5 +1,6 @@
-@import "vars";
-@import "mixins";
+@use "vars" as *;
+@use "mixins" as *;
+@use "sass:map";
 
 @mixin custom-breakpoint-1200 {
   @media screen and (min-width: 1200px) {
@@ -154,6 +155,18 @@
 }
 
 .main-promotion--rtl {
+  .main-promotion__wrapper {
+    // flex-direction: row-reverse;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .main-promotion__block {
+    text-align: left;
+    @include desktop-xl {
+      padding-left: $padding-xl;
+      padding-right: unset;
+    }
+  }
   .main-promotion__photo {
     right: unset;
     left: -50px;
@@ -191,6 +204,8 @@
 
   .main-promotion__person {
     text-align: right;
+    right: 0;
+    left: unset;
   }
 
   .main-promotion__title {
@@ -262,7 +277,7 @@
       @include desktop-lg {
         padding: 20px 60px 10px 0;
         border-left: unset;
-        border-right: 3px solid map-get($colors, "red");
+        border-right: 3px solid map.get($colors, "red");
       }
     }
   }
@@ -275,15 +290,14 @@
 }
 
 .promotion4.promotion--rtl {
-  background: url("../../assets/images/promotions/promo4-rtl.svg") no-repeat 0;
+  background: url("/images/promotions/promo4-rtl.svg") no-repeat 0;
   background-size: cover;
 
   @include desktop-xl {
     direction: ltr;
 
     .promotion__bg {
-      background: url("../../assets/images/promotions/promo4-rtl.svg") no-repeat
-        center;
+      background: url("/images/promotions/promo4-rtl.svg") no-repeat center;
       background-size: cover;
     }
 
@@ -320,7 +334,7 @@
 }
 
 .top-market--rtl {
-  background: url("../../assets/images/top-markets/bg-rtl.svg") no-repeat center;
+  background: url("/images/top-markets/bg-rtl.svg") no-repeat center;
   background-size: cover;
 
   .top-market__title {
@@ -399,7 +413,7 @@
         }
 
         &:last-child {
-          border-right: 1px solid map-get($colors, "table-grey");
+          border-right: 1px solid map.get($colors, "table-grey");
         }
       }
     }
@@ -407,11 +421,11 @@
 
   .table__head-column {
     &:first-child {
-      color: map-get($colors, "black");
+      color: map.get($colors, "black");
     }
 
     &:last-child {
-      color: map-get($colors, "red");
+      color: map.get($colors, "red");
     }
 
     &:nth-child(2) {
@@ -430,13 +444,13 @@
 
     &:nth-child(2) {
       border-left: none;
-      border-right: 1px solid map-get($colors, "black");
+      border-right: 1px solid map.get($colors, "black");
     }
   }
 }
 
 .all-markets--rtl {
-  background: url("../../assets/images/all-markets/bg-rtl.svg") no-repeat center;
+  background: url("/images/all-markets/bg-rtl.svg") no-repeat center;
   background-size: cover;
 
   .all-markets__title {
@@ -464,22 +478,19 @@
       margin-right: -50vw;
       width: 100vw;
       height: 100%;
-      background: url("../../assets/images/all-markets/top-bg-sm.svg") no-repeat
-        right top;
+      background: url("/images/all-markets/top-bg-sm.svg") no-repeat right top;
       background-size: 95px 114px;
       z-index: 1;
       pointer-events: none;
       transform: scaleX(-1);
 
       @include tablet {
-        background: url("../../assets/images/all-markets/top-bg-md.svg")
-          no-repeat right top;
+        background: url("/images/all-markets/top-bg-md.svg") no-repeat right top;
         background-size: 219px 263px;
       }
 
       @include desktop-xl {
-        background: url("../../assets/images/all-markets/top-bg-lg.svg")
-          no-repeat right top;
+        background: url("/images/all-markets/top-bg-lg.svg") no-repeat right top;
         background-size: 332px 398px;
       }
     }
@@ -537,25 +548,21 @@
 
 .legal-page-promotion--rtl {
   direction: rtl;
-  background: url("../../assets/images/bg/legal/banner-sm-rtl.svg") no-repeat
-    center;
+  background: url("/images/bg/legal/banner-sm-rtl.svg") no-repeat center;
   background-size: cover;
 
   @include tablet {
-    background: url("../../assets/images/bg/legal/banner-md-rtl.svg") no-repeat
-      center;
+    background: url("/images/bg/legal/banner-md-rtl.svg") no-repeat center;
     background-size: cover;
   }
 
   @include desktop-lg {
-    background: url("../../assets/images/bg/legal/banner-lg-rtl.svg") no-repeat
-      center;
+    background: url("/images/bg/legal/banner-lg-rtl.svg") no-repeat center;
     background-size: cover;
   }
 
   @include desktop-xl {
-    background: url("../../assets/images/bg/legal/banner-xl-rtl.svg") no-repeat
-      center;
+    background: url("/images/bg/legal/banner-xl-rtl.svg") no-repeat center;
     background-size: cover;
   }
 
@@ -686,7 +693,7 @@
   .mt-promotion__download-tabs {
     .tabs__tab {
       border-right: unset;
-      border-left: 1px solid map-get($colors, "black");
+      border-left: 1px solid map.get($colors, "black");
 
       &:first-child {
         padding: 0 0 0 40px;
@@ -703,7 +710,7 @@
 .mt-table--rtl.table--rtl {
   .table__head-column {
     &:last-child {
-      color: map-get($colors, "white");
+      color: map.get($colors, "white");
     }
   }
 }
@@ -854,7 +861,7 @@
 .spreads-table--rtl.table--rtl {
   .table__head-column {
     &:last-child {
-      color: map-get($colors, "white");
+      color: map.get($colors, "white");
     }
   }
 }
@@ -878,7 +885,7 @@
 
 .accounts-type-page-promotion--rtl {
   direction: rtl;
-  background: url("../../assets/images/top-markets/bg-rtl.svg") no-repeat center;
+  background: url("/images/top-markets/bg-rtl.svg") no-repeat center;
   background-size: cover;
 }
 
@@ -908,25 +915,21 @@
 
 .split-bg--rtl {
   direction: rtl;
-  background: url("../../assets/images/bg/split-bg/bg-sm-rtl.svg") no-repeat
-    center;
+  background: url("/images/bg/split-bg/bg-sm-rtl.svg") no-repeat center;
   background-size: cover;
 
   @include tablet {
-    background: url("../../assets/images/bg/split-bg/bg-md-rtl.svg") no-repeat
-      bottom;
+    background: url("/images/bg/split-bg/bg-md-rtl.svg") no-repeat bottom;
     background-size: cover;
   }
 
   @include desktop-lg {
-    background: url("../../assets/images/bg/split-bg/bg-lg-rtl.svg") no-repeat
-      right;
+    background: url("/images/bg/split-bg/bg-lg-rtl.svg") no-repeat right;
     background-size: cover;
   }
 
   @include desktop-xl {
-    background: url("../../assets/images/bg/split-bg/bg-xl-rtl.svg") no-repeat
-      center;
+    background: url("/images/bg/split-bg/bg-xl-rtl.svg") no-repeat center;
     background-size: cover;
   }
 }
@@ -971,7 +974,7 @@
 .partners-page-promotion--rtl {
   direction: rtl;
 
-  background: url("../../assets/images/all-markets/bg-rtl.svg") no-repeat center;
+  background: url("/images/all-markets/bg-rtl.svg") no-repeat center;
   background-size: cover;
 }
 
@@ -1287,7 +1290,7 @@
     z-index: 1000002;
     background-color: #ff4400;
     width: 40%;
-    background-image: url("../images/bg/register-img.png");
+    background-image: url("/images/bg/register-img.png");
     background-size: 85% auto;
     background-repeat: no-repeat;
     background-position: center calc(55%);
@@ -1426,15 +1429,13 @@ h1.popup-registration-register--rtl {
       margin-right: 0;
       width: 100vw;
       height: 100%;
-      background: url("../../assets/images/swap-free/trg-bg-top-lg.svg")
-        no-repeat;
+      background: url("/images/swap-free/trg-bg-top-lg.svg") no-repeat;
       z-index: 1;
       pointer-events: none;
     }
 
     @include desktop-xl {
-      background: url("../../assets/images/swap-free/trg-bg-top-xl.svg")
-        no-repeat;
+      background: url("/images/swap-free/trg-bg-top-xl.svg") no-repeat;
       width: 261px;
       height: 299px;
     }

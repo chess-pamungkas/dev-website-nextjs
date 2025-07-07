@@ -4,15 +4,16 @@ import { useRtlDirection } from "../../../helpers/hooks/use-rtl-direction";
 import TopMarket from "../../top-market";
 import cn from "classnames";
 import HighlightedLocalizationText from "../../shared/highlighted-localization-text";
-import promotion from "../../../assets/images/trading-tools/promotion.svg";
+const promotion = "/images/trading-tools/promotion.svg";
 import AlphaGeneration from "../../trading-tools/components/alpha-generation";
-import icon from "../../../assets/images/icon--white.svg";
+const icon = "/images/icon--white.svg";
 import { ShowRegistrationPopup } from "../../../helpers/constants";
 import TopMarketPromotion from "../../top-market-promotion";
 import FeaturedIdeas from "../../trading-tools/components/featured-ideas";
 import MarketBuzz from "../../trading-tools/components/market-buzz";
 import TradingCalendar from "../../trading-tools/components/trading-calendar";
 import { setLangParam } from "../../../helpers/services/language-service";
+import Seo from "../../shared/seo";
 
 const TradingToolsPageContent = () => {
   const { t } = useTranslationWithVariables();
@@ -30,6 +31,10 @@ const TradingToolsPageContent = () => {
 
   return (
     <>
+      <Seo
+        title={t("page-trading-tools-title")}
+        description={t("page-trading-tools-description")}
+      />
       <TopMarket
         className={cn("top-market--trading-tools", {
           "top-market--trading-tools--rtl": isRTL,

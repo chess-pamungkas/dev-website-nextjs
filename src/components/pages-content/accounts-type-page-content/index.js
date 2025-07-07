@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { useTranslationWithVariables } from "../../../helpers/hooks/use-translation-with-vars";
 import TopMarketPromotion from "../../top-market-promotion";
-import promotion from "../../../assets/images/accounts-type/promotion.svg";
+const promotion = "/images/accounts-type/promotion.svg";
 import HighlightedLocalizationText from "../../shared/highlighted-localization-text";
 import AccountsType from "../../accounts-type";
-import middlePromotion from "../../../assets/images/accounts-type/middle-promotion.svg";
+const middlePromotion = "/images/accounts-type/middle-promotion.svg";
 import { ShowRegistrationPopup } from "../../../helpers/constants";
-import icon from "../../../assets/images/icon--white.svg";
+const icon = "/images/icon--white.svg";
 import { useRtlDirection } from "../../../helpers/hooks/use-rtl-direction";
 import cn from "classnames";
 import { setLangParam } from "../../../helpers/services/language-service";
+import Seo from "../../shared/seo";
 
 const AccountsTypePageContent = () => {
   const { t } = useTranslationWithVariables();
@@ -27,6 +28,10 @@ const AccountsTypePageContent = () => {
 
   return (
     <>
+      <Seo
+        title={t("page-accounts-type-title")}
+        description={t("page-accounts-type-description")}
+      />
       <TopMarketPromotion
         className={cn("accounts-type-page-promotion", {
           "accounts-type-page-promotion--rtl": isRTL,

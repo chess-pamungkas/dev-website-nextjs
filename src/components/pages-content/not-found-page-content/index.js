@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useTranslationWithVariables } from "../../../helpers/hooks/use-translation-with-vars";
-import image from "../../../assets/images/system-info/404.svg";
+const image = "/images/system-info/404.svg";
 import SystemInfoComponent from "../../shared/system-info";
 
 const NotFoundContent = () => {

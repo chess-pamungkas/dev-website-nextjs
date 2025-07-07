@@ -8,9 +8,8 @@ import {
 } from "./constants";
 import { useTranslationWithVariables } from "./hooks/use-translation-with-vars";
 import { useWindowSize } from "./hooks/use-window-size";
-import depositArrow from "../assets/images/withdrawal/deposit.png";
-import withdrawArrow from "../assets/images/withdrawal/withdraw.png";
-
+const depositArrow = "/images/withdrawal/deposit.png";
+const withdrawArrow = "/images/withdrawal/withdraw.png";
 const PAYMENT_METHODS_COLUMNS_FSA = [
   {
     methodName: "withdrawal_data-method-card-fsa",
@@ -99,28 +98,40 @@ export const ColumnDepositFSA = () => {
 
   const COLUMNS_DEPOSIT = [
     {
-      accessor: "col1",
-      Header: t("deposit_column_title1-fsa"),
+      accessorKey: "col1",
+      id: "col1",
+      header: t("deposit_column_title1-fsa"),
+      cell: (info) => info.getValue(),
     },
     {
-      accessor: "col2",
-      Header: t("deposit_column_title2-fsa"),
+      accessorKey: "col2",
+      id: "col2",
+      header: t("deposit_column_title2-fsa"),
+      cell: (info) => info.getValue(),
     },
     {
-      accessor: "col3",
-      Header: t("deposit_column_title3-fsa"),
+      accessorKey: "col3",
+      id: "col3",
+      header: t("deposit_column_title3-fsa"),
+      cell: (info) => info.getValue(),
     },
     {
-      accessor: "col4",
-      Header: t("deposit_column_title4-fsa"),
+      accessorKey: "col4",
+      id: "col4",
+      header: t("deposit_column_title4-fsa"),
+      cell: (info) => info.getValue(),
     },
     {
-      accessor: "col5",
-      Header: t("deposit_column_title5-fsa"),
+      accessorKey: "col5",
+      id: "col5",
+      header: t("deposit_column_title5-fsa"),
+      cell: (info) => info.getValue(),
     },
     {
-      accessor: "col6",
-      Header: "",
+      accessorKey: "col6",
+      id: "col6",
+      header: "",
+      cell: (info) => info.getValue(),
     },
   ];
   return COLUMNS_DEPOSIT;
@@ -196,23 +207,34 @@ export const ColumnWithdrawalFSA = () => {
   const { t } = useTranslationWithVariables();
   const COLUMNS_WITHDRAWAL = [
     {
-      accessor: "col1",
-      Header: t("withdrawal_column_title1-fsa"),
+      accessorKey: "col1",
+      id: "col1",
+      header: t("withdrawal_column_title1-fsa"),
+      cell: (info) => info.getValue(),
     },
     {
-      accessor: "col2",
-      Header: t("withdrawal_column_title2-fsa"),
+      accessorKey: "col2",
+      id: "col2",
+      header: t("withdrawal_column_title2-fsa"),
+      cell: (info) => info.getValue(),
     },
     {
-      accessor: "col3",
-      Header: t("withdrawal_column_title4-fsa"),
+      accessorKey: "col3",
+      id: "col3",
+      header: t("withdrawal_column_title4-fsa"),
+      cell: (info) => info.getValue(),
     },
     {
-      accessor: "col4",
-      Header: t("withdrawal_column_title5-fsa"),
+      accessorKey: "col4",
+      id: "col4",
+      header: t("withdrawal_column_title5-fsa"),
+      cell: (info) => info.getValue(),
     },
     {
-      accessor: "col5",
+      accessorKey: "col5",
+      id: "col5",
+      header: "",
+      cell: (info) => info.getValue(),
     },
   ];
   return COLUMNS_WITHDRAWAL;

@@ -8,13 +8,12 @@ import {
   PartnersAdvantageIcon7,
   PartnersAdvantageIcon8,
 } from "../components/shared/icons";
-import StartItem1 from "../assets/images/partners/start-item1.svg";
-import StartItem2 from "../assets/images/partners/start-item2.svg";
-import StartItem3 from "../assets/images/partners/start-item3.svg";
-import StartItem4 from "../assets/images/partners/start-item4.svg";
-import StartItem5 from "../assets/images/partners/start-item5.svg";
-import StartItem6 from "../assets/images/partners/start-item6.svg";
-
+const StartItem1 = "/images/partners/start-item1.svg";
+const StartItem2 = "/images/partners/start-item2.svg";
+const StartItem3 = "/images/partners/start-item3.svg";
+const StartItem4 = "/images/partners/start-item4.svg";
+const StartItem5 = "/images/partners/start-item5.svg";
+const StartItem6 = "/images/partners/start-item6.svg";
 export const PARTNERS_ADVANTAGES = [
   {
     icon: PartnersAdvantageIcon1,

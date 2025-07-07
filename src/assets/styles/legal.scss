@@ -1,36 +1,30 @@
-@import "vars";
-@import "mixins";
+@use "vars" as *;
+@use "mixins" as *;
+@use "sass:map";
 
 .legal-page-promotion {
-  background: url("../../assets/images/bg/legal/banner-sm.svg") no-repeat center;
+  background: url("/images/bg/legal/banner-sm.svg") no-repeat center;
   background-size: cover;
   padding-top: 90px;
   padding-bottom: 48px;
-
   @include tablet {
     padding-top: 90px;
     padding-bottom: 45px;
-    background: url("../../assets/images/bg/legal/banner-md.svg") no-repeat
-      center;
+    background: url("/images/bg/legal/banner-md.svg") no-repeat center;
     background-size: cover;
   }
-
   @include desktop-lg {
     padding-top: 150px;
     padding-bottom: 44px;
-    background: url("../../assets/images/bg/legal/banner-lg.svg") no-repeat
-      center;
+    background: url("/images/bg/legal/banner-lg.svg") no-repeat center;
     background-size: cover;
   }
-
   @include desktop-xl {
     padding-top: 150px;
     padding-bottom: 135px;
-    background: url("../../assets/images/bg/legal/banner-xl.svg") no-repeat
-      center;
+    background: url("/images/bg/legal/banner-xl.svg") no-repeat center;
     background-size: cover;
   }
-
   .top-market-promotion__wrapper {
     flex-direction: column-reverse;
 
@@ -38,7 +32,6 @@
       flex-direction: row;
     }
   }
-
   .top-market-promotion__description {
     margin: 0 auto 40px;
 
@@ -50,15 +43,11 @@
       margin: 0 0 40px;
     }
   }
-
-  &--cysec {
-    .top-market-promotion__description {
-      @include desktop-lg {
-        max-width: 780px;
-      }
+  .top-market-promotion__description {
+    @include desktop-lg {
+      max-width: 780px;
     }
   }
-
   .top-market-promotion__img {
     @include desktop-lg {
       margin-bottom: 86px;
@@ -67,7 +56,6 @@
       margin-bottom: 0;
     }
   }
-
   .top-market-promotion__text {
     text-align: center;
 
@@ -75,34 +63,30 @@
       text-align: left;
     }
   }
+  .top-market-promotion__text {
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: map.get($font-weight, "regular");
 
-  &--cysec {
-    .top-market-promotion__text {
-      font-size: 24px;
-      line-height: 30px;
-      font-weight: map-get($font-weight, "regular");
+    @include tablet {
+      font-size: 36px;
+      line-height: 45px;
+    }
 
-      @include tablet {
-        font-size: 36px;
-        line-height: 45px;
-      }
+    @include desktop-lg {
+      font-size: 30px;
+      line-height: 37px;
+    }
 
-      @include desktop-lg {
-        font-size: 30px;
-        line-height: 37px;
-      }
-
-      @include desktop-xl {
-        font-size: 36px;
-        line-height: 45px;
-      }
+    @include desktop-xl {
+      font-size: 36px;
+      line-height: 45px;
     }
   }
-
   .top-market-promotion__btn {
     font-size: 11px;
-    color: map-get($colors, "red");
-    background: map-get($colors, "white");
+    color: map.get($colors, "red");
+    background: map.get($colors, "white");
     margin: 0 auto;
     transition: all ease-in 0.4s;
 
@@ -112,8 +96,8 @@
 
     @include desktop-xl {
       margin: unset;
-      color: map-get($colors, "white");
-      background: map-get($colors, "red");
+      color: map.get($colors, "white");
+      background: map.get($colors, "red");
     }
   }
 }
@@ -122,28 +106,23 @@
   padding-top: 60px;
   padding-bottom: 84px;
   background-position: bottom right;
-
   @include tablet {
     padding-top: 81px;
     padding-bottom: 72px;
   }
-
   @include desktop-lg {
     padding-top: 166px;
     padding-bottom: 171px;
   }
-
   @include desktop-xl {
     padding-top: 144px;
     padding-bottom: 57px;
   }
-
   .top-market-promotion__wrapper {
     @include desktop-xl {
       flex-direction: row-reverse;
     }
   }
-
   .top-market-promotion__block {
     @include desktop-xl {
       padding-left: 100px;
@@ -156,11 +135,10 @@
       }
     }
   }
-
   .top-market-promotion__text {
     font-size: 22px;
     line-height: 20px;
-    font-weight: map-get($font-weight, "regular");
+    font-weight: map.get($font-weight, "regular");
 
     @include tablet {
       font-size: 28px;
@@ -177,7 +155,6 @@
       line-height: 37px;
     }
   }
-
   .top-market-promotion__btn {
     font-size: 11px;
     transition: all ease-in 0.4s;
@@ -186,13 +163,11 @@
       font-size: 22px;
     }
   }
-
   .top-market-promotion__img {
     @include desktop-xl {
       width: 600px;
     }
   }
-
   .top-market-promotion__block--flexed {
     justify-content: center;
   }
@@ -212,50 +187,40 @@
   padding-bottom: 84px;
   background-position: bottom right;
   background: unset;
-
   @include tablet {
     padding-top: 81px;
     padding-bottom: 72px;
   }
-
   @include desktop-lg {
     padding-top: 166px;
     padding-bottom: 171px;
-    background: url("../../assets/images/bg/top-market-page/left/top-lg.svg")
-      no-repeat top;
+    background: url("/images/bg/top-market-page/left/top-lg.svg") no-repeat top;
   }
-
   @include desktop-xl {
     padding-top: 144px;
     padding-bottom: 57px;
-    background: url("../../assets/images/bg/top-market-page/left/top-xl.svg")
-      no-repeat top;
+    background: url("/images/bg/top-market-page/left/top-xl.svg") no-repeat top;
   }
-
   &__note {
-    font-weight: map-get($font-weight, "regular");
+    font-weight: map.get($font-weight, "regular");
     font-size: 15px;
     line-height: 20px;
     font-style: italic;
     margin: 0;
-    color: map-get($colors, "grey");
-
+    color: map.get($colors, "grey");
     @include tablet {
       font-size: 20px;
       line-height: 35px;
     }
-
     @include desktop-lg {
       font-size: 10px;
       line-height: 15px;
     }
-
     @include desktop-xl {
       font-size: 20px;
       line-height: 35px;
     }
   }
-
   .top-market-promotion__wrapper {
     @include desktop-lg {
       flex-direction: row-reverse;
@@ -270,13 +235,13 @@
     }
 
     @include desktop-lg {
-      background: url("../../assets/images/bg/top-market-page/left/bottom-lg.svg")
-        no-repeat bottom;
+      background: url("/images/bg/top-market-page/left/bottom-lg.svg") no-repeat
+        bottom;
     }
 
     @include desktop-xl {
-      background: url("../../assets/images/bg/top-market-page/left/bottom-xl.svg")
-        no-repeat bottom left;
+      background: url("/images/bg/top-market-page/left/bottom-xl.svg") no-repeat
+        bottom left;
     }
   }
 
@@ -316,7 +281,7 @@
   .top-market-promotion__note {
     font-size: 20px;
     line-height: 30px;
-    font-weight: map-get($font-weight, "regular");
+    font-weight: map.get($font-weight, "regular");
 
     @include tablet {
       font-size: 24px;
@@ -366,42 +331,35 @@
   align-items: center;
   justify-content: center;
   padding: 40px 14px 110px 14px;
-  background: map-get($colors, "white");
-
+  background: map.get($colors, "white");
   @include tablet {
     padding-top: 50px;
     padding-bottom: 163px;
-    background: map-get($colors, "white");
+    background: map.get($colors, "white");
   }
-
   @include desktop-lg {
     padding: 61px 120px 120px 120px;
-    background: url("../../assets/images/bg/top-market-page/left/bottom-lg.svg")
-      no-repeat bottom;
+    background: url("/images/bg/top-market-page/left/bottom-lg.svg") no-repeat
+      bottom;
   }
-
   @include desktop-xl {
     padding: 88px 120px 163px 120px;
-    background: url("../../assets/images/bg/top-market-page/left/bottom-xl.svg")
-      no-repeat bottom;
+    background: url("/images/bg/top-market-page/left/bottom-xl.svg") no-repeat
+      bottom;
   }
-
   &__items {
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 33px;
-
     @include desktop-lg {
       gap: 15px;
       flex-direction: row;
     }
-
     @include desktop-xl {
       gap: 33px;
     }
   }
-
   &__wrapper {
     display: flex;
     align-items: center;
@@ -413,7 +371,7 @@
 }
 
 .legal-regulator-item {
-  background-color: map-get($colors, "white");
+  background-color: map.get($colors, "white");
   padding: 20px 10px 48px 10px;
   display: flex;
   flex-direction: column;
@@ -421,90 +379,75 @@
   border-radius: 10px;
   text-align: center;
   width: 317px;
-
   @include tablet {
     padding: 27px 65px 50px 65px;
     width: 710px;
   }
-
   @include desktop-lg {
     padding: 31px 17px 50px 17px;
     width: 468px;
   }
-
   @include desktop-xl {
     padding: 27px 65px 50px 65px;
     width: 710px;
   }
-
   &__icon {
     margin: 0 auto;
     max-width: 100%;
     height: 120px;
-
     @include tablet {
       height: 166px;
     }
-
     @include desktop-lg {
       height: 127px;
     }
-
     @include desktop-xl {
       height: 166px;
     }
   }
-
   &__title {
-    color: map-get($colors, "black-secondary");
-    font-weight: map-get($font-weight, "black");
+    color: map.get($colors, "black-secondary");
+    font-weight: map.get($font-weight, "black");
     font-size: 15px;
     line-height: 19px;
     margin: 0 auto;
     padding-top: 30px;
-
     @include tablet {
       font-size: 25px;
       line-height: 30px;
       padding-top: 51px;
     }
-
     @include desktop-lg {
       font-size: 21px;
       line-height: 27px;
       padding-top: 34px;
     }
-
     @include desktop-xl {
       font-size: 25px;
       line-height: 30px;
       padding-top: 50px;
     }
   }
-
   &__text {
-    color: map-get($colors, "black-secondary");
-    font-weight: map-get($font-weight, "regular");
+    color: map.get($colors, "black-secondary");
+    font-weight: map.get($font-weight, "regular");
     font-size: 16px;
     line-height: 25px;
     margin: 0 auto;
     padding-top: 30px;
     padding-bottom: 30px;
-
     @include tablet {
       font-size: 24px;
       line-height: 45px;
       padding-top: 25px;
       padding-bottom: 47px;
     }
-
     @include desktop-lg {
       font-size: 16px;
       line-height: 25px;
       padding-top: 43px;
       padding-bottom: 40px;
     }
-
     @include desktop-xl {
       font-size: 24px;
       line-height: 45px;
@@ -512,45 +455,38 @@
       padding-bottom: 45px;
     }
   }
-
   &__link {
-    color: map-get($colors, "red");
+    color: map.get($colors, "red");
     text-decoration: underline;
     text-transform: uppercase;
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     font-size: 16px;
     line-height: 12px;
-
     @include tablet {
       font-size: 20px;
       line-height: 30px;
     }
-
     @include desktop-lg {
       font-size: 16px;
       line-height: 12px;
     }
-
     @include desktop-xl {
       font-size: 20px;
       line-height: 30px;
     }
   }
-
   &__btn {
     width: 152px;
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     font-size: 8px;
     line-height: 25px;
-    border: 2px solid map-get($colors, "red");
+    border: 2px solid map.get($colors, "red");
     align-self: center;
-
     @include tablet {
       font-size: 24px;
       line-height: 62px;
       width: 380px;
     }
-
     @include desktop-lg {
       font-size: 18px;
       line-height: 40px;

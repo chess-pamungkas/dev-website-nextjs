@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import TopMarket from "../../top-market";
-import image from "../../../assets/images/top-markets/etf.svg";
+const image = "/images/top-markets/etf.svg";
 import { ShowRegistrationPopup } from "../../../helpers/constants";
 import HighlightedLocalizationText from "../../shared/highlighted-localization-text";
 import TradingTicker from "../../trading-ticker";
 import TopMarketPromotion from "../../top-market-promotion";
-import etf from "../../../assets/images/top-markets/images/etf.svg";
+const etf = "/images/top-markets/images/etf.svg";
 import { useTranslationWithVariables } from "../../../helpers/hooks/use-translation-with-vars";
 import { ETF_TRADING_SECTION } from "../../../helpers/config";
-import animation from "../../../assets/images/bg/promotions/etf/etf.json";
+const animation = "/images/bg/promotions/etf/etf.json";
 import MarketingCircle from "../../marketing-circle";
 import Faq from "../../faq";
 import { FAQ_ETF } from "../../../helpers/faq";
 import { setLangParam } from "../../../helpers/services/language-service";
+import Seo from "../../shared/seo";
 
 const ETFContent = () => {
   const { t } = useTranslationWithVariables();
@@ -29,6 +30,10 @@ const ETFContent = () => {
 
   return (
     <>
+      <Seo
+        title={t("all-markets_market-items-list-etf-title")}
+        description={t("page-energies-description")}
+      />
       <TopMarket
         title={t("etf_top-market-title")}
         image={image}
@@ -73,7 +78,7 @@ const ETFContent = () => {
         />
       </TopMarketPromotion>
       <MarketingCircle
-        animation={animation}
+        animationPath={animation}
         btnOnClick={handleShowRegistrationPopup}
         isEtf={true}
         upper={

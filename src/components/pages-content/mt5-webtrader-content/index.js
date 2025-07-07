@@ -16,7 +16,7 @@ const Mt5WebTraderContent = () => {
 
   return (
     <>
-      <Seo fsaTitle={t("page-mt5-title")} cysecTitle={"MT5 Web Trader"} />
+      <Seo fsaTitle={t("MT5 Web Trade")} cysecTitle={"MT5 Web Trader"} />
       <WebTraderLink />
     </>
   );

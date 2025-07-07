@@ -23,6 +23,8 @@ import { setLangParam } from "../../helpers/services/language-service";
 const PromotionMarkets = ({
   className,
   animation,
+  animationData,
+  animationPath,
   animationStyle,
   children,
   btnTitle,
@@ -272,7 +274,13 @@ const PromotionMarkets = ({
         />
         <Lottie
           className="promotion-markets__svg"
-          animationData={animation}
+          {...(animationData
+            ? { animationData }
+            : animationPath
+              ? { path: animationPath }
+              : typeof animation === "string"
+                ? { path: animation }
+                : { animationData: animation })}
           style={animationStyle}
         />
       </div>
@@ -306,7 +314,9 @@ const PromotionMarkets = ({
 
 PromotionMarkets.propTypes = {
   className: PropTypes.string,
-  animation: PropTypes.object,
+  animation: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  animationData: PropTypes.object,
+  animationPath: PropTypes.string,
   animationStyle: PropTypes.object,
   children: PropTypes.arrayOf(PropTypes.node),
   btnTitle: PropTypes.string,

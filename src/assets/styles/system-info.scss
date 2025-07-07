@@ -1,5 +1,6 @@
-@import "vars";
-@import "mixins";
+@use "vars" as *;
+@use "mixins" as *;
+@use "sass:map";
 
 .system-info {
   position: relative;
@@ -7,120 +8,93 @@
   flex-direction: column;
   align-items: center;
   padding: 128px 20px 99px;
-
   @include tablet {
     padding: 90px 0 67px;
-    background: url("../../assets/images/system-info/bg-md.svg") no-repeat
-      bottom;
+    background: url("/images/system-info/bg-md.svg") no-repeat bottom;
   }
-
   @include desktop-lg {
     padding: 200px 0 60px;
-    background: url("../../assets/images/system-info/bg-lg.svg") no-repeat
-      bottom;
+    background: url("/images/system-info/bg-lg.svg") no-repeat bottom;
   }
-
   @include desktop-xl {
     padding: 200px 0 85px;
-    background: url("../../assets/images/system-info/bg-xl.svg") no-repeat
-      bottom;
+    background: url("/images/system-info/bg-xl.svg") no-repeat bottom;
   }
-
   &__img-container {
     margin-bottom: 60px;
-
     @include desktop-lg {
       margin-bottom: 25px;
     }
-
     @include desktop-xl {
       margin-bottom: 30px;
     }
   }
-
   &__img {
     max-width: 300px;
-
     @include tablet {
       max-width: 415px;
     }
-
     @include desktop-lg {
       max-width: 280px;
     }
-
     @include desktop-xl {
       max-width: 100%;
     }
   }
-
   &__title,
   &__subtitle {
-    font-weight: map-get($font-weight, "black");
+    font-weight: map.get($font-weight, "black");
     margin-bottom: 43px;
-
     @include tablet {
       margin-bottom: 2px;
     }
-
     @include desktop-lg {
       margin-bottom: 28px;
     }
-
     @include desktop-xl {
       margin-bottom: 30px;
     }
   }
-
   &__title {
-    color: map-get($colors, "red");
-
+    color: map.get($colors, "red");
     font-size: 34px;
     line-height: 42px;
-
     @include tablet {
       font-size: 60px;
       line-height: 75px;
     }
-
     @include desktop-lg {
       font-size: 40px;
       line-height: 50px;
     }
-
     @include desktop-xl {
       font-size: 60px;
       line-height: 75px;
     }
   }
-
   &__subtitle {
     text-align: center;
     font-size: 20px;
     line-height: 25px;
-
     @include tablet {
       margin-bottom: 28px;
       font-size: 36px;
       line-height: 45px;
       max-width: 534px;
     }
-
     @include desktop-lg {
       font-size: 30px;
       line-height: 37px;
       max-width: 490px;
     }
-
     @include desktop-xl {
       font-size: 36px;
       line-height: 45px;
       max-width: 996px;
     }
   }
-
   &__go-back-btn {
-    border: 2px solid map-get($colors, "red");
+    border: 2px solid map.get($colors, "red");
     border-radius: $border-radius-default;
   }
 }

@@ -143,7 +143,9 @@ const TopMarketPromotion = ({
         return (
           <Lottie
             className="top-market-promotion__img--lottie"
-            animationData={image}
+            {...(typeof image === "string"
+              ? { path: image }
+              : { animationData: image })}
             style={lottieStyle}
           />
         );
@@ -170,7 +172,7 @@ const TopMarketPromotion = ({
           <div className="top-market-promotion__block">
             <div className="top-market-promotion__description">
               <p className="top-market-promotion__text">{children}</p>
-              {note && <p className="top-market-promotion__note">{note}</p>}
+              {note && <div className="top-market-promotion__note">{note}</div>}
             </div>
             {btnTitle && getButton()}
             {content && (

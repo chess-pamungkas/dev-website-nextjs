@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import TopMarketPromotion from "../../top-market-promotion";
-import promotion from "../../../assets/images/partners/promotion.svg";
+const promotion = "/images/partners/promotion.svg";
 import cn from "classnames";
 import { ShowRegistrationPopup } from "../../../helpers/constants";
 import HighlightedLocalizationText from "../../shared/highlighted-localization-text";
@@ -8,10 +8,11 @@ import IncomeSlider from "../../partners/components/income-slider";
 import PartnersAdvantages from "../../partners/components/advantages";
 import { PARTNERS_ADVANTAGES } from "../../../helpers/partners.config";
 import HowToStart from "../../partners/components/how-to-start";
-import icon from "../../../assets/images/icon--white.svg";
+const icon = "/images/icon--white.svg";
 import { useTranslationWithVariables } from "../../../helpers/hooks/use-translation-with-vars";
 import { useRtlDirection } from "../../../helpers/hooks/use-rtl-direction";
 import { setLangParam } from "../../../helpers/services/language-service";
+import Seo from "../../shared/seo";
 
 const PartnersPageContent = () => {
   const { t } = useTranslationWithVariables();
@@ -29,6 +30,10 @@ const PartnersPageContent = () => {
 
   return (
     <>
+      <Seo
+        title={t("page-partners-title")}
+        description={t("page-partners-description")}
+      />
       <TopMarketPromotion
         className={cn("partners-page-promotion", {
           "partners-page-promotion--rtl": isRTL,

@@ -1,8 +1,8 @@
 import React from "react";
 import cn from "classnames";
 import PropTypes from "prop-types";
-import icon from "../../../../assets/images/all-markets/advantage-icon.svg";
-import iconSm from "../../../../assets/images/all-markets/advantage-icon-sm.svg";
+const icon = "/images/all-markets/advantage-icon.svg";
+const iconSm = "/images/all-markets/advantage-icon-sm.svg";
 import { useTranslationWithVariables } from "../../../../helpers/hooks/use-translation-with-vars";
 import { useWindowSize } from "../../../../helpers/hooks/use-window-size";
 import ButtonPopup from "../../../shared/button-popup";

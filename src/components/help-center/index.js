@@ -11,7 +11,7 @@ import {
 import Faq from "../faq";
 import { stringTransformToKebabCase } from "../../helpers/services/string-service";
 import FaqSearchBar from "./faq-search-bar";
-import marketsIcon from "../../assets/images/icons/markets.svg";
+const marketsIcon = "/images/icons/markets.svg";
 import { useRtlDirection } from "../../helpers/hooks/use-rtl-direction";
 import { DIR_LTR, DIR_RTL } from "../../helpers/constants";
 

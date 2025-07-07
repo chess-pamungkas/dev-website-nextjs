@@ -147,6 +147,7 @@ const LangOptions = () => {
 
   return (
     <div className="lang-options">
+      <h2 className="lang-options__title">{t("lang-select-popup-title")}</h2>
       <ul className="lang-options__list">
         {LANG_SELECT_OPTIONS.map((language) => (
           <LangSelectItem

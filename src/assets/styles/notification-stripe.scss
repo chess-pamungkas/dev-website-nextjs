@@ -1,43 +1,108 @@
-@import "vars";
-@import "mixins";
+@use "vars" as *;
+@use "mixins" as *;
+@use "sass:map";
 
 .notification-stripe {
   position: fixed;
   bottom: 0;
   z-index: 1;
-  background: map-get($colors, "white");
+  background: map.get($colors, "white");
   box-shadow: 0 0 10px #0000001a;
-  border-top: 5px solid map-get($colors, "red");
+  border-top: 5px solid map.get($colors, "red");
   padding: 13px 10px 10px;
-
   @include desktop-lg {
     padding: 13px 30px 18px;
     position: relative;
     bottom: unset;
   }
-
   &__content {
     flex-basis: auto;
-
     @include desktop-lg {
       flex-basis: auto;
     }
   }
-
   &__actions {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     margin-left: 12px;
     flex-basis: 200px;
-
     @include desktop-lg {
       flex-basis: auto;
       margin-left: 44px;
       flex-direction: row;
       justify-content: space-between;
     }
-
+  }
+  &__button {
+    @include button-supress;
+    text-decoration: none;
+    color: map.get($colors, "red");
+    background: map.get($colors, "white");
+    display: inline-block;
+    padding: 8px 10px;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: $font;
+    font-weight: map.get($font-weight, "black");
+    border: 2px solid map.get($colors, "red");
+    border-radius: $border-radius-default;
+    font-size: 14px;
+    line-height: 18px;
+    @include desktop-lg {
+      padding: 8px 30px;
+      min-width: 164px;
+    }
+    @include desktop-xl {
+      min-width: 234px;
+    }
+    &:hover,
+    &:focus {
+      background: map.get($colors, "red");
+      color: map.get($colors, "white");
+    }
+  }
+  &__button + &__button {
+    margin-left: 15px;
+    @include desktop-xl {
+      margin-left: 20px;
+    }
+  }
+  &__redirection-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__cysec-wrapper {
+    display: flex;
+    align-items: center;
+  }
+  &__text {
+    color: map.get($colors, "black");
+    font-size: 10.5px;
+    line-height: 16px;
+    @include mobile {
+    }
+    @include desktop-lg {
+      font-size: 16px;
+      line-height: 20px;
+    }
+    @include desktop-xl {
+      font-size: 18px;
+      line-height: 22px;
+    }
+  }
+  &__link {
+    color: map.get($colors, "red");
+    text-decoration: underline;
+    transition: all 0.3s;
+    &:hover,
+    &:focus,
+    &:active {
+      text-decoration: none;
+    }
+  }
     .notification-stripe__button {
       width: 140px;
       margin: 0 0 7px 0;
@@ -46,96 +111,13 @@
         width: auto;
       }
     }
-
     @media screen and (max-width: $lg) {
       .notification-stripe__button + .notification-stripe__button {
         margin-left: 0;
       }
     }
-  }
-
-  &__button {
-    @include button-supress;
-    text-decoration: none;
-    color: map-get($colors, "red");
-    background: map-get($colors, "white");
-    display: inline-block;
-    padding: 8px 10px;
-    text-align: center;
-    text-transform: uppercase;
-    font-family: $font;
-    font-weight: map-get($font-weight, "black");
-    border: 2px solid map-get($colors, "red");
-    border-radius: $border-radius-default;
-    font-size: 14px;
-    line-height: 18px;
-
-    @include desktop-lg {
-      padding: 8px 30px;
-      min-width: 164px;
-    }
-
-    @include desktop-xl {
-      min-width: 234px;
-    }
-
-    &:hover,
-    &:focus {
-      background: map-get($colors, "red");
-      color: map-get($colors, "white");
-    }
-  }
-
-  &__button + &__button {
-    margin-left: 15px;
-
-    @include desktop-xl {
-      margin-left: 20px;
-    }
-  }
-
-  &__redirection-wrapper {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  &__cysec-wrapper {
-    display: flex;
-    align-items: center;
-  }
-
-  &__text {
-    color: map-get($colors, "black");
-    font-size: 10.5px;
-    line-height: 16px;
-    @include mobile {
       &.collapsed {
         height: 20px;
         overflow: hidden;
       }
-    }
-    @include desktop-lg {
-      font-size: 16px;
-      line-height: 20px;
-    }
-
-    @include desktop-xl {
-      font-size: 18px;
-      line-height: 22px;
-    }
-  }
-
-  &__link {
-    color: map-get($colors, "red");
-    text-decoration: underline;
-    transition: all 0.3s;
-
-    &:hover,
-    &:focus,
-    &:active {
-      text-decoration: none;
-    }
-  }
 }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import cn from "classnames";
 import PropTypes from "prop-types";
-import Slider from "../../../shared/slider";
+import CustomProductionSlider from "../../../shared/slider/CustomProductionSlider";
 import { useTranslationWithVariables } from "../../../../helpers/hooks/use-translation-with-vars";
 import {
   CLIENTS_MARKS,
@@ -27,13 +27,15 @@ const IncomeSlider = ({ className }) => {
     setTotalIncome(value * COST_PER_CLIENT);
   };
 
-  const renderMark = (props) => {
+  const renderMark = (markProps, idx, markValue) => {
     return (
-      <div className={props.className}>
-        <span {...props} className={`${props.className}-v-line`} />
-        <span {...props} className={`${props.className}-number`}>
-          {props.key}
-        </span>
+      <div
+        key={markProps.key}
+        className={markProps.className}
+        style={markProps.style}
+      >
+        <span className={`${markProps.className}-v-line`} />
+        <span className={`${markProps.className}-number`}>{markValue}</span>
       </div>
     );
   };
@@ -58,7 +60,7 @@ const IncomeSlider = ({ className }) => {
             {t(`partners_income-slider-clients-note-fsa`)}
           </p>
         </div>
-        <Slider
+        <CustomProductionSlider
           marks={CLIENTS_MARKS}
           minValue={MIN_CLIENTS}
           maxValue={MAX_CLIENTS}
@@ -68,7 +70,7 @@ const IncomeSlider = ({ className }) => {
           trackClassName={"partners-income__slider-track"}
           thumbClassName={"partners-income__slider-thumb"}
           markClassName={"partners-income__slider-mark"}
-          renderMark={renderMark}
+          step={1}
           invert={isRTL}
         />
         <div className="partners-income__total-income">

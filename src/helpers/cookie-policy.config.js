@@ -6,7 +6,7 @@ export const COOKIES_POLICY_CONTENT = [
     title: "INTRODUCTION",
     subItems: [
       {
-        text: "Oqtima Int. Ltd (operating under the tradename “Oqtima” and being referred to as “we” or “us” or the “Company”) is authorised and regulated by the Seychelles Financial Services Authority (the “FSA”) with license number SD109, having its registered address at F20, 1st Floor, Eden Plaza, Eden Island, Seychelles.",
+        text: 'Oqtima Int. Ltd (operating under the tradename "Oqtima" and being referred to as "we" or "us" or the "Company") is authorised and regulated by the Seychelles Financial Services Authority (the "FSA") with license number SD109, having its registered address at F20, 1st Floor, Eden Plaza, Eden Island, Seychelles.',
       },
     ],
   },
@@ -48,7 +48,7 @@ export const COOKIES_POLICY_CONTENT = [
         text: "Some cookies are essential to the performance of our platform, you cannot opt out from these cookies if you wish to use our platform. Below you will find a list of some of the third-party cookies used by Oqtima.",
       },
       {
-        text: "Your browser may also allow you to block the storage of cookies on your computer. Please be aware that if you use our web services without blocking cookies you are actually consenting to the cookies. We don’t collect any information about you through our cookies that could identify you as an individual. While we do collect certain pieces of information about you in order to provide our products and services to you and improve our offering, this information is anonymised. Please be aware that if you choose not to accept cookies, you may not be able to take full advantage of our website.",
+        text: "Your browser may also allow you to block the storage of cookies on your computer. Please be aware that if you use our web services without blocking cookies you are actually consenting to the cookies. We don't collect any information about you through our cookies that could identify you as an individual. While we do collect certain pieces of information about you in order to provide our products and services to you and improve our offering, this information is anonymised. Please be aware that if you choose not to accept cookies, you may not be able to take full advantage of our website.",
       },
     ],
   },
@@ -56,59 +56,47 @@ export const COOKIES_POLICY_CONTENT = [
 
 export const COLUMN_COOKIES = [
   {
-    accessor: "col1",
-    Header: "Company",
+    accessorKey: "col1",
+    header: "Company",
   },
   {
-    accessor: "col2",
-    Header: "Cookies",
+    accessorKey: "col2",
+    header: "Cookies",
   },
   {
-    accessor: "col3",
-    Header: "Opt Out option",
+    accessorKey: "col3",
+    header: "Opt Out option",
   },
 ];
 export const DATA_COOKIES = [
   {
-    col1: <span>{"OQtima"}</span>,
-    col2: <span>{"used to store user consent settings for cookies."}</span>,
-    col3: <span>{"Essential"}</span>,
+    col1: "OQtima",
+    col2: "used to store user consent settings for cookies.",
+    col3: "Essential",
   },
   {
-    col1: <span>{"OQtima"}</span>,
-    col2: (
-      <span>
-        {
-          "used to determine if a cookie popup or any other popup should be shown to the user"
-        }
-      </span>
-    ),
-    col3: <span>{"Essential"}</span>,
+    col1: "OQtima",
+    col2: "used to determine if a cookie popup or any other popup should be shown to the user",
+    col3: "Essential",
   },
   {
-    col1: <span>{"OQtima"}</span>,
-    col2: <span>{"used to store the last selected language"}</span>,
-    col3: <span>{"Essential"}</span>,
+    col1: "OQtima",
+    col2: "used to store the last selected language",
+    col3: "Essential",
   },
   {
-    col1: <span>{"Nextroll"}</span>,
-    col2: <span>{"Used to re-target user based on interests on website"}</span>,
-    col3: <span>{"Segmentation (opt out option)"}</span>,
+    col1: "Nextroll",
+    col2: "Used to re-target user based on interests on website",
+    col3: "Segmentation (opt out option)",
   },
   {
-    col1: <span>{"Alphabet"}</span>,
-    col2: <span>{"Used to store the Google Analytics ID for the user."}</span>,
-    col3: <span>{"Segmentation (opt out option)"}</span>,
+    col1: "Alphabet",
+    col2: "Used to store the Google Analytics ID for the user.",
+    col3: "Segmentation (opt out option)",
   },
   {
-    col1: <span>{"Meta"}</span>,
-    col2: (
-      <span>
-        {
-          "Used to store the Meta client ID to re-target client on Meta owned platform and partner sites"
-        }
-      </span>
-    ),
-    col3: <span>{"Segmentation (opt out option)"}</span>,
+    col1: "Meta",
+    col2: "Used to store the Meta client ID to re-target client on Meta owned platform and partner sites",
+    col3: "Segmentation (opt out option)",
   },
 ];

@@ -1,9 +1,13 @@
 import { Html, Head, Main, NextScript } from "next/document";
 import Script from "next/script";
 
-export default function Document() {
+export default function Document(props) {
+  // Accept lang and dir as props, fallback to 'en' and 'ltr'
+  const lang = props.__NEXT_DATA__?.props?.pageProps?.lang || "en";
+  const dir = props.__NEXT_DATA__?.props?.pageProps?.dir || "ltr";
+
   return (
-    <Html lang="en">
+    <Html dir={dir} lang={lang}>
       <Head>
         {/* Preconnect to external domains for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -67,3 +71,63 @@ export default function Document() {
     </Html>
   );
 }
+
+// Add getInitialProps to ensure SSR has correct lang and dir
+Document.getInitialProps = async (ctx) => {
+  const initialProps = await ctx.defaultGetInitialProps(ctx);
+
+  // Determine language and direction from the request
+  let lang = "en";
+  let dir = "ltr";
+
+  // Check language from pathname
+  if (ctx.pathname) {
+    if (ctx.pathname.startsWith("/ar")) {
+      lang = "ar";
+      dir = "rtl";
+    } else if (ctx.pathname.startsWith("/fr")) {
+      lang = "fr";
+      dir = "ltr";
+    } else if (ctx.pathname.startsWith("/br")) {
+      lang = "br";
+      dir = "ltr";
+    } else if (ctx.pathname.startsWith("/vn")) {
+      lang = "vn";
+      dir = "ltr";
+    } else if (ctx.pathname.startsWith("/th")) {
+      lang = "th";
+      dir = "ltr";
+    } else if (ctx.pathname.startsWith("/es")) {
+      lang = "es";
+      dir = "ltr";
+    } else if (ctx.pathname.startsWith("/it")) {
+      lang = "it";
+      dir = "ltr";
+    } else if (ctx.pathname.startsWith("/cn")) {
+      lang = "cn";
+      dir = "ltr";
+    } else if (ctx.pathname.startsWith("/zh")) {
+      lang = "zh";
+      dir = "ltr";
+    } else if (ctx.pathname.startsWith("/id")) {
+      lang = "id";
+      dir = "ltr";
+    } else if (ctx.pathname.startsWith("/jp")) {
+      lang = "jp";
+      dir = "ltr";
+    } else if (ctx.pathname.startsWith("/my")) {
+      lang = "my";
+      dir = "ltr";
+    }
+    // Default is English (en) with LTR
+  }
+
+  return {
+    ...initialProps,
+    pageProps: {
+      ...initialProps.pageProps,
+      lang,
+      dir,
+    },
+  };
+};

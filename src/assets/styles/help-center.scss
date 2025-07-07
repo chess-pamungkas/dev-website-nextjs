@@ -1,168 +1,141 @@
-@import "vars";
-@import "mixins";
+@use "vars" as *;
+@use "mixins" as *;
+@use "sass:map";
 
 .help-center {
   padding-top: 90px;
   padding-bottom: 145px;
   @include content-alignment(0);
-
   @include tablet {
     padding-top: 104px;
     padding-bottom: 200px;
   }
-
   @include desktop-lg {
     padding-top: 195px;
     padding-bottom: 103px;
   }
-
   @include desktop-xl {
     padding-top: 195px;
     padding-bottom: 145px;
   }
-
   &__wrapper {
     margin: 0 auto;
-
     @include tablet {
       max-width: 640px;
     }
-
     @include desktop-lg {
       max-width: 840px;
     }
-
     @include desktop-xl {
       max-width: 1148px;
     }
   }
-
   &__title {
     max-width: 265px;
     margin: 0 auto 30px;
-    color: map-get($colors, "red");
-    font-weight: map-get($font-weight, "black");
+    color: map.get($colors, "red");
+    font-weight: map.get($font-weight, "black");
     font-size: 20px;
     line-height: 30px;
     text-align: center;
-
     @include tablet {
       max-width: unset;
       margin: 0 0 80px;
       font-size: 40px;
       line-height: 75px;
     }
-
     @include desktop-lg {
       margin: 0 0 94px;
       font-size: 49px;
     }
-
     @include desktop-xl {
       margin: 0 0 100px;
       font-size: 60px;
     }
   }
-
   &__block-title {
-    color: map-get($colors, "red");
-    font-weight: map-get($font-weight, "bold");
+    color: map.get($colors, "red");
+    font-weight: map.get($font-weight, "bold");
     margin: 0 0 10px;
     font-size: 17px;
     line-height: 20px;
     position: relative;
-
     @include tablet {
       font-size: 32px;
       line-height: 40px;
     }
-
     @include desktop-lg {
       margin: 0 0 15px;
       font-size: 32px;
     }
-
     @include desktop-xl {
       font-size: 36px;
     }
-
     &--market {
       font-size: 25px;
       line-height: 45px;
       margin: 0 0 60px;
       text-align: center;
-
       @include tablet {
         font-size: 36px;
         line-height: 40px;
         margin: 0 0 24px 25px;
       }
-
       @include desktop-lg {
         font-size: 40px;
         line-height: 45px;
         margin: 0 0 49px 32px;
       }
-
       @include desktop-xl {
         margin: 0 0 70px 32px;
       }
     }
   }
-
   &__block-icon {
     padding-right: 15px;
-
     @include desktop-lg {
       position: initial;
     }
   }
-
   &__block-subtitle {
-    color: map-get($colors, "black");
-    font-weight: map-get($font-weight, "regular");
+    color: map.get($colors, "black");
+    font-weight: map.get($font-weight, "regular");
     margin: 0 0 20px;
     font-size: 16px;
     line-height: 20px;
-
     @include tablet {
       font-size: 20px;
       line-height: 40px;
       margin: 0 0 40px;
     }
-
     @include desktop-lg {
       margin: 0 0 30px;
     }
-
     @include desktop-xl {
       font-size: 24px;
       line-height: 40px;
       margin: 0 0 60px;
     }
   }
-
   &__title-icon {
     height: 20px;
     width: auto;
     padding-right: 10px;
-
     @include tablet {
       height: 28px;
       padding-right: 15px;
     }
-
     @include desktop-lg {
       position: absolute;
       right: 100%;
       top: 27%;
     }
-
     @include desktop-xl {
       height: 30px;
     }
   }
-
+  &--no-title {
+  }
   .faq--help-center {
     background: none;
     padding: 0 0 40px;
@@ -179,21 +152,18 @@
       padding: 0 0 63px;
     }
   }
-
   .faq__delimiter {
     display: none;
   }
-
   .faq__wrapper {
     align-items: unset;
     max-width: unset;
   }
-
   .faq__title {
     display: flex;
     align-items: center;
     position: relative;
-    color: map-get($colors, "red");
+    color: map.get($colors, "red");
     text-align: left;
     margin: 0 0 20px;
     font-size: 17px;
@@ -214,7 +184,6 @@
       margin: 0 0 60px;
     }
   }
-
   .accordion__title {
     font-size: 16px;
     line-height: 20px;
@@ -229,7 +198,6 @@
       line-height: 30px;
     }
   }
-
   .accordion__expandable {
     font-size: 16px;
     line-height: 20px;
@@ -239,81 +207,66 @@
       line-height: 25px;
     }
   }
-
-  &--no-title {
-    .faq__title {
-      display: none;
-    }
+  .faq__title {
+    display: none;
   }
 }
 
 .faq-search-bar {
   padding: 0 0 80px;
-
   @include tablet {
     padding: 0 0 119px;
   }
-
   @include desktop-lg {
     padding: 0 0 40px;
   }
-
   @include desktop-xl {
     padding: 0 0 145px;
   }
-
   &__title {
     text-transform: uppercase;
-    color: map-get($colors, "red");
-    font-weight: map-get($font-weight, "black");
+    color: map.get($colors, "red");
+    font-weight: map.get($font-weight, "black");
     font-size: 14px;
     margin: 0 0 18px;
-
     @include tablet {
       font-size: 20px;
     }
-
     @include desktop-lg {
       font-size: 24px;
       margin: 0 0 15px;
     }
   }
-
   &__input {
     position: relative;
     width: 100%;
     height: 64px;
-    font-weight: map-get($font-weight, "black");
-    color: map-get($colors, "red");
+    font-weight: map.get($font-weight, "black");
+    color: map.get($colors, "red");
     font-size: 14px;
     box-shadow: 0 3px 24px #00000029;
     border: 3px solid #ff4400;
     outline: none;
     border-radius: 114px;
     padding-left: 60px;
-    background-image: url("../../assets/images/icons/magnifier.svg");
+    background-image: url("/images/icons/magnifier.svg");
     background-repeat: no-repeat;
     background-position: 21px;
     background-size: 33px 33px;
-
     @include tablet {
       font-size: 20px;
     }
-
     @include desktop-lg {
       font-size: 24px;
       padding-left: 80px;
     }
-
     &::placeholder {
-      font-weight: map-get($font-weight, "black");
-      color: map-get($colors, "red");
+      font-weight: map.get($font-weight, "black");
+      color: map.get($colors, "red");
       font-size: 14px;
-
       @include tablet {
         font-size: 20px;
       }
-
       @include desktop-lg {
         font-size: 24px;
       }
