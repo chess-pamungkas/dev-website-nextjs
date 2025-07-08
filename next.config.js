@@ -80,7 +80,7 @@ const nextConfig = {
                     "font-src 'self' https://fonts.gstatic.com",
                     "img-src 'self' data: https:",
                     "connect-src 'self' https://www.google.com https://webchat.conv.rs https://dev-back.oqt-ima.com wss://dev-back.oqt-ima.com https://back.oqt-ima.com https://back.oqtima.com https://portal.oqtima.com https://docs.oqtima.com https://oqtima.news https://app.convrs.io",
-                    "frame-src 'self' https://www.google.com https://webchat.conv.rs https://webtrader.oqtima.com https://app.oqtima.com https://download.mql5.com https://play.google.com https://apps.apple.com https://getctrader.com https://getctradermac.com https://appgallery.huawei.com",
+                    "frame-src 'self' https://www.google.com https://webchat.conv.rs https://metatraderweb.app https://webtrader.oqtima.com https://app.oqtima.com https://download.mql5.com https://play.google.com https://apps.apple.com https://getctrader.com https://getctradermac.com https://appgallery.huawei.com",
                     "frame-ancestors 'self' https://www.google.com https://www.gstatic.com",
                     "worker-src 'self' https://www.google.com https://webchat.conv.rs blob: https://metatraderweb.app",
                     "child-src 'self' https://www.google.com https://webchat.conv.rs https://metatraderweb.app https://webtrader.oqtima.com https://app.oqtima.com",
