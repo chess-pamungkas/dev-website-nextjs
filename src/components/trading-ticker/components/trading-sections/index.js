@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import cn from "classnames";
 import PropTypes from "prop-types";
 import TradingSectionTitle from "../trading-section-title";
 import { useWindowSize } from "../../../../helpers/hooks/use-window-size";
 import Dropdown from "../../../shared/dropdown";
+import { useRtlDirection } from "../../../../helpers/hooks/use-rtl-direction";
 
 const TradingSections = ({
   className,
@@ -13,6 +14,8 @@ const TradingSections = ({
   tradingSection,
 }) => {
   const { isMobile } = useWindowSize();
+  const isRTL = useRtlDirection();
+  const sections = isRTL ? [...tradingSection].reverse() : tradingSection;
 
   return (
     <div className={cn("trading-sections-wrapper", className)}>
@@ -25,7 +28,7 @@ const TradingSections = ({
           {isMobile ? (
             <Dropdown
               selectedItem={selectedSection}
-              items={tradingSection.map((item) => {
+              items={sections.map((item) => {
                 return {
                   title: item.title,
                   value: item.id,
@@ -40,7 +43,7 @@ const TradingSections = ({
               isDropdownShown
             />
           ) : (
-            tradingSection.map((section) => (
+            sections.map((section) => (
               <TradingSectionTitle
                 key={`tradingSection${section.id}`}
                 section={section}

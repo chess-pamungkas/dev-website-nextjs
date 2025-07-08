@@ -1,14 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
 import TopMarket from "../../top-market";
-const indicesSvg = "/images/top-markets/indices.svg";
 import { ShowRegistrationPopup } from "../../../helpers/constants";
 import HighlightedLocalizationText from "../../shared/highlighted-localization-text";
 import TradingTicker from "../../trading-ticker";
 import TopMarketPromotion from "../../top-market-promotion";
-const indices = "/images/top-markets/images/indices.svg";
 import { useTranslationWithVariables } from "../../../helpers/hooks/use-translation-with-vars";
 import { INDICES_TRADING_SECTION } from "../../../helpers/config";
-const animation = "/images/bg/promotions/indices/indices.json";
+import animation from "../../../../public/images/animations/indices.json";
 import MarketingCircle from "../../marketing-circle";
 import TopMarketLayout from "../../top-market-layout";
 import Faq from "../../faq";
@@ -41,7 +39,11 @@ const IndicesContent = () => {
   useEffect(() => {
     // Make a copy to avoid mutating the original data
     const updatedData = DATA_INDICES.map((row) => ({ ...row }));
-    updateTableDataWithLiveColumn(updatedData, tradingSymbols);
+    updateTableDataWithLiveColumn(
+      updatedData,
+      tradingSymbols,
+      handleShowRegistrationPopup
+    );
     setTableData(updatedData);
   }, [tradingSymbols]);
 
@@ -61,7 +63,7 @@ const IndicesContent = () => {
           />
         }
         isChildrenHasSmallSize
-        image={indicesSvg}
+        image="/images/top-markets/indices.svg"
         btn1Title={t("indices_top-market-btn1")}
         btnOnClick1={handleShowRegistrationPopup}
         btn2Title={t("indices_top-market-btn2")}
@@ -80,7 +82,7 @@ const IndicesContent = () => {
       />
       <TopMarketPromotion
         className="indices-promotion"
-        image={indices}
+        image="/images/top-markets/images/indices.svg"
         btnTitle={t("indices_top-market-promo-btn")}
         btnOnClick={handleShowRegistrationPopup}
         note={t("indices_top-market-promotion-promo-note")}
@@ -93,7 +95,7 @@ const IndicesContent = () => {
         />
       </TopMarketPromotion>
       <MarketingCircle
-        animationPath={animation}
+        animation={animation}
         btnOnClick={handleShowRegistrationPopup}
         isIndices={true}
         upper={

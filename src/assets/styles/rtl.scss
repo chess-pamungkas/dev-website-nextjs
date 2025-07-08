@@ -261,13 +261,11 @@
 
 @keyframes auto-scroll-animation-rtl {
   0% {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(-50%, 0, 0);
     visibility: visible;
   }
   100% {
-    -webkit-transform: translate3d(50%, 0, 0);
-    transform: translate3d(50%, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -1653,3 +1651,69 @@ html[dir="rtl"] {
 //   width: 100%;
 //   height: 100%;
 // }
+
+// RTL override for trading sections and ticker
+.trading-sections-wrapper {
+  .trading-sections {
+    direction: rtl !important;
+    flex-direction: row-reverse !important;
+  }
+}
+
+.trading-symbols-wrapper--rtl {
+  direction: rtl;
+  .trading-symbols {
+    direction: rtl;
+  }
+  // Reverse ticker animation for RTL
+  .trading-symbols__infinite-auto-scroll {
+    animation-name: auto-scroll-animation-rtl;
+    animation-direction: normal;
+  }
+}
+
+@keyframes auto-scroll-animation-rtl {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+    visibility: visible;
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+// RTL fix: top-market-promotion (crypto-promotion)
+.top-market-promotion--rtl,
+.crypto-promotion--rtl {
+  .crypto-promotion__wrapper {
+    flex-direction: row-reverse !important;
+
+    @include mobile {
+      flex-direction: column-reverse !important;
+    }
+  }
+}
+
+// RTL fix: marketing-circle
+.marketing-circle--rtl {
+  .marketing-circle__wrapper {
+    flex-direction: row-reverse !important;
+  }
+}
+
+// RTL fix: vps
+.vps-promotion--rtl {
+  .vps-promotion__wrapper {
+    flex-direction: row-reverse !important;
+  }
+}
+
+.swap-free-promotion--rtl {
+  .swap-free-promotion__wrapper {
+    flex-direction: row-reverse !important;
+  }
+
+  @include mobile {
+    flex-direction: column-reverse !important;
+  }
+}

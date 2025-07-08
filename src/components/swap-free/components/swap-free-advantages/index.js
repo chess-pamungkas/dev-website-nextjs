@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { useRtlDirection } from "../../../../helpers/hooks/use-rtl-direction";
 import HighlightedLocalizationText from "../../../shared/highlighted-localization-text";
 import SwapFreeAdvantageItem from "../swap-free-advantage-item";
+import { DIR_RTL, DIR_LTR } from "../../../../helpers/constants";
 
 const SwapFreeAdvantages = ({ className, advantages }) => {
   const isRTL = useRtlDirection();
@@ -13,6 +14,7 @@ const SwapFreeAdvantages = ({ className, advantages }) => {
       className={cn("swap-free-advantages", className, {
         "swap-free-advantages--rtl": isRTL,
       })}
+      dir={isRTL ? DIR_RTL : DIR_LTR}
     >
       <h2 className="swap-free-advantages__title">
         {

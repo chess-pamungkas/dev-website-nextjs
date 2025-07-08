@@ -19,20 +19,13 @@ function parseSymbols(symbol, tradingSymbols) {
   };
 }
 
-const TableLiveColumn = ({ symbol, tradingSymbols }) => {
+const TableLiveColumn = ({
+  symbol,
+  tradingSymbols,
+  onShowRegistrationPopup,
+}) => {
   const { t } = useTranslationWithVariables();
   const { bid, ask, direction } = parseSymbols(symbol, tradingSymbols);
-  const langParam = setLangParam(); // Get the language parameter
-  const [isPopupOpen, setIsPopupOpen] = useState(false); // State to manage popup visibility
-
-  const handleShowRegistrationPopup = () => {
-    setIsPopupOpen(true); // Open the popup
-  };
-
-  const handleClosePopup = () => {
-    setIsPopupOpen(false); // Close the popup
-  };
-
   return (
     <div className="table__info-column">
       <div className="table__params">
@@ -52,26 +45,17 @@ const TableLiveColumn = ({ symbol, tradingSymbols }) => {
       <div className="table__btn-wrapper">
         <ButtonPopup
           className={cn("table__btn", "table__btn--green")}
-          onClick={handleShowRegistrationPopup}
+          onClick={onShowRegistrationPopup}
         >
           {t("index_trading-ticker-buy")}
         </ButtonPopup>
         <ButtonPopup
           className={cn("table__btn", "table__btn--red")}
-          onClick={handleShowRegistrationPopup}
+          onClick={onShowRegistrationPopup}
         >
           {t("index_trading-ticker-sell")}
         </ButtonPopup>
       </div>
-
-      {/* Render the popup */}
-      {isPopupOpen && (
-        <ShowRegistrationPopup
-          isOpen={isPopupOpen}
-          onClose={handleClosePopup}
-          langParam={langParam} // Pass langParam if needed
-        />
-      )}
     </div>
   );
 };
@@ -86,5 +70,7 @@ TableLiveColumn.propTypes = {
       direction: PropTypes.string,
     })
   ).isRequired,
+  onShowRegistrationPopup: PropTypes.func.isRequired,
 };
+
 export default TableLiveColumn;

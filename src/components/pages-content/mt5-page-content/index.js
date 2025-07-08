@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState } from "react";
 import cn from "classnames";
 import TopMarketPromotion from "../../top-market-promotion";
-const animation = "/images/animations/aggregator_MT5.json";
+import animation from "../../../../public/images/animations/aggregator_MT5.json";
 import HighlightedLocalizationText from "../../shared/highlighted-localization-text";
 import MtPromotion from "../../mt-promotion";
 import {

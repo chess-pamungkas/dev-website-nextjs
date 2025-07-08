@@ -1,14 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
 import TopMarket from "../../top-market";
-const image = "/images/top-markets/energies.svg";
 import { ShowRegistrationPopup } from "../../../helpers/constants";
 import HighlightedLocalizationText from "../../shared/highlighted-localization-text";
 import TradingTicker from "../../trading-ticker";
 import TopMarketPromotion from "../../top-market-promotion";
-const energies = "/images/top-markets/images/energies.svg";
 import { useTranslationWithVariables } from "../../../helpers/hooks/use-translation-with-vars";
 import { ENERGIES_TRADING_SECTION } from "../../../helpers/config";
-const animation = "/images/bg/promotions/energies/energies.json";
+import animation from "../../../../public/images/animations/energies.json";
 import MarketingCircle from "../../marketing-circle";
 import TopMarketLayout from "../../top-market-layout";
 import Faq from "../../faq";
@@ -41,7 +39,11 @@ const EnergiesContent = () => {
   useEffect(() => {
     // Make a copy to avoid mutating the original data
     const updatedData = DATA_ENERGIES.map((row) => ({ ...row }));
-    updateTableDataWithLiveColumn(updatedData, tradingSymbols);
+    updateTableDataWithLiveColumn(
+      updatedData,
+      tradingSymbols,
+      handleShowRegistrationPopup
+    );
     setTableData(updatedData);
   }, [tradingSymbols]);
 
@@ -53,7 +55,7 @@ const EnergiesContent = () => {
       />
       <TopMarket
         title={t("energies_top-market-title")}
-        image={image}
+        image="/images/top-markets/energies.svg"
         btn1Title={t("energies_top-market-btn1")}
         btnOnClick1={handleShowRegistrationPopup}
         btn2Title={t("energies_top-market-btn2")}
@@ -73,7 +75,7 @@ const EnergiesContent = () => {
       />
       <TopMarketPromotion
         className="energies-promotion"
-        image={energies}
+        image="/images/top-markets/images/energies.svg"
         btnTitle={t("energies_top-market-promo-btn")}
         btnOnClick={handleShowRegistrationPopup}
       >
@@ -85,7 +87,7 @@ const EnergiesContent = () => {
         />
       </TopMarketPromotion>
       <MarketingCircle
-        animationPath={animation}
+        animation={animation}
         btnOnClick={handleShowRegistrationPopup}
         isEnergies={true}
         upper={

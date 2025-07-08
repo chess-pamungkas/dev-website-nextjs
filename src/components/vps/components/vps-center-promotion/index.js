@@ -7,6 +7,7 @@ import HighlightedLocalizationText from "../../../shared/highlighted-localizatio
 import { VPS_PROMO_ADVANTAGES } from "../../../../helpers/vps.config";
 import VPSPromoAdvantage from "../vps-promo-advantage";
 import { stringTransformToKebabCase } from "../../../../helpers/services/string-service";
+import { DIR_RTL, DIR_LTR } from "../../../../helpers/constants";
 
 const VPSCenterPromotion = ({ className }) => {
   const isRTL = useRtlDirection();
@@ -18,7 +19,10 @@ const VPSCenterPromotion = ({ className }) => {
         "vps-center-promotion--rtl": isRTL,
       })}
     >
-      <div className={cn("vps-center-promotion__wrapper")}>
+      <div
+        className={cn("vps-center-promotion__wrapper")}
+        dir={isRTL ? DIR_RTL : DIR_LTR}
+      >
         <p className="vps-center-promotion__title">
           {
             <HighlightedLocalizationText

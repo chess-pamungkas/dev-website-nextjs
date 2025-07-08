@@ -1,14 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
 import TopMarket from "../../top-market";
-const image = "/images/top-markets/forex.svg";
 import { ShowRegistrationPopup } from "../../../helpers/constants";
 import HighlightedLocalizationText from "../../shared/highlighted-localization-text";
 import TradingTicker from "../../trading-ticker";
 import TopMarketPromotion from "../../top-market-promotion";
-const forex = "/images/top-markets/images/forex.svg";
 import { useTranslationWithVariables } from "../../../helpers/hooks/use-translation-with-vars";
 import { FOREX_TRADING_SECTION } from "../../../helpers/config";
-const animation = "/images/bg/promotions/forex/forex.json";
+import animation from "../../../../public/images/bg/promotions/forex/forex.json";
 import MarketingCircle from "../../marketing-circle";
 import TopMarketLayout from "../../top-market-layout";
 import Faq from "../../faq";
@@ -44,8 +42,16 @@ const ForexContent = () => {
   useEffect(() => {
     const updatedMajor = DATA_FOREX_MAJOR.map((row) => ({ ...row }));
     const updatedMinor = DATA_FOREX_MINOR.map((row) => ({ ...row }));
-    updateTableDataWithLiveColumn(updatedMajor, tradingSymbols);
-    updateTableDataWithLiveColumn(updatedMinor, tradingSymbols);
+    updateTableDataWithLiveColumn(
+      updatedMajor,
+      tradingSymbols,
+      handleShowRegistrationPopup
+    );
+    updateTableDataWithLiveColumn(
+      updatedMinor,
+      tradingSymbols,
+      handleShowRegistrationPopup
+    );
     setTableDataMajor(updatedMajor);
     setTableDataMinor(updatedMinor);
   }, [tradingSymbols]);
@@ -118,7 +124,7 @@ const ForexContent = () => {
       />
       <TopMarket
         title={t("forex_top-market-title")}
-        image={image}
+        image="/images/top-markets/forex.svg"
         btn1Title={t("forex_top-market-btn1")}
         btnOnClick1={handleShowRegistrationPopup}
         btn2Title={t("forex_top-market-btn2")}
@@ -137,7 +143,7 @@ const ForexContent = () => {
       />
       <TopMarketPromotion
         className="forex-promotion"
-        image={forex}
+        image="/images/top-markets/images/forex.svg"
         btnTitle={t("forex_top-market-promo-btn")}
         btnOnClick={handleShowRegistrationPopup}
       >
@@ -149,7 +155,7 @@ const ForexContent = () => {
         />
       </TopMarketPromotion>
       <MarketingCircle
-        animationPath={animation}
+        animation={animation}
         btnOnClick={handleShowRegistrationPopup}
         isForex={true}
         upper={

@@ -6,7 +6,13 @@ const ButtonPopup = React.forwardRef(
   ({ children, className, onClick }, ref) => {
     const handleClick = (e) => {
       e.preventDefault();
-      onClick(); // Call function onClick to display popup
+      if (typeof onClick === "function") {
+        onClick(); // Call function onClick to display popup
+      } else {
+        console.warn(
+          "ButtonPopup: onClick prop is not a function or not provided"
+        );
+      }
     };
 
     return (
@@ -29,7 +35,7 @@ ButtonPopup.displayName = "ButtonPopup";
 ButtonPopup.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
 };
 
 export default ButtonPopup;

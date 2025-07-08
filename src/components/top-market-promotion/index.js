@@ -7,6 +7,7 @@ import AnchorLink from "react-anchor-link-smooth-scroll";
 import Lottie from "lottie-react";
 import ReactPlayer from "react-player";
 import { useRtlDirection } from "../../helpers/hooks/use-rtl-direction";
+import { DIR_RTL, DIR_LTR } from "../../helpers/constants";
 
 const TopMarketPromotion = ({
   className,
@@ -166,6 +167,7 @@ const TopMarketPromotion = ({
         "top-market-promotion--rtl": isRTL,
       })}
       id={id}
+      dir={isRTL ? DIR_RTL : DIR_LTR}
     >
       <div className="container">
         <div className={cn("top-market-promotion__wrapper")}>

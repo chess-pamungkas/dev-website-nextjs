@@ -6,6 +6,7 @@ import HighlightedLocalizationText from "../../../shared/highlighted-localizatio
 import { SWAP_FREE_PROMO_OPTIONS } from "../../../../helpers/swap-free.config";
 import { stringTransformToKebabCase } from "../../../../helpers/services/string-service";
 import CenterPromoOption from "../center-promo-option";
+import { DIR_RTL, DIR_LTR } from "../../../../helpers/constants";
 
 const SwapFreeCenterPromotion = ({ className }) => {
   const isRTL = useRtlDirection();
@@ -16,7 +17,10 @@ const SwapFreeCenterPromotion = ({ className }) => {
         "swap-free-center-promotion--rtl": isRTL,
       })}
     >
-      <div className={cn("swap-free-center-promotion__wrapper")}>
+      <div
+        className={cn("swap-free-center-promotion__wrapper")}
+        dir={isRTL ? DIR_RTL : DIR_LTR}
+      >
         <p className="swap-free-center-promotion__title">
           {
             <HighlightedLocalizationText

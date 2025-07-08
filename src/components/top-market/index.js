@@ -75,14 +75,8 @@ const TopMarket = ({
       );
     }
 
-    return (
-      <ButtonPopup
-        onClick={btnOnClick}
-        className={cn("button-link", "top-market__btn", btnClassName)}
-      >
-        {btnTitle}
-      </ButtonPopup>
-    );
+    // If no onClick, link, or anchor link is provided, don't render a button
+    return null;
   };
 
   return (

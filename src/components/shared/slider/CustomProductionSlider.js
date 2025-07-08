@@ -48,7 +48,12 @@ const CustomProductionSlider = ({
     if (!sliderRef.current) return;
     const rect = sliderRef.current.getBoundingClientRect();
     let x = e.type.startsWith("touch") ? e.touches[0].clientX : e.clientX;
-    let pos = clamp(x - rect.left, 0, sliderWidth);
+    let pos;
+    if (invert) {
+      pos = clamp(sliderWidth - (x - rect.left), 0, sliderWidth);
+    } else {
+      pos = clamp(x - rect.left, 0, sliderWidth);
+    }
     let percent = pos / sliderWidth;
     let value =
       Math.round((minValue + percent * (maxValue - minValue)) / step) * step;
@@ -81,8 +86,67 @@ const CustomProductionSlider = ({
 
   // Track positions
   const thumbPos = getPosition(currentValue);
-  const leftTrackWidth = invert ? sliderWidth - thumbPos : thumbPos;
-  const rightTrackWidth = invert ? thumbPos : sliderWidth - thumbPos;
+  // For RTL, thumb and tracks are mirrored to match production
+  let filledTrackStyle, unfilledTrackStyle, thumbLeft;
+  let filledTrackClass, unfilledTrackClass;
+  if (invert) {
+    thumbLeft = sliderWidth - thumbPos;
+    // In RTL: filled (orange) is from thumb to right, unfilled (black) is from left to thumb
+    filledTrackStyle = {
+      position: "absolute",
+      left: thumbLeft,
+      width: sliderWidth - thumbLeft,
+      height: "7px",
+      background: "#FF3C00", // orange
+      zIndex: 0,
+      top: "50%",
+      transform: "translateY(-50%)",
+    };
+    unfilledTrackStyle = {
+      position: "absolute",
+      left: 0,
+      width: thumbLeft,
+      height: "7px",
+      background: "#191919", // black-secondary
+      zIndex: 0,
+      top: "50%",
+      transform: "translateY(-50%)",
+    };
+    filledTrackClass =
+      "partners-income__slider-track partners-income__slider-track-0";
+    unfilledTrackClass =
+      "partners-income__slider-track partners-income__slider-track-1";
+  } else {
+    thumbLeft = thumbPos;
+    // In LTR: filled (orange) is from left to thumb, unfilled (black) is from thumb to right
+    filledTrackStyle = {
+      position: "absolute",
+      left: 0,
+      width: thumbLeft,
+      height: "7px",
+      background: "#FF3C00", // orange
+      zIndex: 0,
+      top: "50%",
+      transform: "translateY(-50%)",
+    };
+    unfilledTrackStyle = {
+      position: "absolute",
+      left: thumbLeft,
+      width: sliderWidth - thumbLeft,
+      height: "7px",
+      background: "#191919", // black-secondary
+      zIndex: 0,
+      top: "50%",
+      transform: "translateY(-50%)",
+    };
+    filledTrackClass =
+      "partners-income__slider-track partners-income__slider-track-0";
+    unfilledTrackClass =
+      "partners-income__slider-track partners-income__slider-track-1";
+  }
+
+  // For RTL, do NOT reverse marks; just mirror their positions
+  const marksToRender = marks;
 
   return (
     <div
@@ -96,46 +160,25 @@ const CustomProductionSlider = ({
       onMouseDown={handleTrackMouseDown}
       onTouchStart={handleTrackMouseDown}
     >
-      {/* Left (filled) track */}
-      <div
-        className={`${trackClassName} ${trackClassName}-0`}
-        style={{
-          position: "absolute",
-          left: invert ? thumbPos : 0,
-          right: invert ? 0 : undefined,
-          width: leftTrackWidth,
-          height: "7px",
-          background: "#FF3C00", // orange
-          zIndex: 0,
-        }}
-      />
-      {/* Right (unfilled) track */}
-      <div
-        className={`${trackClassName} ${trackClassName}-1`}
-        style={{
-          position: "absolute",
-          left: invert ? 0 : thumbPos,
-          right: invert ? thumbPos : undefined,
-          width: rightTrackWidth,
-          height: "7px",
-          background: "#191919", // black-secondary
-          zIndex: 0,
-        }}
-      />
+      {/* Tracks: assign classes dynamically for correct DOM order */}
+      <div className={filledTrackClass} style={filledTrackStyle} />
+      <div className={unfilledTrackClass} style={unfilledTrackStyle} />
       {/* Marks */}
-      {marks.map((mark, idx) => {
+      {marksToRender.map((mark, idx) => {
         const markPos = getPosition(mark);
+        const markLeft = invert ? sliderWidth - markPos : markPos;
         return (
           <div
             key={`mark-${mark}-${idx}`}
             className={markClassName}
             style={{
               position: "absolute",
-              left: invert ? sliderWidth - markPos : markPos,
+              left: markLeft,
               top: 0,
               width: 0,
               zIndex: 2,
               pointerEvents: "none",
+              textAlign: invert ? "right" : "left",
             }}
           >
             <span
@@ -149,7 +192,10 @@ const CustomProductionSlider = ({
               className={`${markClassName}-number`}
               style={{
                 position: "absolute",
-                left: 0,
+                left: invert ? "auto" : 0,
+                right: invert ? 0 : "auto",
+                textAlign: invert ? "right" : "left",
+                direction: invert ? "rtl" : "ltr",
               }}
             >
               {mark}
@@ -159,7 +205,9 @@ const CustomProductionSlider = ({
       })}
       {/* Thumb */}
       <div
-        className={`${thumbClassName} ${thumbClassName}-0`}
+        className={
+          "partners-income__slider-thumb partners-income__slider-thumb-0"
+        }
         tabIndex={0}
         role="slider"
         aria-orientation="horizontal"
@@ -168,7 +216,7 @@ const CustomProductionSlider = ({
         aria-valuemax={maxValue}
         style={{
           position: "absolute",
-          left: invert ? sliderWidth - thumbPos : thumbPos,
+          left: thumbLeft,
           top: "50%",
           transform: "translate(-50%, -50%)",
           zIndex: 3,

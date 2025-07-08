@@ -30,6 +30,7 @@ import TradingContext from "../../../context/trading-context";
 import { GeneralTableColumns } from "../../../helpers/top-market-tables";
 import { setLangParam } from "../../../helpers/services/language-service";
 import Seo from "../../shared/seo";
+import { DIR_RTL, DIR_LTR } from "../../../helpers/constants";
 
 const SpreadsAndFeesPageContent = () => {
   const { t } = useTranslationWithVariables();
@@ -61,10 +62,26 @@ const SpreadsAndFeesPageContent = () => {
       ...row,
     }));
     const updatedCrypto = DATA_SPREADS_TABLE_CRYPTO.map((row) => ({ ...row }));
-    updateTableDataWithLiveColumn(updatedForex, tradingSymbols);
-    updateTableDataWithLiveColumn(updatedIndices, tradingSymbols);
-    updateTableDataWithLiveColumn(updatedCommodities, tradingSymbols);
-    updateTableDataWithLiveColumn(updatedCrypto, tradingSymbols);
+    updateTableDataWithLiveColumn(
+      updatedForex,
+      tradingSymbols,
+      handleShowRegistrationPopup
+    );
+    updateTableDataWithLiveColumn(
+      updatedIndices,
+      tradingSymbols,
+      handleShowRegistrationPopup
+    );
+    updateTableDataWithLiveColumn(
+      updatedCommodities,
+      tradingSymbols,
+      handleShowRegistrationPopup
+    );
+    updateTableDataWithLiveColumn(
+      updatedCrypto,
+      tradingSymbols,
+      handleShowRegistrationPopup
+    );
     setTableDataForex(updatedForex);
     setTableDataIndices(updatedIndices);
     setTableDataCommodities(updatedCommodities);
@@ -225,7 +242,7 @@ const SpreadsAndFeesPageContent = () => {
       <section className={cn("swap-rate", { "swap-rate--rtl": isRTL })}>
         <div className="swap-rate__wrapper">
           <h2 className="swap-rate__title">{t("spreads_faq-title")}</h2>
-          <div className="swap-rate__subtitle">
+          <div className="swap-rate__subtitle" dir={isRTL ? DIR_RTL : DIR_LTR}>
             <span className="swap-rate__subtitle-text">
               {t("spreads_faq-subtitle1")}
             </span>

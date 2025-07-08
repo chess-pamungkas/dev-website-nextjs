@@ -17,9 +17,10 @@ const MarketItemsList = ({ className }) => {
       })}
       dir={isRTL ? DIR_RTL : DIR_LTR}
     >
-      {markets.map((item) => (
-        <MarketItem key={`market-item-${item.title}`} {...item} />
-      ))}
+      {markets.map((item) => {
+        const { key, ...itemProps } = item;
+        return <MarketItem key={`market-item-${item.title}`} {...itemProps} />;
+      })}
     </section>
   );
 };

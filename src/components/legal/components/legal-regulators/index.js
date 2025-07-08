@@ -3,6 +3,7 @@ import cn from "classnames";
 import PropTypes from "prop-types";
 import { useRtlDirection } from "../../../../helpers/hooks/use-rtl-direction";
 import LegalRegulatorItem from "../legal-regulator-item";
+import { DIR_RTL, DIR_LTR } from "../../../../helpers/constants";
 
 const LegalRegulators = ({ className, regulators }) => {
   const isRTL = useRtlDirection();
@@ -12,6 +13,7 @@ const LegalRegulators = ({ className, regulators }) => {
       className={cn("legal-regulators", className, {
         "legal-regulators--rtl": isRTL,
       })}
+      dir={isRTL ? DIR_RTL : DIR_LTR}
     >
       <div className={cn("legal-regulators__wrapper")}>
         <div className="legal-regulators__items">

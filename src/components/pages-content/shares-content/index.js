@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import TopMarket from "../../top-market";
-const image = "/images/top-markets/shares.svg";
-const shares = "/images/top-markets/images/shares.svg";
 import { ShowRegistrationPopup } from "../../../helpers/constants";
 import HighlightedLocalizationText from "../../shared/highlighted-localization-text";
 import TradingTicker from "../../trading-ticker";
@@ -10,7 +8,7 @@ import { useTranslationWithVariables } from "../../../helpers/hooks/use-translat
 import { SHARES_TRADING_SECTION } from "../../../helpers/config";
 import Faq from "../../faq";
 import { FAQ_SHARES } from "../../../helpers/faq";
-const animation = "/images/bg/promotions/shares/shares.json";
+import animation from "../../../../public/images/animations/shares.json";
 import MarketingCircle from "../../marketing-circle";
 import { setLangParam } from "../../../helpers/services/language-service";
 import Seo from "../../shared/seo";
@@ -43,7 +41,7 @@ const SharesContent = () => {
             accentClassName="highlighted-in-black"
           />
         }
-        image={image}
+        image="/images/top-markets/shares.svg"
         isChildrenHasSmallSize
         btn1Title={t("shares_top-market-btn1")}
         btnOnClick1={handleShowRegistrationPopup}
@@ -63,7 +61,7 @@ const SharesContent = () => {
       />
       <TopMarketPromotion
         className="shares-promotion"
-        image={shares}
+        image="/images/top-markets/images/shares.svg"
         btnTitle={t("shares_top-market-promo-btn")}
         btnOnClick={handleShowRegistrationPopup}
       >
@@ -75,7 +73,7 @@ const SharesContent = () => {
         />
       </TopMarketPromotion>
       <MarketingCircle
-        animationPath={animation}
+        animation={animation}
         btnOnClick={handleShowRegistrationPopup}
         upper={
           <HighlightedLocalizationText

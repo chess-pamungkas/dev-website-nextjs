@@ -8,7 +8,7 @@ import TopMarketPromotion from "../../top-market-promotion";
 const etf = "/images/top-markets/images/etf.svg";
 import { useTranslationWithVariables } from "../../../helpers/hooks/use-translation-with-vars";
 import { ETF_TRADING_SECTION } from "../../../helpers/config";
-const animation = "/images/bg/promotions/etf/etf.json";
+import animation from "../../../../public/images/animations/etf.json";
 import MarketingCircle from "../../marketing-circle";
 import Faq from "../../faq";
 import { FAQ_ETF } from "../../../helpers/faq";
@@ -36,7 +36,7 @@ const ETFContent = () => {
       />
       <TopMarket
         title={t("etf_top-market-title")}
-        image={image}
+        image="/images/top-markets/etf.svg"
         btn1Title={t("etf_top-market-btn1")}
         btnClassName1={"button-link--lowercase"}
         btnClassName2={"button-link--lowercase"}
@@ -57,7 +57,7 @@ const ETFContent = () => {
       />
       <TopMarketPromotion
         className="etf-promotion"
-        image={etf}
+        image="/images/top-markets/images/etf.svg"
         btnTitle={t("etf_top-market-promo-btn")}
         btnClassName={"button-link--lowercase"}
         btnOnClick={handleShowRegistrationPopup}
@@ -78,7 +78,7 @@ const ETFContent = () => {
         />
       </TopMarketPromotion>
       <MarketingCircle
-        animationPath={animation}
+        animation={animation}
         btnOnClick={handleShowRegistrationPopup}
         isEtf={true}
         upper={

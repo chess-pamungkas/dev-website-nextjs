@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useContext } from "react";
+import React, { useEffect, useRef, useContext, useState } from "react";
 import {
   HEADER_BIG_HEIGHT,
   HEADER_SMALL_HEIGHT,
@@ -11,6 +11,7 @@ const Mt4WebTraderLink = () => {
   const { isDesktop } = useWindowSize();
   const { selectedLanguage } = useContext(LanguageContext);
   const isIFrameAdded = useRef(false);
+  const [widgetError, setWidgetError] = useState(false);
 
   useEffect(() => {
     if (isIFrameAdded.current) return;
@@ -28,6 +29,7 @@ const Mt4WebTraderLink = () => {
         isIFrameAdded.current = true;
       } else {
         console.error("MetaTraderWebTerminal is not loaded or not a function");
+        setWidgetError(true);
       }
     }
 
@@ -36,6 +38,7 @@ const Mt4WebTraderLink = () => {
       script.src = "https://trade.mql5.com/trade/widget.js";
       script.async = true;
       script.onload = callWebTerminal;
+      script.onerror = () => setWidgetError(true);
       document.body.appendChild(script);
     } else {
       callWebTerminal();
@@ -50,7 +53,13 @@ const Mt4WebTraderLink = () => {
         height: "100vh",
         width: "100%",
       }}
-    ></div>
+    >
+      {widgetError && (
+        <div style={{ color: "red", textAlign: "center", marginTop: 40 }}>
+          WebTrader is not available on this domain. Please contact support.
+        </div>
+      )}
+    </div>
   );
 };
 

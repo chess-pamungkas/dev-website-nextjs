@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { useTranslationWithVariables } from "../../../../helpers/hooks/use-translation-with-vars";
 import { useRtlDirection } from "../../../../helpers/hooks/use-rtl-direction";
 import HighlightedLocalizationText from "../../../shared/highlighted-localization-text";
+import { DIR_RTL, DIR_LTR } from "../../../../helpers/constants";
 
 const SwapFreeBottomPromotion = ({ className }) => {
   const isRTL = useRtlDirection();
@@ -22,6 +23,7 @@ const SwapFreeBottomPromotion = ({ className }) => {
       className={cn("swap-free-bottom-promotion", className, {
         "swap-free-bottom-promotion--rtl": isRTL,
       })}
+      dir={isRTL ? DIR_RTL : DIR_LTR}
     >
       <p className="swap-free-bottom-promotion__title">
         {

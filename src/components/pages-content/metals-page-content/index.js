@@ -5,10 +5,9 @@ import { ShowRegistrationPopup } from "../../../helpers/constants";
 import HighlightedLocalizationText from "../../shared/highlighted-localization-text";
 import TradingTicker from "../../trading-ticker";
 import TopMarketPromotion from "../../top-market-promotion";
-const commodities = "/images/top-markets/images/commodities.svg";
 import { useTranslationWithVariables } from "../../../helpers/hooks/use-translation-with-vars";
 import { METALS_TRADING_SECTION } from "../../../helpers/config";
-const animation = "/images/bg/promotions/metals/metals.json";
+import animation from "../../../../public/images/animations/commodities.json";
 import MarketingCircle from "../../marketing-circle";
 import TopMarketLayout from "../../top-market-layout";
 import Faq from "../../faq";
@@ -41,7 +40,11 @@ const MetalsContent = () => {
   useEffect(() => {
     // Make a copy to avoid mutating the original data
     const updatedData = DATA_METALS.map((row) => ({ ...row }));
-    updateTableDataWithLiveColumn(updatedData, tradingSymbols);
+    updateTableDataWithLiveColumn(
+      updatedData,
+      tradingSymbols,
+      handleShowRegistrationPopup
+    );
     setTableData(updatedData);
   }, [tradingSymbols]);
 
@@ -53,7 +56,7 @@ const MetalsContent = () => {
       />
       <TopMarket
         title={t("metals_top-market-title")}
-        image={image}
+        image="/images/top-markets/commodities.svg"
         btn1Title={t("metals_top-market-btn1")}
         btnOnClick1={handleShowRegistrationPopup}
         btn2Title={t("metals_top-market-btn2")}
@@ -72,7 +75,7 @@ const MetalsContent = () => {
       />
       <TopMarketPromotion
         className="commodities-promotion"
-        image={commodities}
+        image="/images/top-markets/images/commodities.svg"
         btnTitle={t("metals_top-market-promo-btn")}
         btnOnClick={handleShowRegistrationPopup}
         note={t("metals_top-market-promotion-promo-note")}
@@ -85,7 +88,7 @@ const MetalsContent = () => {
         />
       </TopMarketPromotion>
       <MarketingCircle
-        animationPath={animation}
+        animation={animation}
         btnOnClick={handleShowRegistrationPopup}
         isCrypto={false}
         isEtf={false}
@@ -111,7 +114,7 @@ const MetalsContent = () => {
         rightUpper={
           <HighlightedLocalizationText
             localizationText="metals_marketing-circle-right-upper"
-            wordsToHighlight="metals-marketing-circle-right-upper-accent"
+            wordsToHighlight="metals_marketing-circle-right-upper-accent"
             primaryClassName="highlighted-in-black"
             accentClassName="highlighted-in-red"
           />

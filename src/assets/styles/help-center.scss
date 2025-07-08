@@ -207,8 +207,10 @@
       line-height: 25px;
     }
   }
-  .faq__title {
-    display: none;
+  &--no-title {
+    .faq__title {
+      display: none;
+    }
   }
 }
 

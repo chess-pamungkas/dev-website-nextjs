@@ -12,7 +12,6 @@ import { useRtlDirection } from "../../helpers/hooks/use-rtl-direction";
 export const MarketingCircle = ({
   animation,
   animationData,
-  animationPath,
   upper,
   bottom,
   leftUpper,
@@ -49,27 +48,15 @@ export const MarketingCircle = ({
     "marketing-circle__item--rtl": isRTL,
   });
 
-  // Determine which animation prop to use
-  const lottieProps = {};
-  if (animationData) {
-    lottieProps.animationData = animationData;
-  } else if (animationPath) {
-    lottieProps.path = animationPath;
-  } else if (animation) {
-    // Handle legacy animation prop - check if it's a string path or JSON object
-    if (typeof animation === "string") {
-      lottieProps.path = animation;
-    } else {
-      lottieProps.animationData = animation;
-    }
-  }
+  // Debug log for animation props
+  // console.log("Lottie animation:", animation, animationData);
 
   return (
     <div className="marketing-circle">
       <div className="container">
         <Lottie
           className="promotion-markets__svg"
-          {...lottieProps}
+          animationData={animationData || animation}
           style={{ height: animationHeight }}
         />
         <div
@@ -88,20 +75,46 @@ export const MarketingCircle = ({
             <p className="marketing-circle__item-text">{upper}</p>
           </div>
           <div className="marketing-circle__row">
-            <div className={itemClass}>
-              <p className="marketing-circle__item-text">{leftUpper}</p>
-            </div>
-            <div className={itemClass}>
-              <p className="marketing-circle__item-text">{rightUpper}</p>
-            </div>
+            {isRTL ? (
+              <>
+                <div className={itemClass}>
+                  <p className="marketing-circle__item-text">{rightUpper}</p>
+                </div>
+                <div className={itemClass}>
+                  <p className="marketing-circle__item-text">{leftUpper}</p>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className={itemClass}>
+                  <p className="marketing-circle__item-text">{leftUpper}</p>
+                </div>
+                <div className={itemClass}>
+                  <p className="marketing-circle__item-text">{rightUpper}</p>
+                </div>
+              </>
+            )}
           </div>
           <div className="marketing-circle__row">
-            <div className={itemClass}>
-              <p className="marketing-circle__item-text">{leftBottom}</p>
-            </div>
-            <div className={itemClass}>
-              <p className="marketing-circle__item-text">{rightBottom}</p>
-            </div>
+            {isRTL ? (
+              <>
+                <div className={itemClass}>
+                  <p className="marketing-circle__item-text">{rightBottom}</p>
+                </div>
+                <div className={itemClass}>
+                  <p className="marketing-circle__item-text">{leftBottom}</p>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className={itemClass}>
+                  <p className="marketing-circle__item-text">{leftBottom}</p>
+                </div>
+                <div className={itemClass}>
+                  <p className="marketing-circle__item-text">{rightBottom}</p>
+                </div>
+              </>
+            )}
           </div>
           <div className={itemClass}>
             <p className="marketing-circle__item-text">{bottom}</p>
@@ -121,7 +134,6 @@ export const MarketingCircle = ({
 MarketingCircle.propTypes = {
   animation: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   animationData: PropTypes.object,
-  animationPath: PropTypes.string,
   upper: PropTypes.element.isRequired,
   leftUpper: PropTypes.element.isRequired,
   rightUpper: PropTypes.element.isRequired,
