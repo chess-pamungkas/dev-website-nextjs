@@ -7,6 +7,7 @@ import HighlightedLocalizationText from "../../../shared/highlighted-localizatio
 import ButtonPopup from "../../../shared/button-popup";
 import { ShowRegistrationPopup } from "../../../../helpers/constants";
 import { setLangParam } from "../../../../helpers/services/language-service";
+import { DIR_RTL, DIR_LTR } from "../../../../helpers/constants";
 
 const VPSBottomPromotion = ({ className }) => {
   const isRTL = useRtlDirection();
@@ -27,6 +28,7 @@ const VPSBottomPromotion = ({ className }) => {
       className={cn("vps-bottom-promotion", className, {
         "vps-bottom-promotion--rtl": isRTL,
       })}
+      dir={isRTL ? DIR_RTL : DIR_LTR}
     >
       <div className={cn("vps-bottom-promotion__wrapper")}>
         <div className="vps-bottom-promotion__img-block">

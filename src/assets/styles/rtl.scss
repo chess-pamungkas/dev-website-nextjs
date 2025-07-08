@@ -1702,11 +1702,11 @@ html[dir="rtl"] {
 }
 
 // RTL fix: vps
-.vps-promotion--rtl {
-  .vps-promotion__wrapper {
-    flex-direction: row-reverse !important;
-  }
-}
+// .vps-promotion--rtl {
+//   .vps-promotion__wrapper {
+//     flex-direction: row-reverse !important;
+//   }
+// }
 
 .swap-free-promotion--rtl {
   .swap-free-promotion__wrapper {

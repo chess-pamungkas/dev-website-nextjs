@@ -9,6 +9,7 @@ import { useRtlDirection } from "../../../../helpers/hooks/use-rtl-direction";
 import VPSAdvantageItem from "../vps-advantage-item";
 import HighlightedLocalizationText from "../../../shared/highlighted-localization-text";
 import { setLangParam } from "../../../../helpers/services/language-service";
+import { DIR_RTL, DIR_LTR } from "../../../../helpers/constants";
 
 const VPSAdvantages = ({ className, advantages }) => {
   const { t } = useTranslationWithVariables();
@@ -29,6 +30,7 @@ const VPSAdvantages = ({ className, advantages }) => {
       className={cn("vps-advantages", className, {
         "vps-advantages--rtl": isRTL,
       })}
+      dir={isRTL ? DIR_RTL : DIR_LTR}
     >
       <h2 className="vps-advantages__title">
         {
